@@ -84,12 +84,7 @@
                     <span class="font-medium text-sm">Ruang Fokus Timer</span>
                 </a>
 
-                <a href="{{ route('feature.feynman') }}" class="flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 {{ request()->routeIs('feature.feynman') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-400 hover:text-white hover:bg-white/5' }}">
-                    <div class="flex items-center gap-3">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15"></path></svg>
-                        <span class="font-medium text-sm">Simulator Feynman</span>
-                    </div>
-                </a>
+               
             </nav>
 
             <div class="p-4 border-t border-white/5">

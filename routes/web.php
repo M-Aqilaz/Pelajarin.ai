@@ -35,9 +35,9 @@ Route::get('/pomodoro', function () {
     return view('mock.pomodoro');
 })->name('feature.pomodoro');
 
-Route::get('/feynman', function () {
-    return view('mock.feynman');
-})->name('feature.feynman');
+// Route::get('/feynman', function () {
+//     return view('mock.feynman');
+// })->name('feature.feynman');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
