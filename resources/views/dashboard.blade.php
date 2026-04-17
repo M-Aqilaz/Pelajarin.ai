@@ -36,7 +36,7 @@
                     @forelse ($recentMaterials as $material)
                         <a href="{{ route('materials.show', $material) }}" class="block p-4 hover:bg-white/5 transition">
                             <p class="text-white font-medium">{{ $material->title }}</p>
-                            <p class="text-sm text-gray-400 mt-1">{{ $material->status }} • {{ $material->summaries->count() }} ringkasan</p>
+                            <p class="text-sm text-gray-400 mt-1">{{ $material->status }} ï¿½ {{ $material->summaries->count() }} ringkasan</p>
                         </a>
                     @empty
                         <div class="p-4 text-sm text-gray-400">Belum ada materi.</div>
@@ -53,7 +53,7 @@
                     @forelse ($recentThreads as $thread)
                         <a href="{{ route('chat.show', $thread) }}" class="block p-4 hover:bg-white/5 transition">
                             <p class="text-white font-medium">{{ $thread->title }}</p>
-                            <p class="text-sm text-gray-400 mt-1">{{ $thread->messages_count }} pesan • {{ $thread->material?->title ?? 'Tanpa materi' }}</p>
+                            <p class="text-sm text-gray-400 mt-1">{{ $thread->messages_count }} pesan ï¿½ {{ $thread->material?->title ?? 'Tanpa materi' }}</p>
                         </a>
                     @empty
                         <div class="p-4 text-sm text-gray-400">Belum ada thread chat.</div>
