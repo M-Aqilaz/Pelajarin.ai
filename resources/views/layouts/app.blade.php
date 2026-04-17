@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+    @php($isPomodoroPage = request()->routeIs('feature.pomodoro'))
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Pelajarin.ai') }} - Dashboard</title>
+        <title>{{ config('app.name', 'Nalarin.ai') }} - Dashboard</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -39,7 +40,7 @@
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl">
                         P
                     </div>
-                    <span class="font-outfit font-bold text-xl tracking-tight text-white gap-1 flex">Pelajarin<span class="text-purple-400">.ai</span></span>
+                    <span class="font-outfit font-bold text-xl tracking-tight text-white gap-1 flex">Nalarin<span class="text-purple-400">.ai</span></span>
                 </a>
             </div>
 
@@ -81,7 +82,7 @@
                 </a>
                 <a href="{{ route('feature.pomodoro') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 {{ request()->routeIs('feature.pomodoro') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-400 hover:text-white hover:bg-white/5' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span class="font-medium text-sm">Ruang Fokus Timer</span>
+                    <span class="font-medium text-sm">Pomodoro Timer</span>
                 </a>
 
                
@@ -124,7 +125,7 @@
 
             <!-- Page Header -->
             @isset($header)
-                <header class="py-6 px-6 md:px-8 border-b border-white/5 glass-panel/50 flex-shrink-0">
+                <header class="{{ $isPomodoroPage ? 'py-3 px-4 md:px-5' : 'py-6 px-6 md:px-8' }} border-b border-white/5 glass-panel/50 flex-shrink-0">
                     <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
                         {{ $header }}
                         @isset($headerActions)
@@ -135,7 +136,7 @@
             @endisset
 
             <!-- Page Content scrollable -->
-            <main class="flex-1 overflow-y-auto p-4 md:p-8">
+            <main class="flex-1 {{ $isPomodoroPage ? 'overflow-y-auto md:overflow-hidden p-2 md:p-3' : 'overflow-y-auto p-4 md:p-8' }}">
                 <div class="max-w-6xl mx-auto h-full">
                     {{ $slot }}
                 </div>
