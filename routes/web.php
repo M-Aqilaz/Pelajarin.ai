@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FeatureUsageController;
 use App\Http\Controllers\Learning\ChatMessageController;
 use App\Http\Controllers\Learning\ChatThreadController;
 use App\Http\Controllers\Learning\MaterialController;
