@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\Learning\ChatMessageController;
+use App\Http\Controllers\Learning\ChatThreadController;
+use App\Http\Controllers\Learning\MaterialController;
+use App\Http\Controllers\Learning\SummaryController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\FeatureUsageController;
+use App\Models\AiSummary;
+use App\Models\ChatThread;
+use App\Models\Material;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,20 +15,27 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'materialCount' => Material::count(),
+        'summaryCount' => AiSummary::count(),
+        'threadCount' => ChatThread::count(),
+        'recentMaterials' => Material::with('summaries')->latest()->take(5)->get(),
+        'recentThreads' => ChatThread::with('material')->withCount('messages')->latest()->take(5)->get(),
+    ]);
 })->name('dashboard');
 
-Route::get('/upload', function () {
-    return view('mock.upload');
-})->name('feature.upload');
+Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
+Route::get('/upload', [MaterialController::class, 'create'])->name('feature.upload');
+Route::post('/materials', [MaterialController::class, 'store'])->name('materials.store');
+Route::get('/materials/{material}', [MaterialController::class, 'show'])->name('materials.show');
 
-Route::get('/summary', function () {
-    return view('mock.summary');
-})->name('feature.summary');
+Route::get('/summary', [SummaryController::class, 'index'])->name('feature.summary');
+Route::get('/summaries/{summary}', [SummaryController::class, 'show'])->name('summaries.show');
 
-Route::get('/chat', function () {
-    return view('mock.chat');
-})->name('feature.chat');
+Route::get('/chat', [ChatThreadController::class, 'index'])->name('feature.chat');
+Route::post('/chat', [ChatThreadController::class, 'store'])->name('chat.store');
+Route::get('/chat/{chatThread}', [ChatThreadController::class, 'show'])->name('chat.show');
+Route::post('/chat/{chatThread}/messages', [ChatMessageController::class, 'store'])->name('chat.messages.store');
 
 Route::get('/quiz', function () {
     return view('mock.quiz');
@@ -36,10 +48,6 @@ Route::get('/flashcards', function () {
 Route::get('/pomodoro', function () {
     return view('mock.pomodoro');
 })->name('feature.pomodoro');
-
-// Route::get('/feynman', function () {
-//     return view('mock.feynman');
-// })->name('feature.feynman');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
