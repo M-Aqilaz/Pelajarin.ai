@@ -34,8 +34,8 @@
                             <td class="py-4 px-4">
                                 @php
                                     $statusColors = [
-                                        'completed' => 'bg-green-500/10 text-green-400 border border-green-500/20',
-                                        'processing' => 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20',
+                                        'processed' => 'bg-green-500/10 text-green-400 border border-green-500/20',
+                                        'uploaded' => 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20',
                                         'failed' => 'bg-red-500/10 text-red-400 border border-red-500/20',
                                     ];
                                     $color = $statusColors[$doc->status] ?? 'bg-zinc-500/10 text-zinc-400';
@@ -47,7 +47,7 @@
                             <td class="py-4 px-4 text-zinc-500">{{ $doc->created_at->format('d M Y H:i') }}</td>
                             <td class="py-4 px-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    <form action="{{ route('admin.documents.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Hapus materi ini secara permanen?');">
+                                    <form action="{{ route('admin.documents.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Hapus materi ini secara permanen? Ringkasan, chat, flashcards, dan kuis terkait juga akan ikut terhapus.');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-red-500/20 hover:text-red-400 transition border border-transparent hover:border-red-500/30">

@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name', 'Nalarin.ai') }}</title>
+        <link rel="icon" href="{{ asset('images/logo_nalarin_ai.png') }}" type="image/png">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|outfit:500,600,700,800" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -31,7 +32,7 @@
 
             <header class="md:hidden h-16 border-b border-white/5 glass-panel flex items-center justify-between px-4 z-20">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl">N</div>
+                    <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-8 h-8 object-contain" alt="Nalarin.ai Logo">
                 </div>
                 <a href="{{ route('dashboard') }}" class="text-sm text-gray-300">Home</a>
             </header>

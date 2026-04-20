@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Nalarin.ai - Platform Belajar AI untuk Siswa Indonesia</title>
+        <link rel="icon" href="{{ asset('images/logo_nalarin_ai.png') }}" type="image/png">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -56,9 +57,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
                     <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl">
-                            P
-                        </div>
+                        <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-8 h-8 object-contain" alt="Nalarin.ai Logo">
                         <span class="font-outfit font-bold text-2xl tracking-tight text-white">Nalarin<span class="text-purple-400">.ai</span></span>
                     </div>
                     <div class="hidden md:flex space-x-8">
@@ -246,7 +245,7 @@
         <footer class="border-t border-white/5 py-12 relative z-10 mt-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="flex items-center gap-2">
-                    <div class="w-6 h-6 rounded bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xs">P</div>
+                    <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-6 h-6 object-contain" alt="Nalarin.ai Logo">
                     <span class="font-outfit font-bold text-xl tracking-tight text-white">Nalarin.ai</span>
                 </div>
                 <div class="text-gray-500 text-sm">

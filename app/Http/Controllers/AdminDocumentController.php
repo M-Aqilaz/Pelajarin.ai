@@ -2,21 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Document;
+use App\Models\Material;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class AdminDocumentController extends Controller
 {
-    public function index()
+    public function index(): View
     {
-        $documents = Document::with('user')->latest()->paginate(10);
+        $documents = Material::with('user')->latest()->paginate(10);
+
         return view('Admin.documents.index', compact('documents'));
     }
 
-    public function destroy(Document $document)
+    public function destroy(Material $material): RedirectResponse
     {
-        // Delete file from storage if needed
-        $document->delete();
+        if ($material->file_path && Storage::exists($material->file_path)) {
+            Storage::delete($material->file_path);
+        }
+
+        $material->delete();
+
         return back()->with('success', 'Materi berhasil dihapus.');
     }
 }

@@ -1,7 +1,7 @@
 <aside class="w-64 glass-panel border-r border-white/5 flex flex-col h-full hidden md:flex shrink-0 z-20">
     <div class="h-20 flex items-center px-6 border-b border-white/5">
         <a href="{{ url('/') }}" class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl">N</div>
+            <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-8 h-8 object-contain" alt="Nalarin.ai Logo">
             <span class="font-outfit font-bold text-xl tracking-tight text-white gap-1 flex">Nalarin<span class="text-purple-400">.ai</span></span>
         </a>
     </div>
