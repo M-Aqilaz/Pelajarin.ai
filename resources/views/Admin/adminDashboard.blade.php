@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div>
             <h2 class="font-outfit font-bold text-2xl text-white leading-tight">
-                Selamat Datang, admin! 👋
+                Selamat Datang, admin! ðŸ‘‹
             </h2>
             <p class="text-sm text-gray-400 mt-1">Lanjutkan progres belajarmu hari ini.</p>
         </div>
@@ -72,7 +72,7 @@
                             </div>
                             <div>
                                 <p class="font-medium text-white text-sm">Biologi Bab 3: Sel - CrashCourse</p>
-                                <p class="text-xs text-gray-500 mt-0.5">Video YouTube • Kemarin</p>
+                                <p class="text-xs text-gray-500 mt-0.5">Video YouTube â€¢ Kemarin</p>
                             </div>
                         </div>
                         <span class="px-2.5 py-1 rounded border border-green-500/20 bg-green-500/10 text-[10px] uppercase font-bold text-green-300 tracking-wider">Kuis 80/100</span>

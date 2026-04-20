@@ -63,8 +63,8 @@
                     </div>
                     <div class="hidden md:flex space-x-8">
                         <a href="#fitur" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Fitur</a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Harga</a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Testimoni</a>
+                        <a href="{{ route('pricing') }}" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Harga</a>
+                        <a href="#testimoni" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Testimoni</a>
                     </div>
                     <div class="flex items-center space-x-4">
                         <a href="{{ route('login') }}" class="px-5 py-2.5 rounded-full bg-white text-gray-950 text-sm font-semibold hover:bg-gray-200 transition shadow-[0_0_20px_rgba(255,255,255,0.2)]">Mulai Belajar</a>
@@ -173,6 +173,56 @@
                         <h3 class="text-xl font-bold text-white mb-3 font-outfit">Interactive Quiz</h3>
                         <p class="text-gray-400 text-sm leading-relaxed">Uji pemahamanmu dengan kuis pilihan ganda yang dibuat otomatis dari materi yang kamu pelajari.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimoni" class="py-24 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="font-outfit text-3xl md:text-5xl font-bold text-white mb-4">Dipakai dan Disukai Siswa</h2>
+                    <p class="text-gray-400 text-lg">Testimoni awal untuk memperkuat kepercayaan, positioning produk, dan konversi landing page.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <article class="glass-card p-8 rounded-3xl">
+                        <div class="flex items-center gap-1 text-amber-300 text-sm">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="mt-5 text-gray-200 leading-7">
+                            “Biasanya aku butuh waktu lama buat bikin rangkuman sendiri. Di Nalarin.ai, materi langsung jadi ringkasan dan flashcard, jadi belajar sebelum ujian jauh lebih cepat.”
+                        </p>
+                        <div class="mt-6">
+                            <p class="font-semibold text-white">Alya Ramadhani</p>
+                            <p class="text-sm text-gray-400">Siswa SMA, Jakarta</p>
+                        </div>
+                    </article>
+
+                    <article class="glass-card p-8 rounded-3xl">
+                        <div class="flex items-center gap-1 text-amber-300 text-sm">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="mt-5 text-gray-200 leading-7">
+                            “Fitur quiz dan AI tutor-nya bikin aku nggak cuma baca materi, tapi benar-benar ngerti. Cocok buat persiapan presentasi dan tugas harian.”
+                        </p>
+                        <div class="mt-6">
+                            <p class="font-semibold text-white">Rizky Maulana</p>
+                            <p class="text-sm text-gray-400">Mahasiswa Semester 3</p>
+                        </div>
+                    </article>
+
+                    <article class="glass-card p-8 rounded-3xl">
+                        <div class="flex items-center gap-1 text-amber-300 text-sm">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="mt-5 text-gray-200 leading-7">
+                            “Anak-anak di komunitas belajar kami lebih aktif diskusi setelah pakai platform seperti ini. Materi lebih rapi, latihan lebih terarah, dan engagement naik.”
+                        </p>
+                        <div class="mt-6">
+                            <p class="font-semibold text-white">Dina Prasetyo</p>
+                            <p class="text-sm text-gray-400">Mentor Komunitas Belajar</p>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
