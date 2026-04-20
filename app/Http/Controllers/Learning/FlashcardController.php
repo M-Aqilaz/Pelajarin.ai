@@ -16,9 +16,9 @@ class FlashcardController extends Controller
 {
     public function index(Request $request): View
     {
-        $materials = Material::query()->latest()->get(['id', 'title', 'status']);
+        $materials = Material::query()->where('user_id', $request->user()->id)->latest()->get(['id', 'title', 'status']);
         $selectedMaterial = $request->integer('material_id')
-            ? Material::query()->with(['flashcardDeck.cards'])->find($request->integer('material_id'))
+            ? Material::query()->where('user_id', $request->user()->id)->with(['flashcardDeck.cards'])->find($request->integer('material_id'))
             : null;
 
         $deck = $selectedMaterial?->flashcardDeck?->load('cards');
@@ -48,7 +48,7 @@ class FlashcardController extends Controller
             'material_id' => ['required', 'exists:materials,id'],
         ]);
 
-        $material = Material::query()->findOrFail($validated['material_id']);
+        $material = Material::query()->where('user_id', $request->user()->id)->findOrFail($validated['material_id']);
         $cards = $generator->generateFlashcards($material);
 
         if (count($cards) < 4) {
@@ -81,6 +81,7 @@ class FlashcardController extends Controller
             'rating' => ['required', 'in:again,hard,good,easy'],
         ]);
 
+        abort_unless($deck->material->user_id === $request->user()->id, 403);
         $card = $deck->cards()->findOrFail($validated['flashcard_id']);
         $scheduler->apply($card, $validated['rating']);
 

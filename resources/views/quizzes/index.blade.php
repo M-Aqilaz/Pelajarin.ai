@@ -1,10 +1,36 @@
 <x-app-layout>
     <x-slot name="header">
-        <div>
-            <h2 class="font-outfit font-bold text-2xl text-white leading-tight">Latihan Kuis</h2>
-            <p class="text-sm text-gray-400 mt-1">Bangun soal pilihan ganda dari materi unggahan, lalu kerjakan langsung dari halaman ini.</p>
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-green-500/20 text-green-400 flex items-center justify-center border border-green-500/30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+                <h2 class="font-outfit font-bold text-2xl text-white leading-tight">
+                    {{ $quiz ? $quiz->title : 'Latihan Kuis' }}
+                </h2>
+                <p class="text-sm text-gray-400 mt-1">
+                    @if ($currentQuestion && $quiz)
+                        Soal {{ (int) ($attempt['current_index'] ?? 0) + 1 }} dari {{ $quiz->questions->count() }}
+                    @elseif ($quiz)
+                        {{ $quiz->question_count }} soal siap dimainkan
+                    @else
+                        Bangun soal pilihan ganda dari materi unggahan, lalu kerjakan langsung dari halaman ini.
+                    @endif
+                </p>
+            </div>
         </div>
     </x-slot>
+
+    @if ($currentQuestion && $quiz)
+        <x-slot name="headerActions">
+            <form method="POST" action="{{ route('quiz.reset', $quiz) }}">
+                @csrf
+                <button type="submit" class="px-5 py-2.5 rounded-xl border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-medium text-sm transition">
+                    Akhiri Kuis
+                </button>
+            </form>
+        </x-slot>
+    @endif
 
     <div class="space-y-6">
         @if (session('status'))
@@ -94,55 +120,51 @@
             @php($currentIndex = (int) ($attempt['current_index'] ?? 0))
             @php($totalQuestions = $quiz->questions->count())
             @php($progress = $totalQuestions > 0 ? round(($currentIndex / $totalQuestions) * 100) : 0)
-            <section class="glass-panel rounded-[2rem] border border-white/5 p-6 md:p-8">
-                <div class="flex items-center justify-between gap-4 mb-6">
-                    <div>
-                        <p class="text-xs uppercase tracking-[0.25em] text-emerald-300">Kuis Aktif</p>
-                        <h3 class="font-outfit text-2xl font-bold text-white mt-2">{{ $quiz->title }}</h3>
+            <div class="max-w-4xl mx-auto py-4">
+                <div class="w-full h-2 bg-gray-800 rounded-full mb-8 overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full relative" style="width: {{ $progress }}%">
+                        <div class="absolute right-0 top-0 bottom-0 w-4 bg-white/20 blur-[2px]"></div>
                     </div>
-                    <form method="POST" action="{{ route('quiz.reset', $quiz) }}">
-                        @csrf
-                        <button type="submit" class="rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-2.5 text-sm text-red-200 hover:bg-red-500/15 transition">Akhiri Kuis</button>
-                    </form>
                 </div>
 
-                <div class="h-2 w-full overflow-hidden rounded-full bg-white/5 mb-8">
-                    <div class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400" style="width: {{ $progress }}%"></div>
-                </div>
-
-                <form method="POST" action="{{ route('quiz.answer', $quiz) }}" class="rounded-[2rem] border border-white/10 bg-white/5 p-6 md:p-8">
+                <form method="POST" action="{{ route('quiz.answer', $quiz) }}" class="glass-panel rounded-3xl border border-white/5 p-8 md:p-10 relative overflow-hidden shadow-2xl">
                     @csrf
                     <input type="hidden" name="question_id" value="{{ $currentQuestion->id }}">
+                    <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-green-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
                     <div class="flex gap-4">
-                        <div class="mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-gray-950 text-lg font-bold text-gray-300">
+                        <div class="w-12 h-12 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center font-bold text-xl text-gray-300 font-outfit">
                             {{ $currentIndex + 1 }}
                         </div>
                         <div class="flex-1">
-                            <p class="text-sm text-gray-400">Soal {{ $currentIndex + 1 }} dari {{ $totalQuestions }}</p>
-                            <h4 class="mt-3 text-xl font-semibold leading-relaxed text-white">{{ $currentQuestion->prompt }}</h4>
+                            <h4 class="text-xl md:text-2xl font-bold text-white mb-6 leading-relaxed font-outfit">{{ $currentQuestion->prompt }}</h4>
 
                             <div class="mt-8 space-y-3">
                                 @foreach (($currentQuestion->choices ?? []) as $choiceIndex => $choice)
-                                    <label class="block cursor-pointer">
+                                    <label class="block relative cursor-pointer group">
                                         <input type="radio" name="choice" value="{{ $choiceIndex }}" class="peer sr-only" required>
-                                        <div class="flex items-center gap-4 rounded-2xl border border-white/10 bg-gray-950/60 px-4 py-4 text-gray-300 transition peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 peer-checked:text-white hover:border-white/20 hover:bg-white/5">
-                                            <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sm font-bold">{{ chr(65 + $choiceIndex) }}</span>
+                                        <div class="w-full p-4 rounded-xl border-2 border-white/10 bg-white/5 text-gray-300 font-medium transition-all group-hover:border-white/20 group-hover:bg-white/10 peer-checked:border-green-500 peer-checked:bg-green-500/10 peer-checked:text-white flex items-center gap-4">
+                                            <span class="w-8 h-8 rounded-lg bg-gray-800 border border-white/10 flex items-center justify-center text-sm font-bold">{{ chr(65 + $choiceIndex) }}</span>
                                             <span>{{ $choice }}</span>
                                         </div>
                                     </label>
                                 @endforeach
                             </div>
 
-                            <div class="mt-8 flex justify-end">
-                                <button type="submit" class="rounded-2xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-400 transition">
-                                    {{ $currentIndex + 1 === $totalQuestions ? 'Selesai' : 'Lanjut' }}
+                            <div class="flex items-center justify-between mt-10 pt-6 border-t border-white/10">
+                                <div class="px-6 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white font-medium text-sm transition flex items-center gap-2 opacity-60">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                    Sebelumnya
+                                </div>
+                                <button type="submit" class="px-8 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white font-semibold shadow-[0_0_15px_rgba(34,197,94,0.4)] transition flex items-center gap-2 text-sm">
+                                    {{ $currentIndex + 1 === $totalQuestions ? 'Selesai' : 'Selanjutnya' }}
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </form>
-            </section>
+            </div>
         @else
             <section class="glass-panel rounded-[2rem] border border-white/5 p-8">
                 <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">

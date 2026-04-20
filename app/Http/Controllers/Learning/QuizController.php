@@ -14,9 +14,9 @@ class QuizController extends Controller
 {
     public function index(Request $request): View
     {
-        $materials = Material::query()->latest()->get(['id', 'title', 'status']);
+        $materials = Material::query()->where('user_id', $request->user()->id)->latest()->get(['id', 'title', 'status']);
         $selectedMaterial = $request->integer('material_id')
-            ? Material::query()->with(['quizSet.questions'])->find($request->integer('material_id'))
+            ? Material::query()->where('user_id', $request->user()->id)->with(['quizSet.questions'])->find($request->integer('material_id'))
             : null;
         $quiz = $selectedMaterial?->quizSet?->load('questions');
         $attempt = $quiz ? session($this->sessionKey($quiz)) : null;
@@ -47,7 +47,7 @@ class QuizController extends Controller
             'material_id' => ['required', 'exists:materials,id'],
         ]);
 
-        $material = Material::query()->findOrFail($validated['material_id']);
+        $material = Material::query()->where('user_id', $request->user()->id)->findOrFail($validated['material_id']);
         $questions = $generator->generateQuiz($material);
 
         if (count($questions) < 4) {
@@ -76,6 +76,7 @@ class QuizController extends Controller
 
     public function start(QuizSet $quizSet): RedirectResponse
     {
+        abort_unless($quizSet->material->user_id === auth()->id(), 403);
         session()->put($this->sessionKey($quizSet), [
             'current_index' => 0,
             'answers' => [],
@@ -87,6 +88,7 @@ class QuizController extends Controller
 
     public function answer(Request $request, QuizSet $quizSet): RedirectResponse
     {
+        abort_unless($quizSet->material->user_id === $request->user()->id, 403);
         $validated = $request->validate([
             'question_id' => ['required', 'exists:quiz_questions,id'],
             'choice' => ['required', 'integer', 'between:0,3'],
@@ -119,6 +121,7 @@ class QuizController extends Controller
 
     public function reset(QuizSet $quizSet): RedirectResponse
     {
+        abort_unless($quizSet->material->user_id === auth()->id(), 403);
         session()->forget($this->sessionKey($quizSet));
 
         return redirect()->route('feature.quiz', ['material_id' => $quizSet->material_id]);

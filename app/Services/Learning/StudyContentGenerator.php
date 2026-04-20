@@ -8,9 +8,6 @@ use Illuminate\Support\Str;
 
 class StudyContentGenerator
 {
-    /**
-     * @return array<int, array<string, string>>
-     */
     public function generateFlashcards(Material $material, int $limit = 12): array
     {
         $pairs = $this->buildKnowledgePairs($material->raw_text ?? '', $limit);
@@ -26,9 +23,6 @@ class StudyContentGenerator
         }, $pairs, array_keys($pairs)));
     }
 
-    /**
-     * @return array<int, array<string, mixed>>
-     */
     public function generateQuiz(Material $material, int $limit = 10): array
     {
         $pairs = collect($this->buildKnowledgePairs($material->raw_text ?? '', max($limit + 2, 8)));
@@ -50,9 +44,6 @@ class StudyContentGenerator
             ->all();
     }
 
-    /**
-     * @return array<int, array<string, string>>
-     */
     private function buildKnowledgePairs(string $text, int $limit): array
     {
         $normalizedText = $this->normalizeText($text);
@@ -71,9 +62,7 @@ class StudyContentGenerator
             ->filter(fn (string $sentence) => Str::length($sentence) >= 40)
             ->values();
 
-        $cards = collect();
-
-        $cards = $cards
+        $cards = collect()
             ->merge($this->extractLinePairs($lines))
             ->merge($this->extractDefinitionPairs($sentences));
 
@@ -161,11 +150,7 @@ class StudyContentGenerator
                     return null;
                 }
 
-                return $this->makePair(
-                    Str::headline($keyword),
-                    $this->limitWords($sentence, 28),
-                    $sentence,
-                );
+                return $this->makePair(Str::headline($keyword), $this->limitWords($sentence, 28), $sentence);
             })
             ->filter()
             ->take($limit)
@@ -177,30 +162,14 @@ class StudyContentGenerator
         return $sentences
             ->take($limit)
             ->values()
-            ->map(function (string $sentence, int $index): array {
-                return $this->makePair(
-                    'Konsep ' . ($index + 1),
-                    $this->limitWords($sentence, 28),
-                    $sentence,
-                );
-            });
+            ->map(fn (string $sentence, int $index): array => $this->makePair('Konsep ' . ($index + 1), $this->limitWords($sentence, 28), $sentence));
     }
 
     private function buildDefinitionQuestion(array $pair, Collection $pairs, int $index): array
     {
         $correct = $pair['back'];
-        $distractors = $pairs
-            ->where('front', '!=', $pair['front'])
-            ->pluck('back')
-            ->filter(fn (string $value) => $value !== $correct)
-            ->unique()
-            ->take(3)
-            ->values();
-
-        $options = $distractors
-            ->push($correct)
-            ->shuffle()
-            ->values();
+        $distractors = $pairs->where('front', '!=', $pair['front'])->pluck('back')->filter(fn (string $value) => $value !== $correct)->unique()->take(3)->values();
+        $options = $distractors->push($correct)->shuffle()->values();
 
         return [
             'prompt' => 'Apa definisi yang paling tepat untuk "' . $pair['front'] . '"?',
@@ -214,18 +183,8 @@ class StudyContentGenerator
     private function buildTermQuestion(array $pair, Collection $pairs, int $index): array
     {
         $correct = $pair['front'];
-        $distractors = $pairs
-            ->where('front', '!=', $pair['front'])
-            ->pluck('front')
-            ->filter(fn (string $value) => $value !== $correct)
-            ->unique()
-            ->take(3)
-            ->values();
-
-        $options = $distractors
-            ->push($correct)
-            ->shuffle()
-            ->values();
+        $distractors = $pairs->where('front', '!=', $pair['front'])->pluck('front')->filter(fn (string $value) => $value !== $correct)->unique()->take(3)->values();
+        $options = $distractors->push($correct)->shuffle()->values();
 
         return [
             'prompt' => 'Istilah apa yang paling sesuai dengan deskripsi berikut? "' . $pair['back'] . '"',
@@ -236,21 +195,9 @@ class StudyContentGenerator
         ];
     }
 
-    /**
-     * @return array<int, string>
-     */
     private function extractKeywords(string $text, int $limit): array
     {
-        $stopwords = [
-            'yang', 'dan', 'atau', 'dengan', 'untuk', 'dari', 'pada', 'dalam', 'karena',
-            'adalah', 'ialah', 'merupakan', 'tersebut', 'sebagai', 'juga', 'akan', 'agar',
-            'lebih', 'kita', 'mereka', 'kami', 'anda', 'this', 'that', 'with', 'from',
-            'into', 'about', 'after', 'before', 'during', 'while', 'there', 'their',
-            'have', 'has', 'been', 'were', 'what', 'when', 'where', 'which', 'melalui',
-            'antara', 'oleh', 'pembelajaran', 'materi', 'dapat', 'dalamnya', 'suatu',
-            'secara', 'proses', 'contoh', 'informasi',
-        ];
-
+        $stopwords = ['yang', 'dan', 'atau', 'dengan', 'untuk', 'dari', 'pada', 'dalam', 'karena', 'adalah', 'ialah', 'merupakan', 'tersebut', 'sebagai', 'juga', 'akan', 'agar', 'lebih', 'kita', 'mereka', 'kami', 'anda', 'this', 'that', 'with', 'from', 'into', 'about', 'after', 'before', 'during', 'while', 'there', 'their', 'have', 'has', 'been', 'were', 'what', 'when', 'where', 'which', 'melalui', 'antara', 'oleh', 'pembelajaran', 'materi', 'dapat', 'dalamnya', 'suatu', 'secara', 'proses', 'contoh', 'informasi'];
         $tokens = preg_split('/[^[:alnum:]\pL]+/u', Str::lower($text)) ?: [];
         $frequencies = [];
 
@@ -281,10 +228,7 @@ class StudyContentGenerator
     {
         $wordCount = $this->wordCount($front);
 
-        return $wordCount >= 1
-            && $wordCount <= 8
-            && Str::length($front) <= 80
-            && ! preg_match('/\d{4,}/', $front);
+        return $wordCount >= 1 && $wordCount <= 8 && Str::length($front) <= 80 && ! preg_match('/\d{4,}/', $front);
     }
 
     private function resolveDifficulty(string $text): string
@@ -300,9 +244,7 @@ class StudyContentGenerator
 
     private function limitWords(string $text, int $words): string
     {
-        return Str::of(trim($text))
-            ->words($words, '...')
-            ->value();
+        return Str::of(trim($text))->words($words, '...')->value();
     }
 
     private function normalizeText(string $text): string

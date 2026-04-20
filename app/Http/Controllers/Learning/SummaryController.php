@@ -11,6 +11,7 @@ class SummaryController extends Controller
     public function index(): View
     {
         $summaries = AiSummary::query()
+            ->where('user_id', auth()->id())
             ->with(['material', 'user'])
             ->latest()
             ->get();
@@ -20,6 +21,7 @@ class SummaryController extends Controller
 
     public function show(AiSummary $summary): View
     {
+        abort_unless($summary->user_id === auth()->id(), 403);
         $summary->load(['material', 'user']);
 
         return view('summaries.show', compact('summary'));

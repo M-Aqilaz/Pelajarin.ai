@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\AiSummary;
 use App\Models\Material;
 use App\Services\Learning\MaterialTextExtractor;
-use App\Support\ResolvesLearningUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -14,11 +13,10 @@ use Illuminate\View\View;
 
 class MaterialController extends Controller
 {
-    use ResolvesLearningUser;
-
     public function index(): View
     {
         $materials = Material::query()
+            ->where('user_id', auth()->id())
             ->withCount(['summaries', 'chatThreads'])
             ->latest()
             ->get();
@@ -39,7 +37,7 @@ class MaterialController extends Controller
             'raw_text' => ['nullable', 'string', 'required_without:material_file'],
         ]);
 
-        $user = $this->resolveLearningUser();
+        $user = $request->user();
         $file = $request->file('material_file');
         $providedText = trim((string) ($validated['raw_text'] ?? ''));
         $extracted = $file && $providedText === ''
@@ -89,6 +87,8 @@ class MaterialController extends Controller
 
     public function show(Material $material): View
     {
+        abort_unless($material->user_id === auth()->id(), 403);
+
         $material->load(['user', 'summaries', 'chatThreads.messages', 'flashcardDeck', 'quizSet']);
 
         return view('materials.show', compact('material'));

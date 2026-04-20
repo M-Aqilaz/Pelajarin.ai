@@ -5,24 +5,22 @@ namespace App\Http\Controllers\Learning;
 use App\Http\Controllers\Controller;
 use App\Models\ChatThread;
 use App\Models\Material;
-use App\Support\ResolvesLearningUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ChatThreadController extends Controller
 {
-    use ResolvesLearningUser;
-
     public function index(): View
     {
         $threads = ChatThread::query()
+            ->where('user_id', auth()->id())
             ->with(['material', 'user'])
             ->withCount('messages')
             ->latest()
             ->get();
 
-        $materials = Material::query()->latest()->get(['id', 'title']);
+        $materials = Material::query()->where('user_id', auth()->id())->latest()->get(['id', 'title']);
 
         return view('chat.index', compact('threads', 'materials'));
     }
@@ -35,8 +33,15 @@ class ChatThreadController extends Controller
             'opening_message' => ['nullable', 'string'],
         ]);
 
+        if (! empty($validated['material_id'])) {
+            Material::query()
+                ->where('id', $validated['material_id'])
+                ->where('user_id', $request->user()->id)
+                ->firstOrFail();
+        }
+
         $thread = ChatThread::create([
-            'user_id' => $this->resolveLearningUser()->id,
+            'user_id' => $request->user()->id,
             'material_id' => $validated['material_id'] ?? null,
             'title' => $validated['title'],
         ]);
@@ -60,6 +65,7 @@ class ChatThreadController extends Controller
 
     public function show(ChatThread $chatThread): View
     {
+        abort_unless($chatThread->user_id === auth()->id(), 403);
         $chatThread->load(['material', 'user', 'messages']);
 
         return view('chat.show', ['thread' => $chatThread]);

@@ -43,14 +43,14 @@
                                 </span>
                             </td>
                             <td class="py-4 px-4">
-                                <span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide {{ $user->status === 'active' ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20' }}">
-                                    {{ $user->status }}
+                                <span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide {{ $user->is_active ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20' }}">
+                                    {{ $user->is_active ? 'active' : 'suspended' }}
                                 </span>
                             </td>
                             <td class="py-4 px-4 text-zinc-500">{{ $user->created_at->format('d M Y') }}</td>
                             <td class="py-4 px-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    @if($user->status === 'active')
+                                    @if($user->is_active)
                                         <form action="{{ route('admin.users.suspend', $user->id) }}" method="POST" onsubmit="return confirm('Suspend user ini?');">
                                             @csrf
                                             @method('PATCH')

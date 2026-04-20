@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Nalarin.ai - Platform Belajar AI untuk Siswa Indonesia</title>
+        <link rel="icon" href="{{ asset('images/logo_nalarin_ai.png') }}" type="image/png">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -56,15 +57,13 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
                     <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl">
-                            P
-                        </div>
+                        <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-8 h-8 object-contain" alt="Nalarin.ai Logo">
                         <span class="font-outfit font-bold text-2xl tracking-tight text-white">Nalarin<span class="text-purple-400">.ai</span></span>
                     </div>
                     <div class="hidden md:flex space-x-8">
                         <a href="#fitur" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Fitur</a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Harga</a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Testimoni</a>
+                        <a href="{{ route('pricing') }}" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Harga</a>
+                        <a href="#testimoni" class="text-gray-300 hover:text-white transition-colors text-sm font-medium">Testimoni</a>
                     </div>
                     <div class="flex items-center space-x-4">
                         <a href="{{ route('login') }}" class="px-5 py-2.5 rounded-full bg-white text-gray-950 text-sm font-semibold hover:bg-gray-200 transition shadow-[0_0_20px_rgba(255,255,255,0.2)]">Mulai Belajar</a>
@@ -177,6 +176,56 @@
             </div>
         </section>
 
+        <section id="testimoni" class="py-24 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="font-outfit text-3xl md:text-5xl font-bold text-white mb-4">Dipakai dan Disukai Siswa</h2>
+                    <p class="text-gray-400 text-lg">Testimoni awal untuk memperkuat kepercayaan, positioning produk, dan konversi landing page.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <article class="glass-card p-8 rounded-3xl">
+                        <div class="flex items-center gap-1 text-amber-300 text-sm">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="mt-5 text-gray-200 leading-7">
+                            “Biasanya aku butuh waktu lama buat bikin rangkuman sendiri. Di Nalarin.ai, materi langsung jadi ringkasan dan flashcard, jadi belajar sebelum ujian jauh lebih cepat.”
+                        </p>
+                        <div class="mt-6">
+                            <p class="font-semibold text-white">Alya Ramadhani</p>
+                            <p class="text-sm text-gray-400">Siswa SMA, Jakarta</p>
+                        </div>
+                    </article>
+
+                    <article class="glass-card p-8 rounded-3xl">
+                        <div class="flex items-center gap-1 text-amber-300 text-sm">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="mt-5 text-gray-200 leading-7">
+                            “Fitur quiz dan AI tutor-nya bikin aku nggak cuma baca materi, tapi benar-benar ngerti. Cocok buat persiapan presentasi dan tugas harian.”
+                        </p>
+                        <div class="mt-6">
+                            <p class="font-semibold text-white">Rizky Maulana</p>
+                            <p class="text-sm text-gray-400">Mahasiswa Semester 3</p>
+                        </div>
+                    </article>
+
+                    <article class="glass-card p-8 rounded-3xl">
+                        <div class="flex items-center gap-1 text-amber-300 text-sm">
+                            <span>★★★★★</span>
+                        </div>
+                        <p class="mt-5 text-gray-200 leading-7">
+                            “Anak-anak di komunitas belajar kami lebih aktif diskusi setelah pakai platform seperti ini. Materi lebih rapi, latihan lebih terarah, dan engagement naik.”
+                        </p>
+                        <div class="mt-6">
+                            <p class="font-semibold text-white">Dina Prasetyo</p>
+                            <p class="text-sm text-gray-400">Mentor Komunitas Belajar</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <!-- CTA Section -->
         <section class="py-20 relative z-10">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -196,7 +245,7 @@
         <footer class="border-t border-white/5 py-12 relative z-10 mt-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="flex items-center gap-2">
-                    <div class="w-6 h-6 rounded bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xs">P</div>
+                    <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-6 h-6 object-contain" alt="Nalarin.ai Logo">
                     <span class="font-outfit font-bold text-xl tracking-tight text-white">Nalarin.ai</span>
                 </div>
                 <div class="text-gray-500 text-sm">

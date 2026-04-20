@@ -6,23 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('status', ['active', 'suspended'])->default('active')->after('role');
+            $table->string('plan')->default('free')->after('role');
+            $table->unsignedInteger('room_limit')->default(2)->after('plan');
+            $table->unsignedInteger('match_credits')->default(3)->after('room_limit');
+            $table->boolean('is_active')->default(true)->after('match_credits');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('status');
+            $table->dropColumn(['plan', 'room_limit', 'match_credits', 'is_active']);
         });
     }
 };

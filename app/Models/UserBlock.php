@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ChatThread extends Model
+class UserBlock extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'material_id',
-        'title',
+        'blocked_user_id',
     ];
 
     public function user(): BelongsTo
@@ -22,13 +20,8 @@ class ChatThread extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function material(): BelongsTo
+    public function blockedUser(): BelongsTo
     {
-        return $this->belongsTo(Material::class);
-    }
-
-    public function messages(): HasMany
-    {
-        return $this->hasMany(ChatMessage::class, 'thread_id')->latest();
+        return $this->belongsTo(User::class, 'blocked_user_id');
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Services\Learning;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
 
 class MaterialTextExtractor
 {
@@ -21,10 +20,7 @@ class MaterialTextExtractor
         $text = $this->normalize($text);
 
         if ($text !== '') {
-            return [
-                'text' => $text,
-                'warning' => null,
-            ];
+            return ['text' => $text, 'warning' => null];
         }
 
         $warning = match ($extension) {
@@ -33,10 +29,7 @@ class MaterialTextExtractor
             default => 'Isi file belum bisa dibaca otomatis. Tempelkan teks materi agar fitur belajar bisa diproses.',
         };
 
-        return [
-            'text' => '',
-            'warning' => $warning,
-        ];
+        return ['text' => '', 'warning' => $warning];
     }
 
     private function extractPlainText(string $path): string
@@ -46,9 +39,7 @@ class MaterialTextExtractor
 
     private function extractHtmlText(string $path): string
     {
-        $html = (string) file_get_contents($path);
-
-        return strip_tags($html);
+        return strip_tags((string) file_get_contents($path));
     }
 
     private function extractDocxText(string $path): string
@@ -70,9 +61,7 @@ class MaterialTextExtractor
             return '';
         }
 
-        $text = strip_tags(str_replace(['</w:p>', '</w:tr>'], ["\n", "\n"], $documentXml));
-
-        return html_entity_decode($text, ENT_QUOTES | ENT_XML1, 'UTF-8');
+        return html_entity_decode(strip_tags(str_replace(['</w:p>', '</w:tr>'], ["\n", "\n"], $documentXml)), ENT_QUOTES | ENT_XML1, 'UTF-8');
     }
 
     private function extractPdfText(string $path): string
@@ -88,7 +77,6 @@ class MaterialTextExtractor
         if (preg_match_all('/stream\s*(.*?)\s*endstream/s', $content, $matches)) {
             foreach ($matches[1] as $stream) {
                 $streams[] = $stream;
-
                 $decoded = @gzuncompress($stream);
 
                 if ($decoded !== false) {
@@ -129,17 +117,9 @@ class MaterialTextExtractor
 
     private function decodePdfString(string $value): string
     {
-        $decoded = preg_replace_callback('/\\\\([0-7]{1,3})/', function (array $matches): string {
-            return chr(octdec($matches[1]));
-        }, $value) ?? $value;
+        $decoded = preg_replace_callback('/\\\\([0-7]{1,3})/', fn (array $matches): string => chr(octdec($matches[1])), $value) ?? $value;
 
-        $decoded = str_replace(
-            ['\\n', '\\r', '\\t', '\\b', '\\f', '\\(', '\\)', '\\\\'],
-            ["\n", "\r", "\t", '', '', '(', ')', '\\'],
-            $decoded,
-        );
-
-        return $decoded;
+        return str_replace(['\\n', '\\r', '\\t', '\\b', '\\f', '\\(', '\\)', '\\\\'], ["\n", "\r", "\t", '', '', '(', ')', '\\'], $decoded);
     }
 
     private function normalize(string $text): string

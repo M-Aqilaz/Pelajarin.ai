@@ -30,12 +30,12 @@ class Material extends Model
 
     public function summaries(): HasMany
     {
-        return $this->hasMany(AiSummary::class);
+        return $this->hasMany(AiSummary::class)->latest();
     }
 
     public function chatThreads(): HasMany
     {
-        return $this->hasMany(ChatThread::class);
+        return $this->hasMany(ChatThread::class)->latest();
     }
 
     public function flashcardDeck(): HasOne
