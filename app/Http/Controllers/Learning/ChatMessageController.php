@@ -11,6 +11,8 @@ class ChatMessageController extends Controller
 {
     public function store(Request $request, ChatThread $chatThread): RedirectResponse
     {
+        abort_unless($chatThread->user_id === auth()->id(), 403);
+
         $validated = $request->validate([
             'content' => ['required', 'string', 'max:4000'],
         ]);

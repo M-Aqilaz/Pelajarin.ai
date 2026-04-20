@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Learning;
 use App\Http\Controllers\Controller;
 use App\Models\ChatThread;
 use App\Models\Material;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,12 +14,13 @@ class ChatThreadController extends Controller
     public function index(): View
     {
         $threads = ChatThread::query()
+            ->where('user_id', auth()->id())
             ->with(['material', 'user'])
             ->withCount('messages')
             ->latest()
             ->get();
 
-        $materials = Material::query()->latest()->get(['id', 'title']);
+        $materials = Material::query()->where('user_id', auth()->id())->latest()->get(['id', 'title']);
 
         return view('chat.index', compact('threads', 'materials'));
     }
@@ -34,7 +34,7 @@ class ChatThreadController extends Controller
         ]);
 
         $thread = ChatThread::create([
-            'user_id' => $this->resolveUser()->id,
+            'user_id' => $request->user()->id,
             'material_id' => $validated['material_id'] ?? null,
             'title' => $validated['title'],
         ]);
@@ -58,17 +58,9 @@ class ChatThreadController extends Controller
 
     public function show(ChatThread $chatThread): View
     {
+        abort_unless($chatThread->user_id === auth()->id(), 403);
         $chatThread->load(['material', 'user', 'messages']);
 
         return view('chat.show', ['thread' => $chatThread]);
-    }
-
-    private function resolveUser(): User
-    {
-        return auth()->user()
-            ?? User::query()->firstOrCreate(
-                ['email' => 'test@example.com'],
-                ['name' => 'Test User', 'password' => 'password', 'role' => 'user']
-            );
     }
 }

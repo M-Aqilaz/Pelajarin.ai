@@ -29,6 +29,6 @@ class ChatThread extends Model
 
     public function messages(): HasMany
     {
-        return $this->hasMany(ChatMessage::class, 'thread_id');
+        return $this->hasMany(ChatMessage::class, 'thread_id')->latest();
     }
 }
