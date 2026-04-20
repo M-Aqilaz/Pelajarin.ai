@@ -26,7 +26,7 @@
             <div class="bg-white/5 p-3 rounded-xl border border-white/10">
                 <p class="text-xs font-medium text-white truncate">{{ Auth::user()->name }}</p>
                 <p class="text-[10px] text-gray-400 truncate">{{ Auth::user()->email }}</p>
-                <p class="text-[10px] text-purple-300 mt-2 uppercase">Plan {{ Auth::user()->plan }} • Match {{ Auth::user()->match_credits }}</p>
+                <p class="text-[10px] text-purple-300 mt-2 uppercase">Plan {{ Auth::user()->plan }} | Match {{ Auth::user()->match_credits }}</p>
             </div>
             @if (Auth::user()->plan === 'free')
                 <a href="{{ route('pricing') }}" class="block rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 hover:bg-amber-500/15 transition-all">

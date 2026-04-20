@@ -82,7 +82,6 @@ class FlashcardController extends Controller
         ]);
 
         abort_unless($deck->material->user_id === $request->user()->id, 403);
-
         $card = $deck->cards()->findOrFail($validated['flashcard_id']);
         $scheduler->apply($card, $validated['rating']);
 

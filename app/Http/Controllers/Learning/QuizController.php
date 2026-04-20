@@ -77,7 +77,6 @@ class QuizController extends Controller
     public function start(QuizSet $quizSet): RedirectResponse
     {
         abort_unless($quizSet->material->user_id === auth()->id(), 403);
-
         session()->put($this->sessionKey($quizSet), [
             'current_index' => 0,
             'answers' => [],
@@ -90,7 +89,6 @@ class QuizController extends Controller
     public function answer(Request $request, QuizSet $quizSet): RedirectResponse
     {
         abort_unless($quizSet->material->user_id === $request->user()->id, 403);
-
         $validated = $request->validate([
             'question_id' => ['required', 'exists:quiz_questions,id'],
             'choice' => ['required', 'integer', 'between:0,3'],
@@ -124,7 +122,6 @@ class QuizController extends Controller
     public function reset(QuizSet $quizSet): RedirectResponse
     {
         abort_unless($quizSet->material->user_id === auth()->id(), 403);
-
         session()->forget($this->sessionKey($quizSet));
 
         return redirect()->route('feature.quiz', ['material_id' => $quizSet->material_id]);

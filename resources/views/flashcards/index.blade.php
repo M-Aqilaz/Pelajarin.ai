@@ -10,7 +10,7 @@
                 </h2>
                 <p class="text-sm text-gray-400 mt-1">
                     @if ($deck && $currentCard)
-                        Kartu {{ $currentCard->sort_order }} dari {{ $deck->card_count }} • Ketuk kartu untuk membalik
+                        Kartu {{ $currentCard->sort_order }} dari {{ $deck->card_count }} | Ketuk kartu untuk membalik
                     @else
                         Pilih materi dari hasil unggahan, lalu sistem akan membuat deck belajar yang bisa langsung direview.
                     @endif

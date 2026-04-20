@@ -33,6 +33,13 @@ class ChatThreadController extends Controller
             'opening_message' => ['nullable', 'string'],
         ]);
 
+        if (! empty($validated['material_id'])) {
+            Material::query()
+                ->where('id', $validated['material_id'])
+                ->where('user_id', $request->user()->id)
+                ->firstOrFail();
+        }
+
         $thread = ChatThread::create([
             'user_id' => $request->user()->id,
             'material_id' => $validated['material_id'] ?? null,
