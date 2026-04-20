@@ -1,58 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/images/logo_nalarin_ai.png" alt="Nalarin.ai Logo" width="180">
 </p>
 
-## About Laravel
+# Nalarin.ai
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Nalarin.ai adalah platform pembelajaran berbasis AI yang membantu pengguna mengubah materi belajar menjadi pengalaman belajar yang lebih aktif, terstruktur, dan interaktif. Aplikasi ini menggabungkan ringkasan materi, chat tutor, flashcards, kuis, pomodoro, serta fitur sosial seperti group chat kelas dan study matching.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Visi Produk
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Nalarin.ai dirancang untuk menjadi teman belajar digital yang tidak hanya membantu memahami materi, tetapi juga membantu pengguna menjaga ritme belajar, mengulang konsep penting, dan menemukan teman belajar baru.
 
-## Learning Laravel
+## Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Upload materi belajar berbasis teks atau file
+- Ringkasan otomatis dari materi
+- Chat tutor AI per materi
+- Flashcards otomatis untuk review cepat
+- Kuis pilihan ganda dari materi yang diunggah
+- Pomodoro untuk manajemen fokus belajar
+- Group chat kelas untuk belajar bersama
+- Study matching untuk menemukan partner belajar
+- Dashboard admin untuk pemantauan sistem
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Stack Teknologi
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- Laravel 13
+- PHP 8.3
+- Blade
+- Tailwind CSS
+- Vite
+- MySQL
 
-## Agentic Development
+## Struktur Inti
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- `app/Http/Controllers`
+  Logika utama aplikasi, termasuk fitur belajar, sosial, dan admin.
+- `app/Models`
+  Model domain seperti `Material`, `AiSummary`, `ChatThread`, `FlashcardDeck`, `QuizSet`, `StudyRoom`, dan `StudyMatch`.
+- `app/Services/Learning`
+  Service untuk generator konten belajar, ekstraksi teks materi, dan matching.
+- `resources/views`
+  Tampilan Blade untuk area publik, area user, dan area admin.
+- `database/migrations`
+  Definisi skema database.
+- `database/seeders`
+  Seeder untuk data demo dan pengujian.
+
+## Cara Menjalankan Project
+
+1. Install dependency:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
+npm install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+2. Siapkan environment:
 
-## Contributing
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Atur koneksi database pada file `.env`, lalu jalankan:
 
-## Code of Conduct
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. Jalankan aplikasi:
 
-## Security Vulnerabilities
+```bash
+php artisan serve
+npm run dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Akun Demo
+
+Seeder demo menyiapkan beberapa akun untuk pengujian:
+
+- `admin@nalarin.ai`
+- `free@tester.com`
+- `pro@tester.com`
+
+Password default:
+
+```text
+password
+```
+
+## Catatan Pengembangan
+
+- Fitur belajar utama sudah berjalan pada alur user login.
+- Modul admin `users` dan `documents` sudah aktif.
+- Halaman pomodoro masih memakai view mock yang memang dipakai langsung oleh route aktif.
+- Beberapa bagian produk masih bersifat MVP dan bisa dikembangkan lebih lanjut, terutama pada integrasi AI real-time dan event activity admin.
+
+## Tujuan Berikutnya
+
+- Menyempurnakan integrasi model AI nyata
+- Menambahkan event/activity feed admin berbasis data real
+- Menambahkan realtime chat untuk room dan study matching
+- Memperkuat audit, test coverage, dan readiness production
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Project ini dikembangkan untuk kebutuhan internal/pengembangan produk Nalarin.ai.
