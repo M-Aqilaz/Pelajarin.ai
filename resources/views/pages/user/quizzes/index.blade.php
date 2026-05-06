@@ -5,10 +5,11 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
             <div>
-                <h2 class="font-outfit font-bold text-2xl text-white leading-tight">
+                <p class="user-kicker text-[11px] text-emerald-100/90">Quiz Arena</p>
+                <h2 class="mt-2 font-outfit font-bold text-2xl leading-tight soft-gradient-text">
                     {{ $quiz ? $quiz->title : 'Latihan Kuis' }}
                 </h2>
-                <p class="text-sm text-gray-400 mt-1">
+                <p class="mt-2 text-sm text-slate-300/80">
                     @if ($currentQuestion && $quiz)
                         Soal {{ (int) ($attempt['current_index'] ?? 0) + 1 }} dari {{ $quiz->questions->count() }}
                     @elseif ($quiz)
@@ -41,44 +42,47 @@
             <div class="rounded-2xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200">{{ $errors->first() }}</div>
         @endif
 
-        <section class="glass-panel rounded-3xl border border-white/5 p-6 md:p-8">
+        <section class="feature-hero">
             <div class="flex flex-col lg:flex-row lg:items-end gap-4">
                 <div class="flex-1">
-                    <p class="text-xs uppercase tracking-[0.25em] text-emerald-300">Sumber Materi</p>
-                    <h3 class="font-outfit text-xl text-white font-semibold mt-2">Pilih materi untuk dijadikan kuis</h3>
-                    <p class="text-sm text-gray-400 mt-2">Soal disimpan per materi, jadi kamu bisa ulangi kuis tanpa kehilangan bank soal yang sudah dibuat.</p>
+                    <p class="user-kicker text-[11px] text-emerald-100/90">Sumber Materi</p>
+                    <h3 class="mt-2 font-outfit text-xl font-semibold text-white">Pilih materi untuk dijadikan kuis</h3>
+                    <p class="mt-2 text-sm text-slate-100/80">Soal disimpan per materi, jadi kamu bisa ulangi kuis tanpa kehilangan bank soal yang sudah dibuat.</p>
                 </div>
 
-                <form method="GET" action="{{ route('feature.quiz') }}" class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-                    <select name="material_id" class="min-w-[260px] rounded-2xl border border-white/10 bg-gray-950 px-4 py-3 text-sm text-white">
+                <form method="GET" action="{{ route('feature.quiz') }}" class="flex w-full flex-col gap-3 sm:flex-row lg:w-auto">
+                    <select name="material_id" class="glass-input w-full px-4 py-3 text-sm sm:min-w-[260px]">
                         <option value="">Pilih materi</option>
                         @foreach ($materials as $material)
                             <option value="{{ $material->id }}" @selected($selectedMaterial?->id === $material->id)>{{ $material->title }}</option>
                         @endforeach
                     </select>
-                    <button type="submit" class="rounded-2xl bg-white/10 px-5 py-3 text-sm font-medium text-white hover:bg-white/15 transition">Buka Materi</button>
+                    <button type="submit" class="rounded-2xl border border-white/10 bg-white/[0.08] px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.14]">Buka Materi</button>
                 </form>
             </div>
         </section>
 
         @if (! $selectedMaterial)
-            <section class="glass-panel rounded-3xl border border-dashed border-white/10 p-10 text-center">
+            <section class="glass-panel rounded-3xl border border-dashed border-white/10 p-6 text-center sm:p-10">
                 <p class="text-lg font-outfit text-white">Belum ada materi yang dipilih</p>
                 <p class="text-sm text-gray-400 mt-2">Pilih satu materi untuk membuat latihan kuis pilihan ganda dari isi materi tersebut.</p>
             </section>
         @elseif (! $quiz)
-            <section class="glass-panel rounded-3xl border border-white/5 p-8">
-                <p class="text-xs uppercase tracking-[0.25em] text-emerald-300">Materi Terpilih</p>
+            <section class="glass-panel accent-card-emerald rounded-3xl p-6 sm:p-8">
+                <p class="user-kicker text-[11px] text-emerald-100/90">Materi Terpilih</p>
                 <h3 class="font-outfit text-2xl font-bold text-white mt-2">{{ $selectedMaterial->title }}</h3>
-                <p class="text-gray-400 mt-3">Generator akan menyusun soal pilihan ganda dari konsep penting yang ditemukan pada materi ini.</p>
+                <p class="mt-3 text-slate-200/75">AI akan menyusun soal pilihan ganda dari konsep penting, dengan 4 opsi unik dan kunci jawaban yang divalidasi.</p>
+                @unless (auth()->user()->isPremium())
+                    <p class="mt-3 text-xs text-slate-300/55">Akun free dibatasi {{ config('services.openai.limits.content_free_per_day', 6) }} generate AI per hari untuk flashcard dan kuis.</p>
+                @endunless
                 <form method="POST" action="{{ route('quiz.generate') }}" class="mt-6">
                     @csrf
                     <input type="hidden" name="material_id" value="{{ $selectedMaterial->id }}">
-                    <button type="submit" class="rounded-2xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-400 transition">Buat Kuis</button>
+                    <button type="submit" class="user-primary-button px-6 py-3 text-sm">Buat Kuis</button>
                 </form>
             </section>
         @elseif ($results)
-            <section class="glass-panel rounded-[2rem] border border-white/5 p-6 md:p-8">
+            <section class="glass-panel accent-card-emerald rounded-[2rem] p-6 md:p-8">
                 <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                     <div>
                         <p class="text-xs uppercase tracking-[0.25em] text-emerald-300">Hasil Kuis</p>
@@ -86,10 +90,10 @@
                         <p class="text-sm text-gray-400 mt-2">Lihat pembahasan setiap soal di bawah, lalu ulangi kuis kalau ingin menguji lagi pemahamanmu.</p>
                     </div>
 
-                    <div class="flex gap-3">
+                    <div class="flex flex-col gap-3 sm:flex-row">
                         <form method="POST" action="{{ route('quiz.reset', $quiz) }}">
                             @csrf
-                            <button type="submit" class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white hover:bg-white/10 transition">Reset</button>
+                            <button type="submit" class="rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-2.5 text-sm text-white transition hover:bg-white/[0.14]">Reset</button>
                         </form>
                         <form method="POST" action="{{ route('quiz.start', $quiz) }}">
                             @csrf
@@ -120,20 +124,20 @@
             @php($currentIndex = (int) ($attempt['current_index'] ?? 0))
             @php($totalQuestions = $quiz->questions->count())
             @php($progress = $totalQuestions > 0 ? round(($currentIndex / $totalQuestions) * 100) : 0)
-            <div class="max-w-4xl mx-auto py-4">
-                <div class="w-full h-2 bg-gray-800 rounded-full mb-8 overflow-hidden">
+            <div class="mx-auto max-w-4xl py-4">
+                <div class="mb-8 h-2 w-full overflow-hidden rounded-full bg-slate-900/80">
                     <div class="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full relative" style="width: {{ $progress }}%">
                         <div class="absolute right-0 top-0 bottom-0 w-4 bg-white/20 blur-[2px]"></div>
                     </div>
                 </div>
 
-                <form method="POST" action="{{ route('quiz.answer', $quiz) }}" class="glass-panel rounded-3xl border border-white/5 p-8 md:p-10 relative overflow-hidden shadow-2xl">
+                <form method="POST" action="{{ route('quiz.answer', $quiz) }}" class="glass-panel accent-card-emerald relative overflow-hidden rounded-3xl p-5 shadow-2xl sm:p-8 md:p-10">
                     @csrf
                     <input type="hidden" name="question_id" value="{{ $currentQuestion->id }}">
                     <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-green-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center font-bold text-xl text-gray-300 font-outfit">
+                    <div class="flex flex-col gap-4 sm:flex-row">
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 font-outfit text-xl font-bold text-gray-300">
                             {{ $currentIndex + 1 }}
                         </div>
                         <div class="flex-1">
@@ -143,20 +147,20 @@
                                 @foreach (($currentQuestion->choices ?? []) as $choiceIndex => $choice)
                                     <label class="block relative cursor-pointer group">
                                         <input type="radio" name="choice" value="{{ $choiceIndex }}" class="peer sr-only" required>
-                                        <div class="w-full p-4 rounded-xl border-2 border-white/10 bg-white/5 text-gray-300 font-medium transition-all group-hover:border-white/20 group-hover:bg-white/10 peer-checked:border-green-500 peer-checked:bg-green-500/10 peer-checked:text-white flex items-center gap-4">
-                                            <span class="w-8 h-8 rounded-lg bg-gray-800 border border-white/10 flex items-center justify-center text-sm font-bold">{{ chr(65 + $choiceIndex) }}</span>
-                                            <span>{{ $choice }}</span>
+                                        <div class="flex w-full items-start gap-4 rounded-xl border-2 border-white/10 bg-white/5 p-4 font-medium text-gray-300 transition-all group-hover:border-white/20 group-hover:bg-white/10 peer-checked:border-green-500 peer-checked:bg-green-500/10 peer-checked:text-white">
+                                            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-gray-800 text-sm font-bold">{{ chr(65 + $choiceIndex) }}</span>
+                                            <span class="min-w-0 break-words">{{ $choice }}</span>
                                         </div>
                                     </label>
                                 @endforeach
                             </div>
 
-                            <div class="flex items-center justify-between mt-10 pt-6 border-t border-white/10">
-                                <div class="px-6 py-2.5 rounded-xl border border-white/10 bg-white/5 text-white font-medium text-sm transition flex items-center gap-2 opacity-60">
+                            <div class="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                                <div class="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-2.5 text-sm font-medium text-white opacity-60 sm:justify-start">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                                     Sebelumnya
                                 </div>
-                                <button type="submit" class="px-8 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white font-semibold shadow-[0_0_15px_rgba(34,197,94,0.4)] transition flex items-center gap-2 text-sm">
+                                <button type="submit" class="flex items-center justify-center gap-2 rounded-xl bg-green-500 px-8 py-2.5 text-sm font-semibold text-white shadow-[0_0_15px_rgba(34,197,94,0.4)] transition hover:bg-green-400">
                                     {{ $currentIndex + 1 === $totalQuestions ? 'Selesai' : 'Selanjutnya' }}
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </button>
@@ -166,7 +170,7 @@
                 </form>
             </div>
         @else
-            <section class="glass-panel rounded-[2rem] border border-white/5 p-8">
+            <section class="glass-panel accent-card-emerald rounded-[2rem] p-8">
                 <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                     <div>
                         <p class="text-xs uppercase tracking-[0.25em] text-emerald-300">Kuis Siap</p>
@@ -174,36 +178,36 @@
                         <p class="text-sm text-gray-400 mt-2">{{ $quiz->description }}</p>
                     </div>
 
-                    <form method="POST" action="{{ route('quiz.generate') }}">
+                    <form method="POST" action="{{ route('quiz.generate') }}" class="w-full lg:w-auto">
                         @csrf
                         <input type="hidden" name="material_id" value="{{ $selectedMaterial->id }}">
-                        <button type="submit" class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white hover:bg-white/10 transition">Generate Ulang</button>
+                        <button type="submit" class="rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-2.5 text-sm text-white transition hover:bg-white/[0.14]">Generate Ulang</button>
                     </form>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-8">
-                    <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div class="glass-panel rounded-2xl p-4">
                         <p class="text-xs uppercase tracking-wider text-gray-400">Total Soal</p>
                         <p class="mt-3 text-2xl font-outfit font-bold text-white">{{ $quiz->question_count }}</p>
                     </div>
-                    <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div class="glass-panel rounded-2xl p-4">
                         <p class="text-xs uppercase tracking-wider text-gray-400">Materi</p>
                         <p class="mt-3 text-sm font-semibold text-white">{{ $selectedMaterial->title }}</p>
                     </div>
-                    <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div class="glass-panel rounded-2xl p-4">
                         <p class="text-xs uppercase tracking-wider text-gray-400">Format</p>
                         <p class="mt-3 text-sm font-semibold text-white">Pilihan Ganda</p>
                     </div>
                 </div>
 
-                <div class="mt-8 flex flex-col sm:flex-row gap-3">
-                    <form method="POST" action="{{ route('quiz.start', $quiz) }}">
+                <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <form method="POST" action="{{ route('quiz.start', $quiz) }}" class="w-full sm:w-auto">
                         @csrf
-                        <button type="submit" class="rounded-2xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-400 transition">Mulai Kuis</button>
+                        <button type="submit" class="w-full rounded-2xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-400 transition">Mulai Kuis</button>
                     </form>
-                    <form method="POST" action="{{ route('quiz.reset', $quiz) }}">
+                    <form method="POST" action="{{ route('quiz.reset', $quiz) }}" class="w-full sm:w-auto">
                         @csrf
-                        <button type="submit" class="rounded-2xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-white hover:bg-white/10 transition">Reset Progress</button>
+                        <button type="submit" class="w-full rounded-2xl border border-white/10 bg-white/[0.08] px-6 py-3 text-sm font-medium text-white transition hover:bg-white/[0.14]">Reset Progress</button>
                     </form>
                 </div>
             </section>
