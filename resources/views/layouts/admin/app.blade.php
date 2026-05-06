@@ -59,6 +59,7 @@
         </style>
     </head>
     <body x-data="{ mobileAdminNavOpen: false }" class="font-inter antialiased fi-main-bg text-gray-100 flex h-screen overflow-hidden">
+        <x-page-loader />
         <div x-cloak x-show="mobileAdminNavOpen" class="fixed inset-0 z-40 bg-black/60 md:hidden" @click="mobileAdminNavOpen = false"></div>
 
         <aside x-cloak x-show="mobileAdminNavOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="-translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0 opacity-100" x-transition:leave-end="-translate-x-full opacity-0" class="fixed inset-y-0 left-0 z-50 w-[86vw] max-w-sm fi-sidebar md:hidden">

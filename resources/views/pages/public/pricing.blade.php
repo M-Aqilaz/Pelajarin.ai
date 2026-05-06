@@ -9,6 +9,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-gray-950 text-white font-inter min-h-screen">
+        <x-page-loader />
         <div class="max-w-6xl mx-auto px-4 py-16">
             <a href="{{ url('/') }}" class="text-sm text-purple-300">← Kembali</a>
             <div class="text-center mt-10">

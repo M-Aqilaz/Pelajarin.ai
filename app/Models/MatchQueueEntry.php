@@ -19,6 +19,8 @@ class MatchQueueEntry extends Model
         'expires_at',
     ];
 
+    public const ROULETTE_TOPIC = '__roulette__';
+
     protected function casts(): array
     {
         return [

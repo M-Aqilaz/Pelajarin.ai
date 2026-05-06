@@ -22,9 +22,26 @@ class StudyMatchingController extends Controller
     {
         $user = $request->user()->load('studyProfile');
         $activeMatch = $matchingService->findMatchFor($user)?->load(['userOne.studyProfile', 'userTwo.studyProfile', 'messages.user']);
-        $queue = $user->matchQueueEntries()->where('status', 'waiting')->latest()->first();
+        $queue = $user->matchQueueEntries()
+            ->where('status', 'waiting')
+            ->where('selected_topic', '!=', \App\Models\MatchQueueEntry::ROULETTE_TOPIC)
+            ->latest()
+            ->first();
 
         return view('pages.user.matchmaking.index', compact('user', 'activeMatch', 'queue'));
+    }
+
+    public function roulette(Request $request, StudyMatchingService $matchingService): View
+    {
+        $user = $request->user()->load('studyProfile');
+        $activeMatch = $matchingService->findRouletteMatchFor($user)?->load(['userOne.studyProfile', 'userTwo.studyProfile', 'messages.user']);
+        $queue = $user->matchQueueEntries()
+            ->where('status', 'waiting')
+            ->where('selected_topic', \App\Models\MatchQueueEntry::ROULETTE_TOPIC)
+            ->latest()
+            ->first();
+
+        return view('pages.user.matchmaking.roulette', compact('user', 'activeMatch', 'queue'));
     }
 
     public function updateProfile(Request $request): RedirectResponse
@@ -72,6 +89,58 @@ class StudyMatchingController extends Controller
         $matchingService->cancel($request->user());
 
         return redirect()->route('matchmaking.index')->with('status', 'Antrean study matching dibatalkan.');
+    }
+
+    public function rouletteStart(Request $request, StudyMatchingService $matchingService): RedirectResponse
+    {
+        $result = $matchingService->enqueueRoulette($request->user()->load('studyProfile'));
+
+        if ($result['error']) {
+            return redirect()->route('matchmaking.roulette')->withErrors(['matchmaking' => $result['error']]);
+        }
+
+        if ($result['match']) {
+            return redirect()->route('matchmaking.roulette')->with('status', 'Partner belajar ditemukan.');
+        }
+
+        return redirect()->route('matchmaking.roulette')->with('status', 'Sedang mencari partner belajar baru.');
+    }
+
+    public function rouletteNext(Request $request, StudyMatchingService $matchingService): RedirectResponse
+    {
+        $user = $request->user();
+        $activeMatch = $matchingService->findRouletteMatchFor($user);
+
+        if ($activeMatch && $activeMatch->involves($user)) {
+            $activeMatch->update(['status' => 'completed']);
+        }
+
+        $matchingService->cancelRoulette($user);
+        $result = $matchingService->enqueueRoulette($user->load('studyProfile'));
+
+        if ($result['error']) {
+            return redirect()->route('matchmaking.roulette')->withErrors(['matchmaking' => $result['error']]);
+        }
+
+        if ($result['match']) {
+            return redirect()->route('matchmaking.roulette')->with('status', 'Partner baru ditemukan.');
+        }
+
+        return redirect()->route('matchmaking.roulette')->with('status', 'Mencari partner berikutnya.');
+    }
+
+    public function rouletteStop(Request $request, StudyMatchingService $matchingService): RedirectResponse
+    {
+        $user = $request->user();
+        $activeMatch = $matchingService->findRouletteMatchFor($user);
+
+        if ($activeMatch && $activeMatch->involves($user)) {
+            $activeMatch->update(['status' => 'completed']);
+        }
+
+        $matchingService->cancelRoulette($user);
+
+        return redirect()->route('matchmaking.roulette')->with('status', 'Study Roulette dihentikan.');
     }
 
     public function show(StudyMatch $match): View
