@@ -123,7 +123,7 @@ class StudyContentGenerator
 
     private function askAi(array $messages): ?array
     {
-        $apiKey = config('services.openai.api_key');
+        $apiKey = (string) $this->configValue('services.openai.api_key', '');
 
         if (! $apiKey) {
             return null;
@@ -131,18 +131,18 @@ class StudyContentGenerator
 
         try {
             $response = Http::withToken($apiKey)
-                ->timeout((int) config('services.openai.timeout', 60))
+                ->timeout((int) $this->configValue('services.openai.timeout', 60))
                 ->acceptJson()
                 ->withHeaders([
-                    'HTTP-Referer' => config('app.url'),
-                    'X-Title' => config('app.name', 'Pelajarin.ai'),
+                    'HTTP-Referer' => (string) $this->configValue('app.url', ''),
+                    'X-Title' => (string) $this->configValue('app.name', 'Pelajarin.ai'),
                 ])
-                ->post(rtrim((string) config('services.openai.base_url', 'https://openrouter.ai/api/v1'), '/').'/chat/completions', [
-                    'model' => (string) config('services.openai.model', 'openai/gpt-oss-120b:free'),
+                ->post(rtrim((string) $this->configValue('services.openai.base_url', 'https://openrouter.ai/api/v1'), '/').'/chat/completions', [
+                    'model' => (string) $this->configValue('services.openai.model', 'openai/gpt-oss-120b:free'),
                     'messages' => $messages,
                     'temperature' => 0.55,
                     'top_p' => 0.85,
-                    'max_tokens' => (int) config('services.openai.content_max_output_tokens', 1800),
+                    'max_tokens' => (int) $this->configValue('services.openai.content_max_output_tokens', 1800),
                 ]);
 
             if (! $response->successful()) {
@@ -367,8 +367,12 @@ class StudyContentGenerator
     private function buildDefinitionQuestion(array $pair, Collection $pairs, int $index): array
     {
         $correct = $pair['back'];
-        $distractors = $pairs->where('front', '!=', $pair['front'])->pluck('back')->filter(fn (string $value) => $value !== $correct)->unique()->take(3)->values();
-        $options = $distractors->push($correct)->shuffle()->values();
+        $distractors = $pairs->where('front', '!=', $pair['front'])
+            ->pluck('back')
+            ->filter(fn (string $value) => $value !== $correct)
+            ->unique()
+            ->values();
+        $options = $this->buildOptions($correct, $distractors);
 
         return [
             'prompt' => 'Apa definisi yang paling tepat untuk "' . $pair['front'] . '"?',
@@ -382,8 +386,12 @@ class StudyContentGenerator
     private function buildTermQuestion(array $pair, Collection $pairs, int $index): array
     {
         $correct = $pair['front'];
-        $distractors = $pairs->where('front', '!=', $pair['front'])->pluck('front')->filter(fn (string $value) => $value !== $correct)->unique()->take(3)->values();
-        $options = $distractors->push($correct)->shuffle()->values();
+        $distractors = $pairs->where('front', '!=', $pair['front'])
+            ->pluck('front')
+            ->filter(fn (string $value) => $value !== $correct)
+            ->unique()
+            ->values();
+        $options = $this->buildOptions($correct, $distractors);
 
         return [
             'prompt' => 'Istilah apa yang paling sesuai dengan deskripsi berikut? "' . $pair['back'] . '"',
@@ -534,5 +542,48 @@ class StudyContentGenerator
         $offset = crc32($seed) % $items->count();
 
         return $items->slice($offset)->merge($items->slice(0, $offset))->values();
+    }
+
+    private function buildOptions(string $correct, Collection $distractors): Collection
+    {
+        $options = $distractors
+            ->take(3)
+            ->push($correct)
+            ->unique()
+            ->shuffle()
+            ->values();
+
+        if ($options->count() >= 4) {
+            return $options;
+        }
+
+        $fallbacks = collect([
+            'Konsep dasar yang tidak sesuai materi.',
+            'Penjelasan umum yang tidak tepat.',
+            'Istilah lain yang tidak relevan.',
+            'Pilihan ini tidak sesuai konteks materi.',
+        ])->reject(fn (string $value) => $value === $correct);
+
+        return $options
+            ->merge($fallbacks)
+            ->unique()
+            ->take(4)
+            ->shuffle()
+            ->values();
+    }
+
+    private function configValue(string $key, mixed $default = null): mixed
+    {
+        if (function_exists('app')) {
+            try {
+                if (app()->bound('config')) {
+                    return config($key, $default);
+                }
+            } catch (\Throwable) {
+                return $default;
+            }
+        }
+
+        return $default;
     }
 }

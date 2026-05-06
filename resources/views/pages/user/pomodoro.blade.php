@@ -7,7 +7,8 @@
                 </svg>
             </div>
             <div>
-                <h2 class="font-outfit text-2xl font-bold leading-tight text-white">Pomodoro Timer</h2>
+                <p class="user-kicker text-[11px] text-orange-100/90">Study Rhythm</p>
+                <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text">Pomodoro Timer</h2>
             </div>
         </div>
     </x-slot>
@@ -56,9 +57,16 @@
         <div class="pointer-events-none absolute inset-x-12 top-0 h-48 rounded-full blur-3xl opacity-60" :style="'background: radial-gradient(circle, var(--accent-soft) 0%, transparent 72%);'"></div>
 
         <div class="relative mx-auto flex min-h-full max-w-6xl flex-col md:h-full">
-            <section class="flex-1 overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.96),rgba(15,23,42,0.84))] p-4 shadow-[0_24px_80px_rgba(2,6,23,0.32)] md:p-5">
+            <section class="glass-panel-strong flex-1 overflow-hidden rounded-[32px] p-4 shadow-[0_24px_80px_rgba(2,6,23,0.32)] md:p-5">
                 <div class="grid items-start gap-3 xl:grid-cols-[minmax(0,1.62fr)_290px]">
                     <div class="flex min-h-0 flex-col gap-3">
+                        <div class="feature-hero">
+                            <div class="max-w-2xl text-left">
+                                <p class="user-kicker text-[11px] text-orange-100/90">Flow Management</p>
+                                <p class="mt-3 text-sm text-slate-100/80">Halaman pomodoro ini saya biarkan lebih immersive, tapi sekarang tetap duduk di atas bahasa visual glass dan gradient yang sama dengan area user lain.</p>
+                            </div>
+                        </div>
+
                         <div class="flex flex-wrap items-center justify-between gap-3">
                             <div class="inline-flex flex-wrap gap-2 rounded-full border border-white/10 bg-white/[0.03] p-1">
                                 <template x-for="option in [{ value: 'focus', label: 'Fokus' }, { value: 'shortBreak', label: 'Istirahat Pendek' }, { value: 'longBreak', label: 'Istirahat Panjang' }]" :key="option.value">
