@@ -21,6 +21,9 @@ use App\Models\ChatThread;
 use App\Models\Material;
 use App\Models\StudyMatch;
 use App\Models\StudyRoom;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +31,13 @@ Route::get('/', function () {
 });
 
 Route::get('/pricing', PricingController::class)->name('pricing');
+Route::post('/track-feature', [FeatureUsageController::class, 'track'])
+    ->withoutMiddleware([
+        PreventRequestForgery::class,
+        StartSession::class,
+        ShareErrorsFromSession::class,
+    ])
+    ->name('feature.track');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
@@ -78,6 +88,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/pomodoro', function () {
         return view('pages.user.pomodoro');
     })->name('feature.pomodoro');
+    Route::get('/focus-planner', function () {
+        return view('pages.user.focus.planner');
+    })->name('feature.focus-planner');
+    Route::get('/focus-insights', function () {
+        return view('pages.user.focus.insights');
+    })->name('feature.focus-insights');
 
     Route::get('/rooms', [StudyRoomController::class, 'index'])->name('rooms.index');
     Route::post('/rooms', [StudyRoomController::class, 'store'])->middleware('room.limit')->name('rooms.store');
@@ -89,9 +105,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/rooms/{room}/messages', [StudyRoomMessageController::class, 'store'])->name('rooms.messages.store');
 
     Route::get('/matchmaking', [StudyMatchingController::class, 'index'])->name('matchmaking.index');
+    Route::get('/matchmaking/roulette', [StudyMatchingController::class, 'roulette'])->name('matchmaking.roulette');
     Route::post('/matchmaking/profile', [StudyMatchingController::class, 'updateProfile'])->name('matchmaking.profile.update');
     Route::post('/matchmaking/search', [StudyMatchingController::class, 'search'])->name('matchmaking.search');
     Route::post('/matchmaking/cancel', [StudyMatchingController::class, 'cancel'])->name('matchmaking.cancel');
+    Route::post('/matchmaking/roulette/start', [StudyMatchingController::class, 'rouletteStart'])->name('matchmaking.roulette.start');
+    Route::post('/matchmaking/roulette/next', [StudyMatchingController::class, 'rouletteNext'])->name('matchmaking.roulette.next');
+    Route::post('/matchmaking/roulette/stop', [StudyMatchingController::class, 'rouletteStop'])->name('matchmaking.roulette.stop');
     Route::get('/matches/{match}', [StudyMatchingController::class, 'show'])->name('matches.show');
     Route::get('/matches/{match}/messages', [StudyMatchingController::class, 'messages'])->name('matches.messages.index');
     Route::post('/matches/{match}/typing', [StudyMatchingController::class, 'typing'])->name('matches.typing');
@@ -107,7 +127,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllRead'])->name('notifications.read-all');
     Route::post('/notifications/{notification}/read', [NotificationController::class, 'markRead'])->name('notifications.read');
 
-    Route::post('/track-feature', [FeatureUsageController::class, 'track'])->name('feature.track');
 });
 
 Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
