@@ -120,6 +120,41 @@
                         </ul>
                     </div>
                 </nav>
+
+                <details class="border-t border-zinc-800 p-4 relative group">
+                    <summary class="flex w-full cursor-pointer list-none items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900/80 p-4 text-left transition hover:bg-zinc-800/80 [&::-webkit-details-marker]:hidden">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-700 bg-zinc-800">
+                            <span class="text-sm font-medium text-zinc-300">{{ substr(Auth::user()->name ?? 'A', 0, 1) }}</span>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <p class="truncate text-sm font-medium text-white">{{ Auth::user()->name ?? 'Administrator' }}</p>
+                            <p class="truncate text-xs text-zinc-500">{{ Auth::user()->email ?? 'admin@nalarin.ai' }}</p>
+                        </div>
+                        <svg class="h-4 w-4 shrink-0 text-zinc-500 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </summary>
+
+                    <div class="absolute bottom-full left-4 right-4 z-50 mb-2 hidden overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900 shadow-xl shadow-black/30 group-open:block">
+                        <div class="p-2">
+                            <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-zinc-200 transition hover:bg-white/10">
+                                <svg class="h-4 w-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                                <span>Edit Profile</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm text-red-300 transition hover:bg-red-500/10">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                    </svg>
+                                    <span>Logout</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </details>
             </div>
         </aside>
 
@@ -180,17 +215,40 @@
                 </div>
             </nav>
 
-            <div class="p-4 border-t border-zinc-800">
-                <div class="flex items-center gap-3 w-full">
+            <details class="p-4 border-t border-zinc-800 relative group">
+                <summary class="flex w-full cursor-pointer list-none items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900/80 p-4 text-left transition hover:bg-zinc-800/80 [&::-webkit-details-marker]:hidden">
                     <div class="w-9 h-9 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center shrink-0">
-                        <span class="text-zinc-300 font-medium text-sm">A</span>
+                        <span class="text-zinc-300 font-medium text-sm">{{ substr(Auth::user()->name ?? 'A', 0, 1) }}</span>
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-white truncate">Administrator</p>
-                        <p class="text-xs text-zinc-500 truncate">admin@nalarin.ai</p>
+                    <div class="flex-1 min-w-0 text-left">
+                        <p class="text-sm font-medium text-white truncate">{{ Auth::user()->name ?? 'Administrator' }}</p>
+                        <p class="text-xs text-zinc-500 truncate">{{ Auth::user()->email ?? 'admin@nalarin.ai' }}</p>
+                    </div>
+                    <svg class="h-4 w-4 shrink-0 text-zinc-500 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </summary>
+
+                <div class="absolute bottom-full left-4 right-4 z-50 mb-2 hidden overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900 shadow-xl shadow-black/30 group-open:block">
+                    <div class="p-2">
+                        <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-zinc-200 transition hover:bg-white/10">
+                            <svg class="h-4 w-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            <span>Edit Profile</span>
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm text-red-300 transition hover:bg-red-500/10">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                </svg>
+                                <span>Logout</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
-            </div>
+            </details>
         </aside>
 
         <div class="flex-1 flex flex-col min-w-0 bg-zinc-950">

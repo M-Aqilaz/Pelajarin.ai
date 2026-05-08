@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AdminUserController extends Controller
@@ -31,5 +32,22 @@ class AdminUserController extends Controller
         $user->update(['is_active' => true]);
 
         return back()->with('success', 'User berhasil diaktifkan.');
+    }
+
+    public function updatePlan(Request $request, User $user): RedirectResponse
+    {
+        $validated = $request->validate([
+            'plan' => ['required', 'in:free,premium'],
+        ]);
+
+        $plan = $validated['plan'];
+
+        $user->update([
+            'plan' => $plan,
+            'room_limit' => $plan === 'premium' ? 9999 : 2,
+            'match_credits' => $plan === 'premium' ? max((int) $user->match_credits, 9999) : 3,
+        ]);
+
+        return back()->with('success', 'Plan user berhasil diperbarui ke ' . ($plan === 'premium' ? 'Paid' : 'Freemium') . '.');
     }
 }
