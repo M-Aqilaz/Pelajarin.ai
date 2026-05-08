@@ -27,6 +27,7 @@
                         <th class="py-3 px-4">Nama User</th>
                         <th class="py-3 px-4">Email</th>
                         <th class="py-3 px-4">Role</th>
+                        <th class="py-3 px-4">Plan</th>
                         <th class="py-3 px-4">Status</th>
                         <th class="py-3 px-4">Bergabung Pada</th>
                         <th class="py-3 px-4 text-right">Aksi</th>
@@ -43,13 +44,38 @@
                                 </span>
                             </td>
                             <td class="py-4 px-4">
+                                <span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide {{ $user->plan === 'premium' ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20' : 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/20' }}">
+                                    {{ $user->plan === 'premium' ? 'Paid' : 'Freemium' }}
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
                                 <span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide {{ $user->is_active ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20' }}">
                                     {{ $user->is_active ? 'active' : 'suspended' }}
                                 </span>
                             </td>
                             <td class="py-4 px-4 text-zinc-500">{{ $user->created_at->format('d M Y') }}</td>
                             <td class="py-4 px-4 text-right">
-                                <div class="flex items-center justify-end gap-2">
+                                <div class="flex items-center justify-end gap-2 flex-wrap">
+                                    @if($user->plan === 'premium')
+                                        <form action="{{ route('admin.users.plan', $user->id) }}" method="POST" onsubmit="return confirm('Ubah user ini ke Freemium?');">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="plan" value="free">
+                                            <button type="submit" class="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-cyan-500/20 hover:text-cyan-300 transition border border-transparent hover:border-cyan-500/30">
+                                                Set Freemium
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('admin.users.plan', $user->id) }}" method="POST" onsubmit="return confirm('Ubah user ini ke Paid?');">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="plan" value="premium">
+                                            <button type="submit" class="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-amber-500/20 hover:text-amber-300 transition border border-transparent hover:border-amber-500/30">
+                                                Set Paid
+                                            </button>
+                                        </form>
+                                    @endif
+
                                     @if($user->is_active)
                                         <form action="{{ route('admin.users.suspend', $user->id) }}" method="POST" onsubmit="return confirm('Suspend user ini?');">
                                             @csrf
@@ -72,7 +98,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-8 text-center text-zinc-500">Belum ada data user.</td>
+                            <td colspan="7" class="py-8 text-center text-zinc-500">Belum ada data user.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -92,6 +118,12 @@
                         </span>
                     </div>
                     <div class="flex items-center justify-between gap-3 text-sm">
+                        <span class="text-zinc-500">Plan</span>
+                        <span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide {{ $user->plan === 'premium' ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20' : 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/20' }}">
+                            {{ $user->plan === 'premium' ? 'Paid' : 'Freemium' }}
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-between gap-3 text-sm">
                         <span class="text-zinc-500">Status</span>
                         <span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide {{ $user->is_active ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20' }}">
                             {{ $user->is_active ? 'active' : 'suspended' }}
@@ -101,7 +133,27 @@
                         <span class="text-zinc-500">Bergabung</span>
                         <span class="text-zinc-300">{{ $user->created_at->format('d M Y') }}</span>
                     </div>
-                    <div class="pt-2">
+                    <div class="pt-2 space-y-2">
+                        @if($user->plan === 'premium')
+                            <form action="{{ route('admin.users.plan', $user->id) }}" method="POST" onsubmit="return confirm('Ubah user ini ke Freemium?');">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="plan" value="free">
+                                <button type="submit" class="w-full text-xs px-3 py-2.5 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-cyan-500/20 hover:text-cyan-300 transition border border-transparent hover:border-cyan-500/30">
+                                    Set Freemium
+                                </button>
+                            </form>
+                        @else
+                            <form action="{{ route('admin.users.plan', $user->id) }}" method="POST" onsubmit="return confirm('Ubah user ini ke Paid?');">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="plan" value="premium">
+                                <button type="submit" class="w-full text-xs px-3 py-2.5 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-amber-500/20 hover:text-amber-300 transition border border-transparent hover:border-amber-500/30">
+                                    Set Paid
+                                </button>
+                            </form>
+                        @endif
+
                         @if($user->is_active)
                             <form action="{{ route('admin.users.suspend', $user->id) }}" method="POST" onsubmit="return confirm('Suspend user ini?');">
                                 @csrf
