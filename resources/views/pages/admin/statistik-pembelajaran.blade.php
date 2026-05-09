@@ -23,7 +23,7 @@
                     </div>
                     <div>
                         <p class="text-xs text-gray-400 mb-1 font-medium uppercase">Overall Score</p>
-                        <p class="text-xl font-bold font-outfit text-white">{{ $learningStats['overall_grade'] }}</p>
+                        <p class="text-xl font-bold font-outfit text-white">A-</p>
                     </div>
                 </div>
                 <div class="bg-white/5 rounded-xl p-4 border border-white/5 flex items-center gap-4 hover:bg-white/10 transition cursor-default">
@@ -32,7 +32,7 @@
                     </div>
                     <div>
                         <p class="text-xs text-gray-400 mb-1 font-medium uppercase">Rata-rata Skor Quiz</p>
-                        <p class="text-xl font-bold font-outfit text-white">{{ rtrim(rtrim(number_format($learningStats['avg_quiz_score'], 1), '0'), '.') }}%</p>
+                        <p class="text-xl font-bold font-outfit text-white">{{ $learningStats['avg_quiz_score'] }}%</p>
                     </div>
                 </div>
                 <div class="bg-white/5 rounded-xl p-4 border border-white/5 flex items-center gap-4 hover:bg-white/10 transition cursor-default">
@@ -49,8 +49,8 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-400 mb-1 font-medium uppercase">Sesi Quiz Selesai</p>
-                        <p class="text-xl font-bold font-outfit text-white">{{ $learningStats['learning_activity'] }} Sesi</p>
+                        <p class="text-xs text-gray-400 mb-1 font-medium uppercase">Aktivitas Belajar</p>
+                        <p class="text-xl font-bold font-outfit text-white">{{ $learningStats['learning_activity'] }} Jam</p>
                     </div>
                 </div>
             </div>
@@ -58,83 +58,10 @@
 
         <div class="glass-panel p-6 rounded-2xl border border-white/5 bg-gradient-to-b from-gray-800/80 to-gray-900/80 mt-6">
             <h3 class="font-outfit font-bold text-xl text-white mb-2">Distribusi Nilai</h3>
-            <p class="text-sm text-gray-400 mb-6">Grafik skor user di seluruh platform dari database hasil quiz terbaru per user.</p>
-            <div class="mb-4 flex items-center justify-between rounded-xl border border-white/5 bg-white/5 px-4 py-3">
-                <p class="text-sm text-gray-300">User yang sudah punya skor</p>
-                <p class="font-outfit text-lg font-bold text-white">{{ $scoreDistribution['user_count'] }}</p>
-            </div>
-            <div class="w-full relative h-64">
-                <canvas id="scoreDistributionChart"></canvas>
+            <p class="text-sm text-gray-400 mb-6">Grafik skor user di seluruh platform.</p>
+            <div class="w-full relative h-64 border border-dashed border-white/10 rounded-xl overflow-hidden flex items-center justify-center bg-white/5">
+                <p class="text-gray-500 font-medium text-sm">Bar Chart / Grafik menyusul</p>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const ctx = document.getElementById('scoreDistributionChart');
-
-            if (!ctx) {
-                return;
-            }
-
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: @json($scoreDistribution['labels']),
-                    datasets: [{
-                        label: 'Jumlah User',
-                        data: @json($scoreDistribution['data']),
-                        backgroundColor: [
-                            'rgba(239, 68, 68, 0.55)',
-                            'rgba(249, 115, 22, 0.55)',
-                            'rgba(234, 179, 8, 0.55)',
-                            'rgba(59, 130, 246, 0.55)',
-                            'rgba(34, 197, 94, 0.55)'
-                        ],
-                        borderColor: [
-                            'rgba(248, 113, 113, 1)',
-                            'rgba(251, 146, 60, 1)',
-                            'rgba(250, 204, 21, 1)',
-                            'rgba(96, 165, 250, 1)',
-                            'rgba(74, 222, 128, 1)'
-                        ],
-                        borderWidth: 1,
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0,
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.08)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: 'rgba(255, 255, 255, 0.9)'
-                            }
-                        }
-                    }
-                }
-            });
-        });
-    </script>
 </x-admin-layout>
