@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Learning;
 
 use App\Http\Controllers\Controller;
 use App\Models\Material;
-use App\Models\QuizAttempt;
 use App\Models\QuizSet;
 use App\Services\Learning\StudyContentGenerator;
 use App\Support\AiContentGenerationLimiter;
@@ -130,19 +129,6 @@ class QuizController extends Controller
         $attempt['completed'] = $attempt['current_index'] >= $questions->count();
 
         session()->put($this->sessionKey($quizSet), $attempt);
-
-        if ($attempt['completed']) {
-            $results = $this->buildResults($quizSet, $attempt);
-
-            QuizAttempt::create([
-                'quiz_set_id' => $quizSet->id,
-                'user_id' => $request->user()->id,
-                'score' => $results['score'],
-                'total_questions' => $results['total'],
-                'percentage' => $results['total'] > 0 ? round(($results['score'] / $results['total']) * 100, 2) : 0,
-                'completed_at' => now(),
-            ]);
-        }
 
         return redirect()->route('feature.quiz', ['material_id' => $quizSet->material_id]);
     }

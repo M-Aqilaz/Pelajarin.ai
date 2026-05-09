@@ -38,75 +38,10 @@
 
         <div class="glass-panel p-6 rounded-2xl border border-white/5 bg-gradient-to-b from-gray-800/80 to-gray-900/80 mt-6">
             <h3 class="font-outfit font-bold text-xl text-white mb-2">Trend AI Requests</h3>
-            <p class="text-sm text-gray-400 mb-6">Grafik 7 hari terakhir dari request AI yang tercatat di database.</p>
-            <div class="mb-4 flex items-center justify-between rounded-xl border border-white/5 bg-white/5 px-4 py-3">
-                <p class="text-sm text-gray-300">Total request 7 hari terakhir</p>
-                <p class="font-outfit text-lg font-bold text-white">{{ $aiTrend['total_last_7_days'] }}</p>
-            </div>
-            <div class="w-full relative h-64">
-                <canvas id="aiRequestsTrendChart"></canvas>
+            <p class="text-sm text-gray-400 mb-6">Grafik mock penggunaan 7 hari terakhir.</p>
+            <div class="w-full relative h-64 border border-dashed border-white/10 rounded-xl overflow-hidden flex items-center justify-center bg-white/5">
+                <p class="text-gray-500 font-medium text-sm">Area Chart / Grafik menyusul</p>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const ctx = document.getElementById('aiRequestsTrendChart');
-
-            if (!ctx) {
-                return;
-            }
-
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: @json($aiTrend['labels']),
-                    datasets: [{
-                        label: 'AI Requests',
-                        data: @json($aiTrend['data']),
-                        fill: true,
-                        tension: 0.35,
-                        borderWidth: 2,
-                        borderColor: 'rgba(96, 165, 250, 1)',
-                        backgroundColor: 'rgba(59, 130, 246, 0.16)',
-                        pointBackgroundColor: 'rgba(147, 197, 253, 1)',
-                        pointBorderColor: 'rgba(15, 23, 42, 1)',
-                        pointRadius: 4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0,
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.08)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: 'rgba(255, 255, 255, 0.9)'
-                            }
-                        }
-                    }
-                }
-            });
-        });
-    </script>
 </x-admin-layout>
