@@ -131,9 +131,11 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/profile', [ProfileController::class, 'adminEdit'])->name('admin.profile.edit');
     Route::get('/admin/monitoring-ai', [AdminController::class, 'monitoringAi'])->name('admin.monitoring-ai');
     Route::get('/admin/statistik-pembelajaran', [AdminController::class, 'statistikPembelajaran'])->name('admin.statistik-pembelajaran');
     Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+    Route::patch('/admin/users/{user}/plan', [AdminUserController::class, 'updatePlan'])->name('admin.users.plan');
     Route::patch('/admin/users/{user}/suspend', [AdminUserController::class, 'suspend'])->name('admin.users.suspend');
     Route::patch('/admin/users/{user}/activate', [AdminUserController::class, 'activate'])->name('admin.users.activate');
     Route::get('/admin/documents', [AdminDocumentController::class, 'index'])->name('admin.documents.index');
