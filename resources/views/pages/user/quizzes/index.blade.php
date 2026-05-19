@@ -5,7 +5,7 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
             <div>
-                <p class="user-kicker text-[11px] text-emerald-100/90">Quiz Arena</p>
+                <p class="user-kicker text-[11px] text-emerald-100/90">Arena Kuis</p>
                 <h2 class="mt-2 font-outfit font-bold text-2xl leading-tight soft-gradient-text">
                     {{ $quiz ? $quiz->title : 'Latihan Kuis' }}
                 </h2>
@@ -73,7 +73,7 @@
                 <h3 class="font-outfit text-2xl font-bold text-white mt-2">{{ $selectedMaterial->title }}</h3>
                 <p class="mt-3 text-slate-200/75">AI akan menyusun soal pilihan ganda dari konsep penting, dengan 4 opsi unik dan kunci jawaban yang divalidasi.</p>
                 @unless (auth()->user()->isPremium())
-                    <p class="mt-3 text-xs text-slate-300/55">Akun free dibatasi {{ config('services.openai.limits.content_free_per_day', 6) }} generate AI per hari untuk flashcard dan kuis.</p>
+                    <p class="mt-3 text-xs text-slate-300/55">Akun gratis dibatasi {{ config('services.openai.limits.content_free_per_day', 6) }} pembuatan AI per hari untuk kartu belajar dan kuis.</p>
                 @endunless
                 <form method="POST" action="{{ route('quiz.generate') }}" class="mt-6">
                     @csrf
@@ -93,7 +93,7 @@
                     <div class="flex flex-col gap-3 sm:flex-row">
                         <form method="POST" action="{{ route('quiz.reset', $quiz) }}">
                             @csrf
-                            <button type="submit" class="rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-2.5 text-sm text-white transition hover:bg-white/[0.14]">Reset</button>
+                            <button type="submit" class="rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-2.5 text-sm text-white transition hover:bg-white/[0.14]">Atur Ulang</button>
                         </form>
                         <form method="POST" action="{{ route('quiz.start', $quiz) }}">
                             @csrf
@@ -181,7 +181,7 @@
                     <form method="POST" action="{{ route('quiz.generate') }}" class="w-full lg:w-auto">
                         @csrf
                         <input type="hidden" name="material_id" value="{{ $selectedMaterial->id }}">
-                        <button type="submit" class="rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-2.5 text-sm text-white transition hover:bg-white/[0.14]">Generate Ulang</button>
+                        <button type="submit" class="rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-2.5 text-sm text-white transition hover:bg-white/[0.14]">Buat Ulang</button>
                     </form>
                 </div>
 
@@ -207,7 +207,7 @@
                     </form>
                     <form method="POST" action="{{ route('quiz.reset', $quiz) }}" class="w-full sm:w-auto">
                         @csrf
-                        <button type="submit" class="w-full rounded-2xl border border-white/10 bg-white/[0.08] px-6 py-3 text-sm font-medium text-white transition hover:bg-white/[0.14]">Reset Progress</button>
+                        <button type="submit" class="w-full rounded-2xl border border-white/10 bg-white/[0.08] px-6 py-3 text-sm font-medium text-white transition hover:bg-white/[0.14]">Atur Ulang Progres</button>
                     </form>
                 </div>
             </section>

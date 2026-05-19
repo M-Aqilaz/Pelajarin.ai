@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Lupa Password - Nalarin.ai</title>
+    <title>Lupa Kata Sandi - Nalarin.ai</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|outfit:500,600,700" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -46,7 +46,7 @@
                 </div>
                 <span class="font-outfit font-bold text-3xl tracking-tight text-white">Nalarin<span class="text-purple-400">.ai</span></span>
             </a>
-            <h2 class="font-outfit text-2xl font-bold text-white mt-2">Lupa Password?</h2>
+            <h2 class="font-outfit text-2xl font-bold text-white mt-2">Lupa Kata Sandi?</h2>
             <p class="text-gray-400 mt-2 text-sm px-4">Jangan khawatir. Masukkan email Anda dan kami akan mengirimkan tautan reset password.</p>
         </div>
 
@@ -62,7 +62,7 @@
             <form method="POST" action="{{ route('password.email') }}" class="space-y-6 relative z-10">
                 @csrf
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Alamat Email</label>
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Alamat Surel</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus class="w-full px-5 py-3.5 rounded-xl bg-gray-900/50 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all shadow-inner" placeholder="nama@email.com">
                     @error('email')
                         <p class="mt-2 text-sm text-red-400">{{ $message }}</p>

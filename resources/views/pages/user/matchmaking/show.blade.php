@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-            <p class="user-kicker text-[11px] text-fuchsia-100/90">Matched Session</p>
-            <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text md:text-3xl">Study Match</h2>
+            <p class="user-kicker text-[11px] text-fuchsia-100/90">Sesi Berpasangan</p>
+            <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text md:text-3xl">Kecocokan Belajar</h2>
             <p class="mt-2 text-sm text-slate-300/80">Topik: {{ $match->topic }}</p>
         </div>
     </x-slot>
@@ -27,8 +27,8 @@
     >
         <section class="feature-hero lg:col-span-2">
             <div class="max-w-3xl">
-                <p class="user-kicker text-[11px] text-fuchsia-100/90">Focused Pairing</p>
-                <p class="mt-3 text-sm text-slate-100/80">Sesi ini dibuat khusus untuk diskusi dua orang, jadi tampilannya saya jaga tetap intimate dan ringan dibaca selama percakapan berjalan.</p>
+                <p class="user-kicker text-[11px] text-fuchsia-100/90">Pasangan Fokus</p>
+                <p class="mt-3 text-sm text-slate-100/80">Sesi ini dibuat khusus untuk diskusi dua orang, jadi tampilannya dijaga tetap akrab dan ringan dibaca selama percakapan berjalan.</p>
             </div>
         </section>
 
@@ -97,10 +97,10 @@
                 <p class="mt-3 break-words text-sm text-slate-300/55">{{ $partner?->studyProfile?->bio }}</p>
             </div>
             <form method="POST" action="{{ route('matches.end', $match) }}">@csrf<button class="w-full rounded-xl border border-white/10 bg-white/[0.08] px-4 py-3 text-sm text-white">Akhiri Sesi</button></form>
-            <form method="POST" action="{{ route('matches.block', $match) }}">@csrf<button class="w-full rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-200">Block Partner</button></form>
+            <form method="POST" action="{{ route('matches.block', $match) }}">@csrf<button class="w-full rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-200">Blokir Partner</button></form>
             <form method="POST" action="{{ route('matches.report', $match) }}" class="space-y-3">
                 @csrf
-                <textarea name="reason" rows="4" class="glass-input min-h-[120px] w-full px-4 py-3" placeholder="Alasan report" required></textarea>
+                <textarea name="reason" rows="4" class="glass-input min-h-[120px] w-full px-4 py-3" placeholder="Alasan laporan" required></textarea>
                 <button class="w-full rounded-xl bg-amber-500/10 px-4 py-3 text-sm text-amber-100">Laporkan</button>
             </form>
         </aside>

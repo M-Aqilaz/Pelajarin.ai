@@ -10,7 +10,7 @@
     <div class="space-y-6">
         <section class="feature-hero">
             <div class="max-w-3xl">
-                <p class="user-kicker text-[11px] text-violet-100/90">Threaded Learning</p>
+                <p class="user-kicker text-[11px] text-violet-100/90">Pembelajaran Berutas</p>
                 <h3 class="mt-3 font-outfit text-2xl font-semibold text-white">Pisahkan obrolan berdasarkan materi agar diskusi AI tetap fokus.</h3>
                 <p class="mt-3 text-sm text-slate-100/80">Setiap thread bisa berdiri sendiri atau dikaitkan ke satu materi tertentu, jadi jawaban AI dan riwayat belajarmu tidak tercampur.</p>
             </div>

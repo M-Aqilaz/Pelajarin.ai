@@ -30,7 +30,7 @@
                     <div class="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                         <a href="{{ url('/') }}" class="user-primary-button px-6 py-3 text-sm">Kembali ke Beranda</a>
                         @auth
-                            <a href="{{ route('dashboard') }}" class="rounded-2xl border border-white/10 bg-white/[0.08] px-6 py-3 text-sm font-medium text-white transition hover:bg-white/[0.14]">Buka Dashboard</a>
+                            <a href="{{ route('dashboard') }}" class="rounded-2xl border border-white/10 bg-white/[0.08] px-6 py-3 text-sm font-medium text-white transition hover:bg-white/[0.14]">Buka Dasbor</a>
                         @else
                             <a href="{{ route('login') }}" class="rounded-2xl border border-white/10 bg-white/[0.08] px-6 py-3 text-sm font-medium text-white transition hover:bg-white/[0.14]">Masuk ke Akun</a>
                         @endauth

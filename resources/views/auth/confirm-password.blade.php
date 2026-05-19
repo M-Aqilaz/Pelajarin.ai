@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Konfirmasi Password - Nalarin.ai</title>
+    <title>Konfirmasi Kata Sandi - Nalarin.ai</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|outfit:500,600,700" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -46,7 +46,7 @@
                 </div>
                 <span class="font-outfit font-bold text-3xl tracking-tight text-white">Nalarin<span class="text-purple-400">.ai</span></span>
             </div>
-            <h2 class="font-outfit text-2xl font-bold text-white mt-2">Konfirmasi Password</h2>
+            <h2 class="font-outfit text-2xl font-bold text-white mt-2">Konfirmasi Kata Sandi</h2>
             <p class="text-gray-400 mt-2 text-sm px-4">Ini adalah area aman. Silakan konfirmasi password Anda sebelum melanjutkan.</p>
         </div>
 
@@ -56,7 +56,7 @@
             <form method="POST" action="{{ route('password.confirm') }}" class="space-y-6 relative z-10">
                 @csrf
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Password Anda</label>
+                    <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Kata Sandi Anda</label>
                     <input id="password" type="password" name="password" required autocomplete="current-password" class="w-full px-5 py-3.5 rounded-xl bg-gray-900/50 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all shadow-inner" placeholder="••••••••">
                     @error('password')
                         <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -64,7 +64,7 @@
                 </div>
 
                 <button type="submit" class="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-lg shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:-translate-y-1 transition-all duration-300">
-                    Konfirmasi Password
+                    Konfirmasi Kata Sandi
                 </button>
             </form>
         </div>

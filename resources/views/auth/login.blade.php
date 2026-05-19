@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login - Nalarin.ai</title>
+    <title>Masuk - Nalarin.ai</title>
     <link rel="icon" href="{{ asset('images/logo_nalarin_ai.png') }}" type="image/png">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|outfit:500,600,700" rel="stylesheet" />
@@ -64,7 +64,7 @@
     <div class="z-10 w-full max-w-md px-6 py-12 animate-float">
         <div class="mb-8 text-center">
             <a href="/" class="inline-flex items-center gap-2 mb-4 transition-transform duration-300 hover:scale-105">
-                <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="h-12 w-12 object-contain" alt="Nalarin.ai Logo">
+                <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="h-12 w-12 object-contain" alt="Logo Nalarin.ai">
                 <span class="font-outfit text-3xl font-bold tracking-tight text-white">Nalarin<span class="text-purple-400">.ai</span></span>
             </a>
             <h2 class="mt-2 font-outfit text-2xl font-bold text-white">Selamat Datang Kembali</h2>
@@ -134,7 +134,7 @@
 
             <div class="relative z-10 my-6 flex items-center gap-4">
                 <div class="h-px flex-1 bg-white/10"></div>
-                <span class="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">atau masuk dengan email</span>
+                <span class="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">atau masuk dengan surel</span>
                 <div class="h-px flex-1 bg-white/10"></div>
             </div>
 
@@ -142,7 +142,7 @@
                 @csrf
 
                 <div>
-                    <label for="email" class="mb-2 block text-sm font-medium text-gray-300">Email Address</label>
+                    <label for="email" class="mb-2 block text-sm font-medium text-gray-300">Alamat Surel</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="w-full rounded-xl border border-white/10 bg-gray-900/50 px-5 py-3.5 text-white placeholder-gray-500 shadow-inner transition-all focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="nama@email.com">
                     @error('email')
                         <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -151,9 +151,9 @@
 
                 <div>
                     <div class="mb-2 flex items-center justify-between gap-3">
-                        <label for="password" class="block text-sm font-medium text-gray-300">Password</label>
+                        <label for="password" class="block text-sm font-medium text-gray-300">Kata Sandi</label>
                         @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-xs font-semibold text-purple-400 transition-colors hover:text-purple-300">Lupa Password?</a>
+                            <a href="{{ route('password.request') }}" class="text-xs font-semibold text-purple-400 transition-colors hover:text-purple-300">Lupa Kata Sandi?</a>
                         @endif
                     </div>
                     <input id="password" type="password" name="password" required autocomplete="current-password" class="w-full rounded-xl border border-white/10 bg-gray-900/50 px-5 py-3.5 text-white placeholder-gray-500 shadow-inner transition-all focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="********">

@@ -50,7 +50,7 @@
                 </div>
                 <div class="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-5 py-3.5 max-w-[85%] prose prose-invert prose-sm">
                     <p class="text-gray-300 leading-relaxed m-0">
-                        <strong>Vacuum of Power</strong> atau <i>kekosongan kekuasaan</i> dalam konteks kemerdekaan Indonesia terjadi ketika Jepang menyerah tanpa syarat kepada Sekutu pada 14 Agustus 1945.
+                        <strong>Kekosongan kekuasaan</strong> dalam konteks kemerdekaan Indonesia terjadi ketika Jepang menyerah tanpa syarat kepada Sekutu pada 14 Agustus 1945.
                     </p>
                     <ul class="text-gray-300 text-sm mt-3 mb-0 space-y-1">
                         <li>Jepang secara resmi tidak lagi berkuasa atas Indonesia.</li>

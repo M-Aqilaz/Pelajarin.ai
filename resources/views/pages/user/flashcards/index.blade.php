@@ -5,15 +5,15 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
             </div>
             <div>
-                <p class="user-kicker text-[11px] text-pink-200/90">Flashcard Studio</p>
+                <p class="user-kicker text-[11px] text-pink-200/90">Studio Kartu Belajar</p>
                 <h2 class="mt-2 font-outfit font-bold text-2xl leading-tight soft-gradient-text">
-                    {{ $deck ? $deck->title : 'Smart Flashcards' }}
+                    {{ $deck ? $deck->title : 'Kartu Belajar Cerdas' }}
                 </h2>
                 <p class="mt-2 text-sm text-slate-300/80">
                     @if ($deck && $currentCard)
                         Kartu {{ $currentCard->sort_order }} dari {{ $deck->card_count }} | Ketuk kartu untuk membalik
                     @else
-                        Pilih materi dari hasil unggahan, lalu sistem akan membuat deck belajar yang bisa langsung direview.
+                        Pilih materi dari hasil unggahan, lalu sistem akan membuat set kartu belajar yang bisa langsung ditinjau.
                     @endif
                 </p>
             </div>
@@ -41,7 +41,7 @@
                 <div class="flex-1">
                     <p class="user-kicker text-[11px] text-pink-100/90">Sumber Materi</p>
                     <h3 class="mt-2 font-outfit text-xl font-semibold text-white">Gunakan materi yang sudah diunggah</h3>
-                    <p class="mt-2 text-sm text-slate-100/80">Deck disimpan per materi, jadi saat dibuka lagi kamu tidak perlu generate dari nol.</p>
+                    <p class="mt-2 text-sm text-slate-100/80">Set kartu disimpan per materi, jadi saat dibuka lagi kamu tidak perlu membuatnya dari awal.</p>
                 </div>
 
                 <form method="GET" action="{{ route('feature.flashcards') }}" class="flex w-full flex-col gap-3 sm:flex-row lg:w-auto">
@@ -59,20 +59,20 @@
         @if (! $selectedMaterial)
             <section class="glass-panel rounded-3xl border border-dashed border-white/10 p-6 text-center sm:p-10">
                 <p class="text-lg font-outfit text-white">Belum ada materi yang dipilih</p>
-                <p class="text-sm text-gray-400 mt-2">Pilih satu materi untuk membuat flashcards otomatis dari teks yang sudah kamu unggah.</p>
+                <p class="text-sm text-gray-400 mt-2">Pilih satu materi untuk membuat kartu belajar otomatis dari teks yang sudah kamu unggah.</p>
             </section>
         @elseif (! $deck)
             <section class="glass-panel accent-card-pink rounded-3xl p-6 sm:p-8">
                 <p class="user-kicker text-[11px] text-pink-100/90">Materi Terpilih</p>
                 <h3 class="font-outfit text-2xl font-bold text-white mt-2">{{ $selectedMaterial->title }}</h3>
-                <p class="mt-3 text-slate-200/75">Materi ini belum punya deck. AI akan membuat kartu istilah atau konsep yang jelas dengan definisi singkat dari teks materi.</p>
+                <p class="mt-3 text-slate-200/75">Materi ini belum punya set kartu. AI akan membuat kartu istilah atau konsep yang jelas dengan definisi singkat dari teks materi.</p>
                 @unless (auth()->user()->isPremium())
-                    <p class="mt-3 text-xs text-slate-300/55">Akun free dibatasi {{ config('services.openai.limits.content_free_per_day', 6) }} generate AI per hari untuk flashcard dan kuis.</p>
+                    <p class="mt-3 text-xs text-slate-300/55">Akun gratis dibatasi {{ config('services.openai.limits.content_free_per_day', 6) }} pembuatan AI per hari untuk kartu belajar dan kuis.</p>
                 @endunless
                 <form method="POST" action="{{ route('flashcards.generate') }}" class="mt-6">
                     @csrf
                     <input type="hidden" name="material_id" value="{{ $selectedMaterial->id }}">
-                    <button type="submit" class="user-primary-button px-6 py-3 text-sm">Buat Flashcards</button>
+                    <button type="submit" class="user-primary-button px-6 py-3 text-sm">Buat Kartu Belajar</button>
                 </form>
             </section>
         @else
@@ -80,7 +80,7 @@
                 <section class="glass-panel accent-card-violet rounded-[2rem] p-6 md:p-8">
                     <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
                         <div>
-                            <p class="text-xs uppercase tracking-[0.25em] text-pink-300">Deck Aktif</p>
+                            <p class="text-xs uppercase tracking-[0.25em] text-pink-300">Set Kartu Aktif</p>
                             <h3 class="font-outfit text-2xl font-bold text-white mt-2">{{ $deck->title }}</h3>
                             <p class="text-sm text-gray-400 mt-2">{{ $deck->description }}</p>
                         </div>
@@ -88,7 +88,7 @@
                         <form method="POST" action="{{ route('flashcards.generate') }}">
                             @csrf
                             <input type="hidden" name="material_id" value="{{ $selectedMaterial->id }}">
-                            <button type="submit" class="rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-2.5 text-sm text-white transition hover:bg-white/[0.14]">Generate Ulang</button>
+                            <button type="submit" class="rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-2.5 text-sm text-white transition hover:bg-white/[0.14]">Buat Ulang</button>
                         </form>
                     </div>
 
@@ -98,7 +98,7 @@
                             <p class="mt-3 text-2xl font-outfit font-bold text-white">{{ $deck->card_count }}</p>
                         </div>
                         <div class="glass-panel rounded-2xl p-4">
-                            <p class="text-xs uppercase tracking-wider text-gray-400">Siap Direview</p>
+                            <p class="text-xs uppercase tracking-wider text-gray-400">Siap Ditinjau</p>
                             <p class="mt-3 text-2xl font-outfit font-bold text-white">{{ $dueCount }}</p>
                         </div>
                         <div class="glass-panel rounded-2xl p-4">
@@ -113,7 +113,7 @@
                             <div x-data="{ flipped: false }" class="flashcard-perspective h-72 w-full max-w-xl cursor-pointer sm:h-80" @click="flipped = !flipped">
                                 <div class="flashcard-stack w-full h-full relative transition-transform duration-700 shadow-2xl" :class="flipped ? 'flashcard-rotated' : ''">
                                     <div class="flashcard-face absolute inset-0 w-full h-full glass-panel rounded-3xl border border-white/10 flex flex-col items-center justify-center p-8">
-                                        <p class="absolute top-6 left-6 text-xs font-bold tracking-wider text-pink-400 uppercase">Istilah / Front</p>
+                                        <p class="absolute top-6 left-6 text-xs font-bold tracking-wider text-pink-400 uppercase">Istilah / Depan</p>
                                         <svg class="absolute top-6 right-6 w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
                                         <div class="text-center">
                                             <p class="text-xs uppercase tracking-[0.3em] text-pink-300">{{ $currentCard->difficulty }}</p>
@@ -122,7 +122,7 @@
                                     </div>
 
                                     <div class="flashcard-face flashcard-rotated absolute inset-0 w-full h-full bg-gradient-to-br from-pink-600 to-purple-700 rounded-3xl border border-white/10 flex flex-col items-center justify-center p-8 shadow-[0_0_30px_rgba(219,39,119,0.3)]">
-                                        <p class="absolute top-6 left-6 text-xs font-bold tracking-wider text-pink-200 uppercase">Definisi / Back</p>
+                                        <p class="absolute top-6 left-6 text-xs font-bold tracking-wider text-pink-200 uppercase">Definisi / Belakang</p>
                                         <div class="text-center">
                                             <h3 class="mb-4 font-outfit text-xl font-bold italic text-white sm:text-2xl">"{{ $currentCard->back }}"</h3>
                                             @if ($currentCard->example)
@@ -172,7 +172,7 @@
                                         <p class="mt-2 text-sm text-gray-400">{{ \Illuminate\Support\Str::limit($card->back, 110) }}</p>
                                     </div>
                                     <span class="rounded-full px-2.5 py-1 text-[11px] font-semibold {{ $card->next_review_at === null || $card->next_review_at->isPast() ? 'bg-pink-500/20 text-pink-200' : 'bg-white/10 text-gray-300' }}">
-                                        {{ $card->next_review_at === null || $card->next_review_at->isPast() ? 'Due' : 'Scheduled' }}
+                                        {{ $card->next_review_at === null || $card->next_review_at->isPast() ? 'Jatuh Tempo' : 'Terjadwal' }}
                                     </span>
                                 </div>
                                 <div class="mt-3 flex items-center justify-between text-xs text-gray-500">

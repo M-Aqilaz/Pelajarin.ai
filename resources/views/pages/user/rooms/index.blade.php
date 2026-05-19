@@ -1,7 +1,7 @@
 ﻿<x-app-layout>
     <x-slot name="header">
         <div>
-            <p class="user-kicker text-[11px] text-cyan-100/90">Collaborative Rooms</p>
+            <p class="user-kicker text-[11px] text-cyan-100/90">Ruang Kolaboratif</p>
             <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text md:text-3xl">Group Chat Kelas</h2>
             <p class="mt-2 text-sm text-slate-300/80">Gabung room belajar publik atau buat room sendiri untuk cohort, kelas, dan komunitas belajar yang lebih hidup.</p>
         </div>
@@ -17,7 +17,7 @@
 
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1.15fr_0.85fr]">
         <section class="glass-panel accent-card-cyan overflow-hidden rounded-[1.75rem]">
-            <div class="border-b border-white/10 p-5"><h3 class="font-outfit text-lg font-semibold text-white">Daftar Room</h3></div>
+            <div class="border-b border-white/10 p-5"><h3 class="font-outfit text-lg font-semibold text-white">Daftar Ruang</h3></div>
             <div class="divide-y divide-white/10">
                 @forelse ($rooms as $room)
                     <div class="p-4">
@@ -41,7 +41,7 @@
 
         <section class="glass-panel accent-card-violet rounded-[1.75rem] p-5 md:p-6 space-y-6">
             <div>
-                <h3 class="font-outfit text-lg font-semibold text-white">Buat Room Baru</h3>
+                <h3 class="font-outfit text-lg font-semibold text-white">Buat Ruang Baru</h3>
                 <p class="mt-1 text-sm text-slate-300/70">Plan gratis dibatasi oleh quota room.</p>
             </div>
             @if (session('status'))
@@ -57,7 +57,7 @@
                 <textarea name="description" rows="4" placeholder="Deskripsi room" class="glass-input w-full px-4 py-3"></textarea>
                 <select name="visibility" class="glass-input w-full px-4 py-3"><option value="public">Public</option><option value="private">Private</option></select>
                 <input name="max_members" type="number" min="5" max="100" value="30" class="glass-input w-full px-4 py-3">
-                <button type="submit" class="user-primary-button w-full py-3">Buat Room</button>
+                <button type="submit" class="user-primary-button w-full py-3">Buat Ruang</button>
             </form>
         </section>
         </div>

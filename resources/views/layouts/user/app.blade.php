@@ -69,7 +69,7 @@
             <div class="flex h-full flex-col">
                 <div class="h-16 flex items-center justify-between px-4 border-b border-white/10">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
-                        <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-8 h-8 object-contain" alt="Nalarin.ai Logo">
+                        <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-8 h-8 object-contain" alt="Logo Nalarin.ai">
                         <span class="font-outfit font-bold text-lg soft-gradient-text">Nalarin.ai</span>
                     </a>
                     <button type="button" class="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-300 hover:bg-white/10" @click="mobileNavOpen = false">
@@ -80,9 +80,9 @@
                 <nav class="flex-1 overflow-y-auto px-4 py-5 space-y-2">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 {{ request()->routeIs('dashboard') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-300 hover:text-white hover:bg-white/5' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1h-5.5v-6h-5v6H4a1 1 0 01-1-1v-9.5z"></path></svg>
-                        <span>Dashboard</span>
+                        <span>Dasbor</span>
                     </a>
-                    <div class="pt-4 pb-2"><p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">AI Learning</p></div>
+                    <div class="pt-4 pb-2"><p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Pembelajaran AI</p></div>
                     <a href="{{ route('feature.upload') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 {{ request()->routeIs('feature.upload') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-300 hover:text-white hover:bg-white/5' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 16a4 4 0 01.88-7.903A5.5 5.5 0 0118.5 9.5h.5a3.5 3.5 0 010 7H7zm5-8v9m0 0l-3-3m3 3l3-3"></path></svg>
                         <span>Unggah Materi</span>
@@ -97,33 +97,33 @@
                     </a>
                     <a href="{{ route('feature.flashcards') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 {{ request()->routeIs('feature.flashcards') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-300 hover:text-white hover:bg-white/5' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7h10a2 2 0 012 2v8H10a2 2 0 00-2 2V7zm0 0V5a2 2 0 00-2-2H4v14a2 2 0 012-2h2"></path></svg>
-                        <span>Flashcards</span>
+                        <span>Kartu Belajar</span>
                     </a>
                     <a href="{{ route('feature.quiz') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 {{ request()->routeIs('feature.quiz') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-300 hover:text-white hover:bg-white/5' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.09 9a3 3 0 115.82 1c0 2-3 3-3 3m.09 4h.01M4 6.5l8-3 8 3v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9v-5z"></path></svg>
                         <span>Kuis</span>
                     </a>
-                    <div class="pt-4 pb-2"><p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Focus Section</p></div>
+                    <div class="pt-4 pb-2"><p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Bagian Fokus</p></div>
                     <a href="{{ route('feature.pomodoro') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 {{ request()->routeIs('feature.pomodoro') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-300 hover:text-white hover:bg-white/5' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l2.5 2.5M12 21a8 8 0 100-16 8 8 0 000 16zm-3-18h6"></path></svg>
                         <span>Pomodoro</span>
                     </a>
                     <a href="{{ route('feature.focus-planner') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 {{ request()->routeIs('feature.focus-planner') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-300 hover:text-white hover:bg-white/5' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7h8M8 12h8M8 17h5M6 3h12a1 1 0 011 1v16l-3-2-4 2-4-2-3 2V4a1 1 0 011-1z"></path></svg>
-                        <span>Focus Planner</span>
+                        <span>Perencana Fokus</span>
                     </a>
                     <a href="{{ route('feature.focus-insights') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 {{ request()->routeIs('feature.focus-insights') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-300 hover:text-white hover:bg-white/5' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 19h16M7 16V9m5 7V5m5 11v-4"></path></svg>
-                        <span>Focus Insights</span>
+                        <span>Insight Fokus</span>
                     </a>
-                    <div class="pt-4 pb-2"><p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Social Learning</p></div>
+                    <div class="pt-4 pb-2"><p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Belajar Sosial</p></div>
                     <a href="{{ route('rooms.index') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 {{ request()->routeIs('rooms.*') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-300 hover:text-white hover:bg-white/5' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5V10l-5-7-5 7v10h5m-5 0H7a2 2 0 01-2-2v-5m7 7v-4a2 2 0 00-2-2H8a2 2 0 00-2 2v4m0 0H2"></path></svg>
-                        <span>Group Chat Kelas</span>
+                        <span>Obrolan Grup Kelas</span>
                     </a>
                     <a href="{{ route('matchmaking.index') }}" class="flex items-center gap-3 rounded-xl px-3 py-3 {{ request()->routeIs('matchmaking.*', 'matches.*') ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-gray-300 hover:text-white hover:bg-white/5' }}">
                         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21s-6.5-4.35-8.5-8A4.9 4.9 0 014 6.7 4.8 4.8 0 017.6 5a4.7 4.7 0 014.4 2.7A4.7 4.7 0 0116.4 5 4.8 4.8 0 0120 6.7a4.9 4.9 0 01.5 6.3C18.5 16.65 12 21 12 21z"></path></svg>
-                        <span>Study Matching</span>
+                        <span>Pencocokan Belajar</span>
                     </a>
                 </nav>
 
@@ -131,7 +131,7 @@
                     <div class="rounded-2xl border border-white/10 bg-white/5 p-3">
                         <p class="text-sm font-medium text-white truncate">{{ Auth::user()->name }}</p>
                         <p class="text-xs text-gray-400 truncate">{{ Auth::user()->email }}</p>
-                        <p class="text-[10px] text-purple-300 mt-2 uppercase">Plan {{ Auth::user()->plan }} | Match {{ Auth::user()->match_credits }}</p>
+                        <p class="text-[10px] text-purple-300 mt-2 uppercase">Paket {{ Auth::user()->plan }} | Cocok {{ Auth::user()->match_credits }}</p>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <a href="{{ route('profile.edit') }}" class="rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-center text-xs text-gray-200">Profil</a>
@@ -154,7 +154,7 @@
                     <button type="button" class="rounded-xl border border-white/10 bg-white/5 p-2 text-gray-300 hover:bg-white/10" @click="mobileNavOpen = true">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
-                    <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-8 h-8 object-contain" alt="Nalarin.ai Logo">
+                    <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-8 h-8 object-contain" alt="Logo Nalarin.ai">
                 </div>
                 <div class="flex items-center gap-2">
                     <a href="{{ route('notifications.index') }}" class="relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/10 {{ request()->routeIs('notifications.*') ? 'ring-1 ring-cyan-300/60' : '' }}" aria-label="Notifikasi">
@@ -163,7 +163,7 @@
                             <span class="absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 py-0.5 text-[10px] font-semibold leading-none text-white">{{ $unreadNotificationCount > 99 ? '99+' : $unreadNotificationCount }}</span>
                         @endif
                     </a>
-                    <a href="{{ route('dashboard') }}" class="text-sm text-slate-200">Home</a>
+                    <a href="{{ route('dashboard') }}" class="text-sm text-slate-200">Beranda</a>
                 </div>
             </header>
 

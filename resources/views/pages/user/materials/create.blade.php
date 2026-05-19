@@ -25,7 +25,7 @@
             @endif
 
             <div class="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4 text-sm text-cyan-100">
-                Upload PDF, gambar, DOCX, PPTX, atau XLSX. Jika file berupa scan, sistem akan mencoba OCR dengan Tesseract lalu AI merapikan hasilnya menjadi ringkasan.
+                Unggah PDF, gambar, DOCX, PPTX, atau XLSX. Jika file berupa pindaian, sistem akan mencoba OCR dengan Tesseract lalu AI merapikan hasilnya menjadi ringkasan.
                 @unless (auth()->user()->isPremium())
                     Akun free dibatasi sampai {{ config('services.ocr.free_max_pages', 5) }} halaman OCR per PDF.
                 @endunless

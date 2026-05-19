@@ -4,7 +4,7 @@
             <h2 class="font-outfit font-bold text-2xl text-white leading-tight">
                 Manajemen Materi
             </h2>
-            <p class="text-sm text-zinc-400 mt-1">Pantau dan kelola semua materi yang diunggah oleh user.</p>
+            <p class="text-sm text-zinc-400 mt-1">Pantau dan kelola semua materi yang diunggah oleh pengguna.</p>
         </div>
     </x-slot>
 
@@ -20,7 +20,7 @@
                 <thead>
                     <tr class="border-b border-zinc-800 text-xs uppercase tracking-wider text-zinc-500 font-semibold">
                         <th class="py-3 px-4">Judul Materi</th>
-                        <th class="py-3 px-4">Pengunggah (User)</th>
+                        <th class="py-3 px-4">Pengunggah</th>
                         <th class="py-3 px-4">Status</th>
                         <th class="py-3 px-4">Tanggal Unggah</th>
                         <th class="py-3 px-4 text-right">Aksi</th>
@@ -30,7 +30,7 @@
                     @forelse($documents as $doc)
                         <tr class="hover:bg-zinc-800/30 transition">
                             <td class="py-4 px-4 font-medium text-zinc-200">{{ $doc->title }}</td>
-                            <td class="py-4 px-4 text-zinc-400">{{ $doc->user->name ?? 'User Dihapus' }}</td>
+                            <td class="py-4 px-4 text-zinc-400">{{ $doc->user->name ?? 'Pengguna Dihapus' }}</td>
                             <td class="py-4 px-4">
                                 @php
                                     $statusColors = [
@@ -41,7 +41,7 @@
                                     $color = $statusColors[$doc->status] ?? 'bg-zinc-500/10 text-zinc-400';
                                 @endphp
                                 <span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide {{ $color }}">
-                                    {{ $doc->status }}
+                                    {{ ['processed' => 'diproses', 'uploaded' => 'diunggah', 'failed' => 'gagal'][$doc->status] ?? $doc->status }}
                                 </span>
                             </td>
                             <td class="py-4 px-4 text-zinc-500">{{ $doc->created_at->format('d M Y H:i') }}</td>
@@ -79,16 +79,16 @@
                 <div class="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4 space-y-3">
                     <div>
                         <p class="font-medium text-zinc-200">{{ $doc->title }}</p>
-                        <p class="text-sm text-zinc-400 mt-1">{{ $doc->user->name ?? 'User Dihapus' }}</p>
+                        <p class="text-sm text-zinc-400 mt-1">{{ $doc->user->name ?? 'Pengguna Dihapus' }}</p>
                     </div>
                     <div class="flex items-center justify-between gap-3 text-sm">
                         <span class="text-zinc-500">Status</span>
                         <span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide {{ $color }}">
-                            {{ $doc->status }}
+                            {{ ['processed' => 'diproses', 'uploaded' => 'diunggah', 'failed' => 'gagal'][$doc->status] ?? $doc->status }}
                         </span>
                     </div>
                     <div class="flex items-center justify-between gap-3 text-sm">
-                        <span class="text-zinc-500">Tanggal Upload</span>
+                        <span class="text-zinc-500">Tanggal Unggah</span>
                         <span class="text-zinc-300 text-right">{{ $doc->created_at->format('d M Y H:i') }}</span>
                     </div>
                     <form action="{{ route('admin.documents.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Hapus materi ini secara permanen? Ringkasan, chat, flashcards, dan kuis terkait juga akan ikut terhapus.');">

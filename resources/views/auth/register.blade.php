@@ -66,7 +66,7 @@
 
                 <!-- Email -->
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-300 mb-1.5">Alamat Email</label>
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-1.5">Alamat Surel</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username" class="w-full px-5 py-3 rounded-xl bg-gray-900/50 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all shadow-inner" placeholder="nama@email.com">
                     @error('email')
                         <p class="mt-1.5 text-sm text-red-400">{{ $message }}</p>
@@ -75,7 +75,7 @@
 
                 <!-- Password -->
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-300 mb-1.5">Password</label>
+                    <label for="password" class="block text-sm font-medium text-gray-300 mb-1.5">Kata Sandi</label>
                     <input id="password" type="password" name="password" required autocomplete="new-password" class="w-full px-5 py-3 rounded-xl bg-gray-900/50 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all shadow-inner" placeholder="••••••••">
                     @error('password')
                         <p class="mt-1.5 text-sm text-red-400">{{ $message }}</p>
@@ -84,7 +84,7 @@
 
                 <!-- Confirm Password -->
                 <div>
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-300 mb-1.5">Konfirmasi Password</label>
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-300 mb-1.5">Konfirmasi Kata Sandi</label>
                     <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" class="w-full px-5 py-3 rounded-xl bg-gray-900/50 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all shadow-inner" placeholder="••••••••">
                     @error('password_confirmation')
                         <p class="mt-1.5 text-sm text-red-400">{{ $message }}</p>

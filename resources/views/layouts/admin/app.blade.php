@@ -84,18 +84,18 @@
                             <li>
                                 <a href="{{ route('admin.dashboard') }}" class="fi-sidebar-item {{ request()->routeIs('admin.dashboard') ? 'fi-sidebar-item-active' : 'fi-sidebar-item-inactive' }}">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                                    <span>Dashboard</span>
+                                    <span>Dasbor</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <div class="fi-group-label">Management</div>
+                        <div class="fi-group-label">Manajemen</div>
                         <ul class="space-y-2">
                             <li>
                                 <a href="{{ route('admin.users.index') }}" class="fi-sidebar-item {{ request()->routeIs('admin.users.*') ? 'fi-sidebar-item-active' : 'fi-sidebar-item-inactive' }}">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                                    <span>Manajemen User</span>
+                                    <span>Manajemen Pengguna</span>
                                 </a>
                             </li>
                             <li>
@@ -107,12 +107,12 @@
                         </ul>
                     </div>
                     <div>
-                        <div class="fi-group-label">Analytics</div>
+                        <div class="fi-group-label">Analitik</div>
                         <ul class="space-y-2">
                             <li>
                                 <a href="{{ route('admin.monitoring-ai') }}" class="fi-sidebar-item {{ request()->routeIs('admin.monitoring-ai') ? 'fi-sidebar-item-active' : 'fi-sidebar-item-inactive' }}">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                                    <span>Monitoring AI Usage</span>
+                                    <span>Pemantauan Penggunaan AI</span>
                                 </a>
                             </li>
                             <li>
@@ -140,13 +140,13 @@
                     <div class="mt-3 space-y-2 rounded-2xl border border-zinc-800 bg-zinc-950/95 p-2 shadow-2xl">
                         <a href="{{ route('admin.profile.edit') }}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-zinc-200 transition hover:bg-zinc-800">
                             <svg class="h-4 w-4 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.862 4.487l1.651-1.651a2.121 2.121 0 113 3l-9.193 9.193a4.5 4.5 0 01-1.897 1.13L7 17l.84-3.423a4.5 4.5 0 011.13-1.897l7.892-7.193z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 7.125L16.875 4.5M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path></svg>
-                            <span>Edit Profile</span>
+                            <span>Edit Profil</span>
                         </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-zinc-300 transition hover:bg-zinc-800">
                                 <svg class="h-4 w-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"></path></svg>
-                                <span>Logout</span>
+                                <span>Keluar</span>
                             </button>
                         </form>
                     </div>
@@ -168,19 +168,19 @@
                         <li>
                             <a href="{{ route('admin.dashboard') }}" class="fi-sidebar-item {{ request()->routeIs('admin.dashboard') ? 'fi-sidebar-item-active' : 'fi-sidebar-item-inactive' }}">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                                <span>Dashboard</span>
+                                <span>Dasbor</span>
                             </a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <div class="fi-group-label">Management</div>
+                    <div class="fi-group-label">Manajemen</div>
                     <ul class="space-y-1">
                         <li>
                             <a href="{{ route('admin.users.index') }}" class="fi-sidebar-item {{ request()->routeIs('admin.users.*') ? 'fi-sidebar-item-active' : 'fi-sidebar-item-inactive' }}">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                                <span>Manajemen User</span>
+                                <span>Manajemen Pengguna</span>
                             </a>
                         </li>
                         <li>
@@ -193,12 +193,12 @@
                 </div>
 
                 <div>
-                    <div class="fi-group-label">Analytics</div>
+                    <div class="fi-group-label">Analitik</div>
                     <ul class="space-y-1">
                         <li>
                             <a href="{{ route('admin.monitoring-ai') }}" class="fi-sidebar-item {{ request()->routeIs('admin.monitoring-ai') ? 'fi-sidebar-item-active' : 'fi-sidebar-item-inactive' }}">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                                <span>Monitoring AI Usage</span>
+                                <span>Pemantauan Penggunaan AI</span>
                             </a>
                         </li>
                         <li>
@@ -226,13 +226,13 @@
                 <div class="absolute bottom-[5.75rem] left-4 right-4 z-30 rounded-2xl border border-zinc-800 bg-zinc-950/95 p-2 shadow-2xl shadow-black/40">
                     <a href="{{ route('admin.profile.edit') }}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-zinc-200 transition hover:bg-zinc-800">
                         <svg class="h-4 w-4 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.862 4.487l1.651-1.651a2.121 2.121 0 113 3l-9.193 9.193a4.5 4.5 0 01-1.897 1.13L7 17l.84-3.423a4.5 4.5 0 011.13-1.897l7.892-7.193z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 7.125L16.875 4.5M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path></svg>
-                        <span>Edit Profile</span>
+                        <span>Edit Profil</span>
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-zinc-300 transition hover:bg-zinc-800">
                             <svg class="h-4 w-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"></path></svg>
-                            <span>Logout</span>
+                            <span>Keluar</span>
                         </button>
                     </form>
                 </div>
@@ -247,7 +247,7 @@
                     </button>
                     <div class="w-8 h-8 rounded bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg">N</div>
                 </div>
-                <a href="{{ route('admin.dashboard') }}" class="text-sm text-zinc-300">Dashboard</a>
+                <a href="{{ route('admin.dashboard') }}" class="text-sm text-zinc-300">Dasbor</a>
             </header>
 
             @isset($header)

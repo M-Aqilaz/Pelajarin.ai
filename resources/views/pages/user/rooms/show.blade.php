@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-            <p class="user-kicker text-[11px] text-cyan-100/90">Room Live Chat</p>
+            <p class="user-kicker text-[11px] text-cyan-100/90">Obrolan Langsung Ruang</p>
             <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text md:text-3xl">{{ $room->name }}</h2>
             <p class="mt-2 text-sm text-slate-300/80">{{ $room->topic }} | {{ $room->visibility }} | {{ $room->members->count() }} anggota</p>
         </div>
@@ -95,7 +95,7 @@
                     <div class="rounded-2xl border border-amber-500/20 bg-amber-500/10 p-4 text-sm text-amber-100">
                         Kamu bisa membaca percakapan room publik ini, tetapi harus join dulu untuk ikut mengirim pesan.
                     </div>
-                    <button type="submit" class="user-primary-button inline-flex w-full px-6 py-3 sm:w-auto">Gabung Room</button>
+                    <button type="submit" class="user-primary-button inline-flex w-full px-6 py-3 sm:w-auto">Gabung Ruang</button>
                 </form>
             @endif
         </section>

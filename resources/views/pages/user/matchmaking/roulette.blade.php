@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-            <p class="user-kicker text-[11px] text-fuchsia-100/90">Study Roulette</p>
+            <p class="user-kicker text-[11px] text-fuchsia-100/90">Roulette Belajar</p>
             <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text md:text-3xl">Cari Partner Secepat Mungkin</h2>
-            <p class="mt-2 text-sm text-slate-300/80">Mode ini dibuat seperti antrean cepat. Tidak pakai topik wajib, fokusnya masuk, match, ngobrol, lalu next kalau perlu.</p>
+            <p class="mt-2 text-sm text-slate-300/80">Mode ini dibuat seperti antrean cepat. Tidak memakai topik wajib; fokusnya masuk, cocok, mengobrol, lalu lanjut ke partner berikutnya kalau perlu.</p>
         </div>
     </x-slot>
 
@@ -13,29 +13,29 @@
         <section class="feature-hero">
             <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
                 <div class="max-w-3xl">
-                    <p class="user-kicker text-[11px] text-fuchsia-100/90">Quick Match</p>
+                    <p class="user-kicker text-[11px] text-fuchsia-100/90">Cocok Cepat</p>
                     <h3 class="mt-3 font-outfit text-2xl font-semibold text-white">Masuk antrean, temukan partner, lanjutkan atau lompat ke partner berikutnya.</h3>
-                    <p class="mt-3 text-sm text-slate-100/80">Alur ini saya pisahkan dari matchmaking biasa supaya experience-nya terasa seperti mode game lobby, bukan formulir cari teman.</p>
+                    <p class="mt-3 text-sm text-slate-100/80">Alur ini dipisahkan dari pencocokan biasa supaya pengalamannya terasa seperti lobi permainan, bukan formulir pencarian teman.</p>
                 </div>
                 <div class="flex flex-wrap gap-3">
                     @if ($activeMatch)
                         <form method="POST" action="{{ route('matchmaking.roulette.next') }}">
                             @csrf
-                            <button class="inline-flex h-12 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/15">Next</button>
+                            <button class="inline-flex h-12 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/15">Berikutnya</button>
                         </form>
                         <form method="POST" action="{{ route('matchmaking.roulette.stop') }}">
                             @csrf
-                            <button class="inline-flex h-12 items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-400/10 px-5 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/15">Stop</button>
+                            <button class="inline-flex h-12 items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-400/10 px-5 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/15">Berhenti</button>
                         </form>
                     @elseif ($queue)
                         <form method="POST" action="{{ route('matchmaking.roulette.stop') }}">
                             @csrf
-                            <button class="inline-flex h-12 items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-400/10 px-5 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/15">Stop Search</button>
+                            <button class="inline-flex h-12 items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-400/10 px-5 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/15">Hentikan Pencarian</button>
                         </form>
                     @else
                         <form method="POST" action="{{ route('matchmaking.roulette.start') }}">
                             @csrf
-                            <button class="user-primary-button inline-flex h-12 items-center justify-center px-5 text-sm font-semibold">Start Roulette</button>
+                            <button class="user-primary-button inline-flex h-12 items-center justify-center px-5 text-sm font-semibold">Mulai Roulette</button>
                         </form>
                     @endif
                 </div>
@@ -69,7 +69,7 @@
                 <section class="glass-panel accent-card-pink rounded-[1.75rem] p-5 md:p-6">
                     <div class="flex flex-col gap-3 border-b border-white/10 pb-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <p class="user-kicker text-[11px] text-fuchsia-100/90">Live Match</p>
+                            <p class="user-kicker text-[11px] text-fuchsia-100/90">Kecocokan Aktif</p>
                             <h3 class="mt-2 font-outfit text-xl font-semibold text-white">{{ $partner?->name ?? 'Partner tidak tersedia' }}</h3>
                             <p class="mt-1 text-sm text-slate-300/70">{{ $partner?->studyProfile?->primary_subject ?? 'Partner belum isi mapel utama' }}</p>
                         </div>
@@ -130,7 +130,7 @@
 
                 <aside class="glass-panel accent-card-violet rounded-[1.75rem] p-5 md:p-6">
                     <div>
-                        <p class="user-kicker text-[11px] text-fuchsia-100/90">Partner Snapshot</p>
+                        <p class="user-kicker text-[11px] text-fuchsia-100/90">Ringkasan Partner</p>
                         <h3 class="mt-2 font-outfit text-xl font-semibold text-white">{{ $partner?->name ?? 'Partner tidak tersedia' }}</h3>
                         <p class="mt-1 text-sm text-slate-300/70">{{ $partner?->studyProfile?->education_level ?? 'Jenjang belum diisi' }}</p>
                     </div>
@@ -141,7 +141,7 @@
                             <p class="mt-2 text-sm text-white">{{ $partner?->studyProfile?->primary_subject ?? 'Belum ada data' }}</p>
                         </div>
                         <div class="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
-                            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500">Goal</p>
+                            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500">Tujuan</p>
                             <p class="mt-2 text-sm text-white">{{ $partner?->studyProfile?->goal ?? 'Belum ada data' }}</p>
                         </div>
                         <div class="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
@@ -153,15 +153,15 @@
                     <div class="mt-5 grid gap-3">
                         <form method="POST" action="{{ route('matchmaking.roulette.next') }}">
                             @csrf
-                            <button class="inline-flex h-12 w-full items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/15">Next</button>
+                            <button class="inline-flex h-12 w-full items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/15">Berikutnya</button>
                         </form>
                         <form method="POST" action="{{ route('matchmaking.roulette.stop') }}">
                             @csrf
-                            <button class="inline-flex h-12 w-full items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-400/10 px-5 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/15">Stop</button>
+                            <button class="inline-flex h-12 w-full items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-400/10 px-5 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/15">Berhenti</button>
                         </form>
                         <form method="POST" action="{{ route('matches.block', $activeMatch) }}">
                             @csrf
-                            <button class="inline-flex h-12 w-full items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-5 text-sm font-medium text-white transition hover:bg-white/[0.08]">Block Partner</button>
+                            <button class="inline-flex h-12 w-full items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-5 text-sm font-medium text-white transition hover:bg-white/[0.08]">Blokir Partner</button>
                         </form>
                     </div>
                 </aside>
@@ -171,11 +171,11 @@
                 <section class="glass-panel accent-card-pink rounded-[1.75rem] p-5 md:p-6">
                     <div class="space-y-5">
                         <div>
-                            <p class="user-kicker text-[11px] text-fuchsia-100/90">Queue State</p>
+                            <p class="user-kicker text-[11px] text-fuchsia-100/90">Status Antrean</p>
                             <h3 class="mt-2 font-outfit text-2xl font-semibold text-white">{{ $queue ? 'Sedang mencari partner' : 'Belum masuk antrean' }}</h3>
                             <p class="mt-2 text-sm text-slate-300/75">
                                 @if ($queue)
-                                    Sistem sedang mencari pengguna lain yang juga masuk ke quick-match queue.
+                                    Sistem sedang mencari pengguna lain yang juga masuk ke antrean cocok cepat.
                                 @else
                                     Masuk ke antrean cepat untuk bertemu partner belajar baru tanpa mengisi topik wajib.
                                 @endif
@@ -185,44 +185,44 @@
                         <div class="grid gap-4 sm:grid-cols-3">
                             <div class="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
                                 <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500">Mode</p>
-                                <p class="mt-2 text-sm text-white">Quick Match</p>
+                                <p class="mt-2 text-sm text-white">Cocok Cepat</p>
                             </div>
                             <div class="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
                                 <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500">Kuota</p>
                                 <p class="mt-2 text-sm text-white">{{ auth()->user()->match_credits }} tersisa</p>
                             </div>
                             <div class="rounded-2xl border border-white/10 bg-slate-950/45 p-4">
-                                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500">Queue</p>
-                                <p class="mt-2 text-sm text-white">{{ $queue ? optional($queue->expires_at)->format('H:i') : 'Idle' }}</p>
+                                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500">Antrean</p>
+                                <p class="mt-2 text-sm text-white">{{ $queue ? optional($queue->expires_at)->format('H:i') : 'Tidak aktif' }}</p>
                             </div>
                         </div>
 
                         <div class="rounded-2xl border border-white/10 bg-slate-950/45 p-4 text-sm leading-6 text-slate-300/80">
-                            Pastikan profil matchmaking aktif. Sistem tetap memakai blokir user dan kuota plan yang sudah ada.
+                            Pastikan profil pencocokan aktif. Sistem tetap memakai daftar blokir pengguna dan kuota paket yang sudah ada.
                         </div>
 
                         @if ($queue)
                             <form method="POST" action="{{ route('matchmaking.roulette.stop') }}">
                                 @csrf
-                                <button class="inline-flex h-12 w-full items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-400/10 px-5 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/15 sm:w-auto">Stop Search</button>
+                                <button class="inline-flex h-12 w-full items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-400/10 px-5 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/15 sm:w-auto">Hentikan Pencarian</button>
                             </form>
                         @else
                             <form method="POST" action="{{ route('matchmaking.roulette.start') }}">
                                 @csrf
-                                <button class="user-primary-button inline-flex h-12 w-full items-center justify-center px-5 text-sm font-semibold sm:w-auto">Start Roulette</button>
+                                <button class="user-primary-button inline-flex h-12 w-full items-center justify-center px-5 text-sm font-semibold sm:w-auto">Mulai Roulette</button>
                             </form>
                         @endif
                     </div>
                 </section>
 
                 <aside class="glass-panel accent-card-violet rounded-[1.75rem] p-5 md:p-6">
-                    <p class="user-kicker text-[11px] text-fuchsia-100/90">Mode Rules</p>
+                    <p class="user-kicker text-[11px] text-fuchsia-100/90">Aturan Mode</p>
                     <div class="mt-4 space-y-3 text-sm leading-6 text-slate-300/80">
-                        <p>Tekan `Start` untuk masuk antrean.</p>
-                        <p>Tekan `Next` untuk menutup partner sekarang dan langsung mencari partner baru.</p>
-                        <p>Tekan `Stop` untuk keluar dari antrean atau menutup sesi aktif.</p>
+                        <p>Tekan Mulai untuk masuk antrean.</p>
+                        <p>Tekan Berikutnya untuk menutup partner sekarang dan langsung mencari partner baru.</p>
+                        <p>Tekan Berhenti untuk keluar dari antrean atau menutup sesi aktif.</p>
                     </div>
-                    <a href="{{ route('matchmaking.index') }}" class="mt-5 inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-sm font-medium text-white transition hover:bg-white/[0.08]">Kembali ke Matchmaking</a>
+                    <a href="{{ route('matchmaking.index') }}" class="mt-5 inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-sm font-medium text-white transition hover:bg-white/[0.08]">Kembali ke Pencocokan</a>
                 </aside>
             </div>
         @endif

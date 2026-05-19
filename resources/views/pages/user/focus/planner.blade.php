@@ -7,8 +7,8 @@
                 </svg>
             </div>
             <div>
-                <p class="user-kicker text-[11px] text-cyan-100/90">Focus Section</p>
-                <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text">Focus Planner</h2>
+                <p class="user-kicker text-[11px] text-cyan-100/90">Bagian Fokus</p>
+                <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text">Perencana Fokus</h2>
             </div>
         </div>
     </x-slot>
@@ -18,28 +18,28 @@
             <div class="absolute inset-y-0 right-0 w-48 rounded-full bg-cyan-400/15 blur-3xl"></div>
             <div class="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div class="max-w-2xl">
-                    <p class="user-kicker text-cyan-100/90">Daily Planning</p>
+                    <p class="user-kicker text-cyan-100/90">Perencanaan Harian</p>
                     <h1 class="mt-3 font-outfit text-3xl font-semibold tracking-tight text-white md:text-4xl">
                         Atur ritme belajar sebelum timer dimulai.
                     </h1>
                     <p class="mt-4 max-w-xl text-sm leading-6 text-slate-200/80">
-                        Saran saya untuk fitur fokus yang paling berguna saat ini: prioritas harian, blok deep work yang singkat, dan target sesi yang realistis. Tiga hal ini paling cepat meningkatkan disiplin belajar tanpa bikin halaman terlalu rumit.
+                        Saran untuk fitur fokus yang paling berguna saat ini: prioritas harian, blok kerja mendalam yang singkat, dan target sesi yang realistis. Tiga hal ini paling cepat meningkatkan disiplin belajar tanpa membuat halaman terlalu rumit.
                     </p>
                 </div>
 
                 <div class="grid gap-3 sm:grid-cols-3 lg:w-[28rem]">
                     <div class="rounded-3xl border border-white/10 bg-slate-950/45 p-4">
-                        <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Readiness</p>
+                        <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Kesiapan</p>
                         <p class="mt-3 font-outfit text-3xl text-white"><span x-text="readinessPercent"></span>%</p>
                         <p class="mt-2 text-xs text-slate-400" x-text="readinessLabel"></p>
                     </div>
                     <div class="rounded-3xl border border-white/10 bg-slate-950/45 p-4">
-                        <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Plan health</p>
+                        <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Kesehatan Rencana</p>
                         <p class="mt-3 font-outfit text-3xl text-white" x-text="plannerHealthLabel"></p>
-                        <p class="mt-2 text-xs text-slate-400"><span x-text="highPriorityTasksCount"></span> high priority aktif</p>
+                        <p class="mt-2 text-xs text-slate-400"><span x-text="highPriorityTasksCount"></span> prioritas tinggi aktif</p>
                     </div>
                     <div class="rounded-3xl border border-white/10 bg-slate-950/45 p-4">
-                        <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Focus load</p>
+                        <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Beban Fokus</p>
                         <p class="mt-3 font-outfit text-3xl text-white" x-text="focusLoadLabel"></p>
                         <p class="mt-2 text-xs text-slate-400"><span x-text="totalBlockMinutes"></span> menit terjadwal</p>
                     </div>
@@ -52,7 +52,7 @@
                 <div class="glass-panel-strong rounded-[30px] p-5 md:p-6">
                     <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                         <div class="space-y-2">
-                            <p class="user-kicker">Plan Setup</p>
+                            <p class="user-kicker">Pengaturan Rencana</p>
                             <h3 class="font-outfit text-2xl font-semibold text-white">Kerangka fokus harian</h3>
                             <p class="text-sm text-slate-300/80">Buat target sederhana yang benar-benar bisa dieksekusi hari ini.</p>
                         </div>
@@ -61,7 +61,7 @@
                             @click="resetPlanner()"
                             class="inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-sm font-medium text-slate-100 transition hover:bg-white/[0.06]"
                         >
-                            Reset Planner
+                            Atur Ulang Rencana
                         </button>
                     </div>
 
@@ -75,7 +75,7 @@
                             <input x-model.number="targetSessions" @change="persistState()" type="number" min="1" max="12" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white">
                         </label>
                         <label class="space-y-2">
-                            <span class="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">Prime Time</span>
+                            <span class="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">Waktu Utama</span>
                             <input x-model="energyLabel" @input.debounce.300ms="persistState()" type="text" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white" placeholder="Pagi, siang, atau malam">
                         </label>
                     </div>
@@ -86,11 +86,11 @@
                             <input x-model.number="distractionCap" @change="persistState()" type="number" min="0" max="8" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white">
                         </label>
                         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
-                            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Quick template</p>
+                            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Templat Cepat</p>
                             <div class="mt-3 flex flex-wrap gap-2">
                                 <button type="button" @click="applyTemplate('exam')" class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-medium text-cyan-100 transition hover:bg-cyan-400/15">Sprint Ujian</button>
-                                <button type="button" @click="applyTemplate('revision')" class="rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-xs font-medium text-violet-100 transition hover:bg-violet-400/15">Review Materi</button>
-                                <button type="button" @click="applyTemplate('project')" class="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-xs font-medium text-emerald-100 transition hover:bg-emerald-400/15">Tugas / Project</button>
+                                <button type="button" @click="applyTemplate('revision')" class="rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-xs font-medium text-violet-100 transition hover:bg-violet-400/15">Tinjau Materi</button>
+                                <button type="button" @click="applyTemplate('project')" class="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-xs font-medium text-emerald-100 transition hover:bg-emerald-400/15">Tugas / Proyek</button>
                             </div>
                         </div>
                     </div>
@@ -99,11 +99,11 @@
                 <div class="glass-panel-strong rounded-[30px] p-5 md:p-6">
                     <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                         <div>
-                            <p class="user-kicker">Priority Tasks</p>
-                            <h3 class="mt-2 font-outfit text-2xl font-semibold text-white">Top task hari ini</h3>
+                            <p class="user-kicker">Tugas Prioritas</p>
+                            <h3 class="mt-2 font-outfit text-2xl font-semibold text-white">Tugas utama hari ini</h3>
                         </div>
                         <p class="text-sm text-slate-400">
-                            <span x-text="completedTasksCount"></span> selesai dari <span x-text="tasks.length"></span> task
+                            <span x-text="completedTasksCount"></span> selesai dari <span x-text="tasks.length"></span> tugas
                         </p>
                     </div>
 
@@ -111,25 +111,25 @@
                         <input x-model="newTaskTitle" type="text" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white" placeholder="Contoh: pahami 2 subbab utama">
                         <input x-model.number="newTaskEstimate" type="number" min="1" max="6" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white" placeholder="Sesi">
                         <select x-model="newTaskPriority" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white">
-                            <option value="high">Priority High</option>
-                            <option value="medium">Priority Medium</option>
-                            <option value="low">Priority Low</option>
+                            <option value="high">Prioritas Tinggi</option>
+                            <option value="medium">Prioritas Sedang</option>
+                            <option value="low">Prioritas Rendah</option>
                         </select>
                         <select x-model="newTaskCategory" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white">
-                            <option value="concept">Concept</option>
-                            <option value="practice">Practice</option>
-                            <option value="review">Review</option>
-                            <option value="project">Project</option>
+                            <option value="concept">Konsep</option>
+                            <option value="practice">Latihan</option>
+                            <option value="review">Tinjauan</option>
+                            <option value="project">Proyek</option>
                         </select>
                         <button type="button" @click="addTask()" class="user-primary-button h-12 rounded-2xl px-5 text-sm font-semibold text-slate-950">
-                            Tambah Task
+                            Tambah Tugas
                         </button>
                     </div>
 
                     <div class="mt-6 space-y-3">
                         <template x-if="!activeTasks.length">
                             <div class="rounded-3xl border border-dashed border-white/10 bg-slate-950/35 px-5 py-8 text-center text-sm text-slate-400">
-                                Belum ada task. Mulai dari 2-3 prioritas saja supaya planner tetap realistis.
+                                Belum ada tugas. Mulai dari 2-3 prioritas saja supaya rencana tetap realistis.
                             </div>
                         </template>
 
@@ -152,10 +152,10 @@
                                     <div>
                                         <p class="text-sm font-medium" :class="task.completed ? 'text-slate-400 line-through' : 'text-white'" x-text="task.title"></p>
                                         <div class="mt-2 flex flex-wrap gap-2">
-                                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-400" x-text="task.category"></span>
+                                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-400" x-text="taskCategoryLabel(task.category)"></span>
                                             <span class="rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.18em]"
                                                 :class="task.priority === 'high' ? 'border border-rose-400/20 bg-rose-400/10 text-rose-100' : (task.priority === 'medium' ? 'border border-amber-400/20 bg-amber-400/10 text-amber-100' : 'border border-emerald-400/20 bg-emerald-400/10 text-emerald-100')"
-                                                x-text="task.priority">
+                                                x-text="taskPriorityLabel(task.priority)">
                                             </span>
                                             <span class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-cyan-100">
                                                 <span x-text="task.estimate"></span> sesi
@@ -185,7 +185,7 @@
 
                     <div class="mt-6" x-show="completedTasks.length">
                         <div class="mb-3 flex items-center justify-between gap-3">
-                            <p class="user-kicker">Task Selesai</p>
+                            <p class="user-kicker">Tugas Selesai</p>
                             <p class="text-xs text-slate-500"><span x-text="completedTasks.length"></span> item selesai</p>
                         </div>
                         <div class="space-y-3">
@@ -200,8 +200,8 @@
                                         <div>
                                             <p class="text-sm font-medium text-slate-300 line-through" x-text="task.title"></p>
                                             <div class="mt-2 flex flex-wrap gap-2">
-                                                <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-400" x-text="task.category"></span>
-                                                <span class="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-emerald-100">done</span>
+                                                <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-400" x-text="taskCategoryLabel(task.category)"></span>
+                                                <span class="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-emerald-100">selesai</span>
                                             </div>
                                         </div>
                                     </div>
@@ -214,7 +214,7 @@
 
             <div class="space-y-6">
                 <div class="glass-panel-strong rounded-[30px] p-5 md:p-6">
-                    <p class="user-kicker">Focus Blocks</p>
+                    <p class="user-kicker">Blok Fokus</p>
                     <h3 class="mt-2 font-outfit text-2xl font-semibold text-white">Jadwal sesi singkat</h3>
                     <p class="mt-2 text-sm text-slate-300/80">Blok belajar yang pendek lebih mudah dipatuhi daripada jadwal panjang yang kabur.</p>
 
@@ -223,14 +223,14 @@
                         <div class="grid gap-3 sm:grid-cols-3">
                             <input x-model.number="newBlockDuration" type="number" min="15" max="120" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white" placeholder="Durasi">
                             <select x-model="newBlockMode" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white">
-                                <option value="deep-work">Deep Work</option>
-                                <option value="review">Review</option>
-                                <option value="practice">Practice</option>
+                                <option value="deep-work">Kerja Mendalam</option>
+                                <option value="review">Tinjauan</option>
+                                <option value="practice">Latihan</option>
                             </select>
                             <select x-model="newBlockEnergy" class="glass-input h-12 w-full rounded-2xl px-4 text-sm text-white">
-                                <option value="prime">Prime Energy</option>
-                                <option value="steady">Steady</option>
-                                <option value="light">Light</option>
+                                <option value="prime">Energi Utama</option>
+                                <option value="steady">Stabil</option>
+                                <option value="light">Ringan</option>
                             </select>
                         </div>
                         <button type="button" @click="addBlock()" class="user-primary-button h-12 rounded-2xl px-5 text-sm font-semibold text-slate-950">
@@ -265,11 +265,11 @@
                                         <div>
                                             <p class="text-sm font-medium" :class="block.completed ? 'text-slate-400 line-through' : 'text-white'" x-text="block.title"></p>
                                             <div class="mt-2 flex flex-wrap gap-2">
-                                                <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-400" x-text="block.mode"></span>
+                                                <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-400" x-text="blockModeLabel(block.mode)"></span>
                                                 <span class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-cyan-100">
                                                     <span x-text="block.duration"></span> menit
                                                 </span>
-                                                <span class="rounded-full border border-violet-400/20 bg-violet-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-violet-100" x-text="block.energy"></span>
+                                                <span class="rounded-full border border-violet-400/20 bg-violet-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-violet-100" x-text="blockEnergyLabel(block.energy)"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -312,9 +312,9 @@
                                             <div>
                                                 <p class="text-sm font-medium text-slate-300 line-through" x-text="block.title"></p>
                                                 <div class="mt-2 flex flex-wrap gap-2">
-                                                    <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-400" x-text="block.mode"></span>
+                                                    <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-400" x-text="blockModeLabel(block.mode)"></span>
                                                     <span class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-cyan-100"><span x-text="block.duration"></span> menit</span>
-                                                    <span class="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-emerald-100">done</span>
+                                                    <span class="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-emerald-100">selesai</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -326,11 +326,11 @@
                 </div>
 
                 <div class="glass-panel-strong rounded-[30px] p-5 md:p-6">
-                    <p class="user-kicker">Planner Coach</p>
+                    <p class="user-kicker">Pelatih Rencana</p>
                     <h3 class="mt-2 font-outfit text-xl font-semibold text-white" x-text="planTitle"></h3>
                     <div class="mt-5 grid gap-3 sm:grid-cols-2">
                         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
-                            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Prime time</p>
+                            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Waktu Utama</p>
                             <p class="mt-3 text-sm text-white" x-text="energyLabel"></p>
                         </div>
                         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
@@ -342,12 +342,12 @@
                             <p class="mt-3 text-sm text-white"><span x-text="distractionCap"></span> gangguan besar</p>
                         </div>
                         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
-                            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Task aktif</p>
-                            <p class="mt-3 text-sm text-white"><span x-text="activeTasksCount"></span> task tersisa</p>
+                            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Tugas aktif</p>
+                            <p class="mt-3 text-sm text-white"><span x-text="activeTasksCount"></span> tugas tersisa</p>
                         </div>
                         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
-                            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Task selesai</p>
-                            <p class="mt-3 text-sm text-white"><span x-text="completedTasksCount"></span> task tuntas</p>
+                            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Tugas selesai</p>
+                            <p class="mt-3 text-sm text-white"><span x-text="completedTasksCount"></span> tugas tuntas</p>
                         </div>
                         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
                             <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Sesi selesai</p>
@@ -359,7 +359,7 @@
                         <div class="h-full rounded-full bg-[linear-gradient(90deg,rgba(34,211,238,0.95),rgba(167,139,250,0.95))] transition-all duration-300" :style="`width: ${completionPercent}%`"></div>
                     </div>
                     <div class="mt-5 rounded-3xl border border-cyan-400/15 bg-cyan-400/8 p-4">
-                        <p class="text-[11px] uppercase tracking-[0.22em] text-cyan-100/80">Saran planner</p>
+                        <p class="text-[11px] uppercase tracking-[0.22em] text-cyan-100/80">Saran rencana</p>
                         <p class="mt-3 text-sm leading-6 text-slate-200" x-text="plannerRecommendation"></p>
                     </div>
                     <p class="mt-3 text-sm text-slate-400" x-text="notice"></p>

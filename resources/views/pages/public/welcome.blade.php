@@ -52,7 +52,7 @@
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-20 items-center justify-between gap-4">
                     <div class="flex min-w-0 items-center gap-2">
-                        <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="h-8 w-8 object-contain" alt="Nalarin.ai Logo">
+                        <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="h-8 w-8 object-contain" alt="Logo Nalarin.ai">
                         <span class="truncate font-outfit text-xl font-bold tracking-tight text-white sm:text-2xl">Nalarin<span class="text-purple-400">.ai</span></span>
                     </div>
 
@@ -98,7 +98,7 @@
                 </h1>
 
                 <p class="mx-auto mb-10 mt-4 max-w-2xl text-base leading-relaxed text-gray-400 sm:text-lg md:text-xl">
-                    Satu platform untuk semua kebutuhan belajarmu. Upload materi apapun, dapatkan ringkasan, flashcard, dan kuis dalam sekejap tanpa repot.
+                    Satu platform untuk semua kebutuhan belajarmu. Unggah materi apa pun, dapatkan ringkasan, kartu belajar, dan kuis dalam sekejap tanpa repot.
                 </p>
 
                 <div class="flex flex-col justify-center gap-4 sm:flex-row">
@@ -162,15 +162,15 @@
                         <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-pink-500/20 bg-pink-500/10 transition-colors group-hover:bg-pink-500/20">
                             <svg class="h-7 w-7 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         </div>
-                        <h3 class="font-outfit mb-3 text-xl font-bold text-white">Smart Flashcards</h3>
-                        <p class="text-sm leading-relaxed text-gray-400">Hafalkan istilah penting dengan metode Spaced Repetition yang dibuktikan secara ilmiah efektif.</p>
+                        <h3 class="font-outfit mb-3 text-xl font-bold text-white">Kartu Belajar Cerdas</h3>
+                        <p class="text-sm leading-relaxed text-gray-400">Hafalkan istilah penting dengan metode pengulangan berkala yang terbukti efektif secara ilmiah.</p>
                     </div>
 
                     <div class="glass-card rounded-3xl p-8 transition-transform duration-300 group hover:-translate-y-2">
                         <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-green-500/20 bg-green-500/10 transition-colors group-hover:bg-green-500/20">
                             <svg class="h-7 w-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
-                        <h3 class="font-outfit mb-3 text-xl font-bold text-white">Interactive Quiz</h3>
+                        <h3 class="font-outfit mb-3 text-xl font-bold text-white">Kuis Interaktif</h3>
                         <p class="text-sm leading-relaxed text-gray-400">Uji pemahamanmu dengan kuis pilihan ganda yang dibuat otomatis dari materi yang kamu pelajari.</p>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="mx-auto mb-16 max-w-3xl text-center">
                     <h2 class="font-outfit mb-4 text-3xl font-bold text-white md:text-5xl">Dipakai dan Disukai Siswa</h2>
-                    <p class="text-lg text-gray-400">Testimoni awal untuk memperkuat kepercayaan, positioning produk, dan konversi landing page.</p>
+                    <p class="text-lg text-gray-400">Testimoni awal untuk memperkuat kepercayaan, posisi produk, dan konversi halaman utama.</p>
                 </div>
 
                 <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -199,7 +199,7 @@
                     <article class="glass-card rounded-3xl p-8">
                         <div class="text-sm text-amber-300">★★★★★</div>
                         <p class="mt-5 leading-7 text-gray-200">
-                            "Fitur quiz dan AI tutor-nya bikin aku nggak cuma baca materi, tapi benar-benar ngerti. Cocok buat persiapan presentasi dan tugas harian."
+                            "Fitur kuis dan tutor AI-nya bikin aku nggak cuma baca materi, tapi benar-benar ngerti. Cocok buat persiapan presentasi dan tugas harian."
                         </p>
                         <div class="mt-6">
                             <p class="font-semibold text-white">Rizky Maulana</p>
@@ -210,7 +210,7 @@
                     <article class="glass-card rounded-3xl p-8 md:col-span-2 xl:col-span-1">
                         <div class="text-sm text-amber-300">★★★★★</div>
                         <p class="mt-5 leading-7 text-gray-200">
-                            "Anak-anak di komunitas belajar kami lebih aktif diskusi setelah pakai platform seperti ini. Materi lebih rapi, latihan lebih terarah, dan engagement naik."
+                            "Anak-anak di komunitas belajar kami lebih aktif berdiskusi setelah memakai platform seperti ini. Materi lebih rapi, latihan lebih terarah, dan interaksi meningkat."
                         </p>
                         <div class="mt-6">
                             <p class="font-semibold text-white">Dina Prasetyo</p>
@@ -226,7 +226,7 @@
                 <div class="glass-card relative overflow-hidden rounded-[2rem] border border-purple-500/20 bg-gradient-to-br from-purple-900/50 to-blue-900/50 p-8 text-center sm:p-12">
                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
                     <h2 class="relative z-10 font-outfit mb-6 text-3xl font-bold text-white md:text-5xl">Siap Revolusi Cara Belajarmu?</h2>
-                    <p class="relative z-10 mx-auto mb-10 max-w-2xl text-lg text-purple-200 sm:text-xl">Gabung dengan ribuan siswa cerdas lainnya. Mulai gratis, upgrade kapan saja. Tidak perlu kartu kredit.</p>
+                    <p class="relative z-10 mx-auto mb-10 max-w-2xl text-lg text-purple-200 sm:text-xl">Gabung dengan ribuan siswa cerdas lainnya. Mulai gratis, tingkatkan paket kapan saja. Tidak perlu kartu kredit.</p>
                     <a href="{{ route('login') }}" class="relative z-10 inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-lg font-bold text-gray-900 shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-105 hover:bg-gray-100">
                         Masuk Ruang Belajar
                         <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
@@ -238,11 +238,11 @@
         <footer class="relative z-10 mt-10 border-t border-white/5 py-12">
             <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 sm:px-6 lg:px-8 md:flex-row">
                 <div class="flex items-center gap-2">
-                    <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="h-6 w-6 object-contain" alt="Nalarin.ai Logo">
+                    <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="h-6 w-6 object-contain" alt="Logo Nalarin.ai">
                     <span class="font-outfit text-xl font-bold tracking-tight text-white">Nalarin.ai</span>
                 </div>
                 <div class="text-center text-sm text-gray-500 md:text-left">
-                    &copy; {{ date('Y') }} Nalarin.ai Clone. Built with Laravel + Tailwind.
+                    &copy; {{ date('Y') }} Nalarin.ai. Dibangun dengan Laravel + Tailwind.
                 </div>
                 <div class="flex flex-wrap items-center justify-center gap-4 text-sm md:justify-end">
                     <a href="#" class="text-gray-500 transition hover:text-white">Kebijakan Privasi</a>

@@ -2,9 +2,9 @@
     <x-slot name="header">
         <div>
             <h2 class="font-outfit font-bold text-2xl text-white leading-tight">
-                Edit Profile Admin
+                Edit Profil Admin
             </h2>
-            <p class="text-sm text-zinc-400 mt-1">Kelola nama, email, password, dan akses akun admin.</p>
+            <p class="text-sm text-zinc-400 mt-1">Kelola nama, surel, kata sandi, dan akses akun admin.</p>
         </div>
     </x-slot>
 
@@ -23,13 +23,13 @@
 
                 <div class="mt-6 grid grid-cols-2 gap-3">
                     <div class="rounded-2xl border border-zinc-800 bg-zinc-950/50 p-4">
-                        <p class="text-xs uppercase tracking-wide text-zinc-500">Role</p>
+                        <p class="text-xs uppercase tracking-wide text-zinc-500">Peran</p>
                         <p class="mt-2 text-sm font-semibold text-purple-200">{{ ucfirst($user->role) }}</p>
                     </div>
                     <div class="rounded-2xl border border-zinc-800 bg-zinc-950/50 p-4">
                         <p class="text-xs uppercase tracking-wide text-zinc-500">Status</p>
                         <p class="mt-2 text-sm font-semibold {{ $user->is_active ? 'text-green-300' : 'text-red-300' }}">
-                            {{ $user->is_active ? 'Active' : 'Suspended' }}
+                            {{ $user->is_active ? 'Aktif' : 'Ditangguhkan' }}
                         </p>
                     </div>
                 </div>
@@ -63,17 +63,17 @@
 
             <div>
                 <h2 class="font-outfit text-lg font-semibold text-white">Hapus akun admin?</h2>
-                <p class="mt-2 text-sm leading-6 text-zinc-400">Akun ini akan dihapus permanen beserta data terkait. Masukkan password untuk melanjutkan.</p>
+                <p class="mt-2 text-sm leading-6 text-zinc-400">Akun ini akan dihapus permanen beserta data terkait. Masukkan kata sandi untuk melanjutkan.</p>
             </div>
 
             <div>
-                <x-input-label for="admin_delete_password" value="Password" class="sr-only" />
+                <x-input-label for="admin_delete_password" value="Kata Sandi" class="sr-only" />
                 <x-text-input
                     id="admin_delete_password"
                     name="password"
                     type="password"
                     class="glass-input mt-1 block w-full border-0 bg-transparent text-white"
-                    placeholder="Password"
+                    placeholder="Kata Sandi"
                 />
                 <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
             </div>

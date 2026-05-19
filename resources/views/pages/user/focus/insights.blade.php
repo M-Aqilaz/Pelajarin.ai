@@ -7,8 +7,8 @@
                 </svg>
             </div>
             <div>
-                <p class="user-kicker text-[11px] text-violet-100/90">Focus Section</p>
-                <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text">Focus Insights</h2>
+                <p class="user-kicker text-[11px] text-violet-100/90">Bagian Fokus</p>
+                <h2 class="mt-2 font-outfit text-2xl font-bold leading-tight soft-gradient-text">Insight Fokus</h2>
             </div>
         </div>
     </x-slot>
@@ -18,12 +18,12 @@
             <div class="absolute inset-y-0 right-0 w-56 rounded-full bg-violet-400/15 blur-3xl"></div>
             <div class="relative flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
                 <div class="max-w-2xl">
-                    <p class="user-kicker text-violet-100/90">Progress Analytics</p>
+                    <p class="user-kicker text-violet-100/90">Analitik Progres</p>
                     <h1 class="mt-3 font-outfit text-3xl font-semibold tracking-tight text-white md:text-4xl">
                         Baca ritme fokus dari planner dan Pomodoro.
                     </h1>
                     <p class="mt-4 max-w-xl text-sm leading-6 text-slate-200/80">
-                        Saya sarankan insight difokuskan ke sinyal yang benar-benar berguna: berapa sesi yang selesai, berapa task yang masih tertinggal, dan apakah blok belajar hari ini sudah cukup padat.
+                        Insight difokuskan ke sinyal yang benar-benar berguna: berapa sesi yang selesai, berapa tugas yang masih tertinggal, dan apakah blok belajar hari ini sudah cukup padat.
                     </p>
                 </div>
 
@@ -32,7 +32,7 @@
                         Sinkron terakhir <span x-text="lastSyncLabel"></span>
                     </span>
                     <button type="button" @click="refresh()" class="inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-sm font-medium text-slate-100 transition hover:bg-white/[0.06]">
-                        Refresh
+                        Segarkan
                     </button>
                 </div>
             </div>
@@ -40,7 +40,7 @@
 
         <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <div class="glass-panel-strong rounded-[28px] p-5">
-                <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Focus score</p>
+                <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Skor fokus</p>
                 <p class="mt-3 font-outfit text-4xl text-white" x-text="focusScore"></p>
                 <p class="mt-2 text-sm text-slate-400" x-text="focusScoreLabel"></p>
             </div>
@@ -52,7 +52,7 @@
             <div class="glass-panel-strong rounded-[28px] p-5">
                 <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Task selesai</p>
                 <p class="mt-3 font-outfit text-4xl text-white"><span x-text="completedTaskCount"></span>/<span x-text="taskCount"></span></p>
-                <p class="mt-2 text-sm text-slate-400"><span x-text="taskCompletionPercent"></span>% task planner tuntas</p>
+                <p class="mt-2 text-sm text-slate-400"><span x-text="taskCompletionPercent"></span>% tugas rencana tuntas</p>
             </div>
             <div class="glass-panel-strong rounded-[28px] p-5">
                 <p class="text-[11px] uppercase tracking-[0.24em] text-slate-500">Blok selesai</p>
@@ -65,7 +65,7 @@
             <div class="glass-panel-strong rounded-[30px] p-5 md:p-6">
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                     <div>
-                        <p class="user-kicker">Focus Health</p>
+                        <p class="user-kicker">Kesehatan Fokus</p>
                         <h3 class="mt-2 font-outfit text-2xl font-semibold text-white">Ringkasan performa hari ini</h3>
                     </div>
                     <span class="rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-xs font-medium text-violet-100">
@@ -85,7 +85,7 @@
                     </div>
                     <div>
                         <div class="flex items-center justify-between text-xs text-slate-400">
-                            <span>Task Completion</span>
+                            <span>Penyelesaian Tugas</span>
                             <span><span x-text="taskCompletionPercent"></span>%</span>
                         </div>
                         <div class="mt-2 h-3 overflow-hidden rounded-full bg-white/5">
@@ -94,7 +94,7 @@
                     </div>
                     <div>
                         <div class="flex items-center justify-between text-xs text-slate-400">
-                            <span>Block Execution</span>
+                            <span>Eksekusi Blok</span>
                             <span><span x-text="blockCompletionPercent"></span>%</span>
                         </div>
                         <div class="mt-2 h-3 overflow-hidden rounded-full bg-white/5">
@@ -111,46 +111,46 @@
                     <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
                         <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Status planner</p>
                         <p class="mt-3 text-sm leading-6 text-slate-200">
-                            <span x-show="taskCount || blockCount">Planner aktif dengan <span x-text="taskCount"></span> task dan <span x-text="blockCount"></span> blok fokus.</span>
-                            <span x-show="!taskCount && !blockCount">Belum ada data planner. Susun dulu dari halaman Focus Planner.</span>
+                            <span x-show="taskCount || blockCount">Rencana aktif dengan <span x-text="taskCount"></span> tugas dan <span x-text="blockCount"></span> blok fokus.</span>
+                            <span x-show="!taskCount && !blockCount">Belum ada data rencana. Susun dulu dari halaman Perencana Fokus.</span>
                         </p>
                     </div>
                     <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
-                        <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Coach note</p>
+                        <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Catatan Pelatih</p>
                         <p class="mt-3 text-sm leading-6 text-slate-200" x-text="coachMessage"></p>
                     </div>
                     <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
-                        <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Strongest mode</p>
-                        <p class="mt-3 text-sm leading-6 text-slate-200"><span class="uppercase" x-text="strongestMode"></span> paling sering dipakai di planner.</p>
+                        <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500">Mode terkuat</p>
+                        <p class="mt-3 text-sm leading-6 text-slate-200"><span class="uppercase" x-text="strongestMode"></span> paling sering dipakai di rencana.</p>
                     </div>
                 </div>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-panel-strong rounded-[30px] p-5 md:p-6">
-                    <p class="user-kicker">Deep Breakdown</p>
+                    <p class="user-kicker">Uraian Mendalam</p>
                     <h3 class="mt-2 font-outfit text-2xl font-semibold text-white">Pembacaan ritme fokus</h3>
                     <div class="mt-5 space-y-3">
                         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
-                            <p class="text-sm font-medium text-white">Planned vs done</p>
-                            <p class="mt-2 text-sm text-slate-400"><span x-text="completedTaskSessions"></span> dari <span x-text="totalPlannedSessions"></span> estimasi sesi task sudah benar-benar selesai.</p>
+                            <p class="text-sm font-medium text-white">Rencana vs realisasi</p>
+                            <p class="mt-2 text-sm text-slate-400"><span x-text="completedTaskSessions"></span> dari <span x-text="totalPlannedSessions"></span> estimasi sesi tugas sudah benar-benar selesai.</p>
                         </div>
                         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
-                            <p class="text-sm font-medium text-white">Focused minutes</p>
+                            <p class="text-sm font-medium text-white">Menit fokus</p>
                             <p class="mt-2 text-sm text-slate-400"><span x-text="completedMinutes"></span> menit fokus tereksekusi dari <span x-text="plannedMinutes"></span> menit yang direncanakan.</p>
                         </div>
                         <div class="rounded-3xl border border-white/10 bg-slate-950/40 p-4">
                             <p class="text-sm font-medium text-white">Interpretasi cepat</p>
-                            <p class="mt-2 text-sm text-slate-400">Kalau block execution lebih tinggi dari task completion, berarti kamu sibuk belajar tapi output task belum cukup jelas.</p>
+                            <p class="mt-2 text-sm text-slate-400">Kalau eksekusi blok lebih tinggi dari penyelesaian tugas, berarti kamu sibuk belajar tetapi keluaran tugas belum cukup jelas.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-panel-strong rounded-[30px] p-5 md:p-6">
-                    <p class="user-kicker">Next Move</p>
+                    <p class="user-kicker">Langkah Berikutnya</p>
                     <h3 class="mt-2 font-outfit text-xl font-semibold text-white">Langkah paling masuk akal sekarang</h3>
                     <p class="mt-4 text-sm leading-6 text-slate-300/85">
-                        Dari sisi UX, insight sekarang sudah jauh lebih berguna. Langkah berikut yang paling bernilai adalah streak mingguan, perbandingan hari ke hari, dan rekomendasi AI berdasarkan materi yang sedang aktif dipelajari.
+                        Dari sisi pengalaman pengguna, insight sekarang sudah jauh lebih berguna. Langkah berikut yang paling bernilai adalah rangkaian mingguan, perbandingan hari ke hari, dan rekomendasi AI berdasarkan materi yang sedang aktif dipelajari.
                     </p>
                 </div>
             </div>

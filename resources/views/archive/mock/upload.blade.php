@@ -4,7 +4,7 @@
             <h2 class="font-outfit font-bold text-2xl text-white leading-tight">
                 Unggah Materi Baru
             </h2>
-            <p class="text-sm text-gray-400 mt-1">Upload PDF, Word, atau Paste Link YouTube untuk diringkas AI.</p>
+            <p class="text-sm text-gray-400 mt-1">Unggah PDF, Word, atau tempel tautan YouTube untuk diringkas AI.</p>
         </div>
     </x-slot>
 
@@ -66,7 +66,7 @@
                         </label>
                         <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 cursor-pointer transition border border-transparent hover:border-white/5">
                             <input type="checkbox" checked class="w-4 h-4 rounded border-gray-600 bg-gray-800 text-purple-500 focus:ring-purple-500/50">
-                            <span class="text-sm text-gray-300">Buatkan Flashcards Istilah Penting</span>
+                            <span class="text-sm text-gray-300">Buatkan Kartu Belajar Istilah Penting</span>
                         </label>
                     </div>
                 </div>

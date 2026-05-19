@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Verifikasi Email - Nalarin.ai</title>
+    <title>Verifikasi Surel - Nalarin.ai</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|outfit:500,600,700" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -46,7 +46,7 @@
                 </div>
                 <span class="font-outfit font-bold text-3xl tracking-tight text-white">Nalarin<span class="text-purple-400">.ai</span></span>
             </div>
-            <h2 class="font-outfit text-2xl font-bold text-white mt-2">Verifikasi Email</h2>
+            <h2 class="font-outfit text-2xl font-bold text-white mt-2">Verifikasi Surel</h2>
             <p class="text-gray-400 mt-2 text-sm px-4">Terima kasih telah mendaftar! Sebelum memulai, silakan verifikasi email Anda melalui tautan yang baru saja kami kirimkan.</p>
         </div>
 
@@ -63,7 +63,7 @@
                 <form method="POST" action="{{ route('verification.send') }}">
                     @csrf
                     <button type="submit" class="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold text-lg shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:-translate-y-1 transition-all duration-300">
-                        Kirim Ulang Email Verifikasi
+                        Kirim Ulang Surel Verifikasi
                     </button>
                 </form>
 
