@@ -22,6 +22,16 @@ class ProfileController extends Controller
     }
 
     /**
+     * Display the admin profile form inside the admin dashboard shell.
+     */
+    public function adminEdit(Request $request): View
+    {
+        return view('pages.admin.profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    /**
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
@@ -34,7 +44,9 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $route = $request->user()->role === 'admin' ? 'admin.profile.edit' : 'profile.edit';
+
+        return Redirect::route($route)->with('status', 'profile-updated');
     }
 
     /**
