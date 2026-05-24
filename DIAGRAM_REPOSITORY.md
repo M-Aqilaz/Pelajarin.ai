@@ -74,66 +74,115 @@ tests/                    Feature dan unit tests
 | Realtime System | Laravel Reverb/Echo untuk broadcast message, typing, dan status AI. |
 
 ```mermaid
-usecaseDiagram
-actor Guest
-actor User
-actor PremiumUser as "Premium User"
-actor Admin
-actor AI as "AI Provider"
-actor OCR as "OCR Tools"
-actor RT as "Realtime System"
+flowchart LR
+    Guest[Guest]
+    User[User]
+    PremiumUser[Premium User]
+    Admin[Admin]
+    AI[AI Provider]
+    OCR[OCR Tools]
+    RT[Realtime System]
 
-Guest --> (Melihat Landing Page)
-Guest --> (Melihat Pricing)
-Guest --> (Register)
-Guest --> (Login)
-Guest --> (Login Google/Discord)
-Guest --> (Reset Password)
+    subgraph PublicUseCases[Public Use Cases]
+        UC_Landing[Melihat Landing Page]
+        UC_Pricing[Melihat Pricing]
+        UC_Register[Register]
+        UC_Login[Login]
+        UC_SocialLogin[Login Google/Discord]
+        UC_ResetPassword[Reset Password]
+    end
 
-User --> (Melihat Dashboard)
-User --> (Upload Materi)
-User --> (Melihat Materi)
-User --> (Melihat Ringkasan)
-User --> (Membuat Chat Thread)
-User --> (Chat Tutor AI)
-User --> (Generate Flashcard)
-User --> (Review Flashcard)
-User --> (Generate Quiz)
-User --> (Mengerjakan Quiz)
-User --> (Menggunakan Pomodoro)
-User --> (Mengelola Focus Planner)
-User --> (Melihat Focus Insights)
-User --> (Membuat Study Room)
-User --> (Join/Leave Study Room)
-User --> (Chat Room Realtime)
-User --> (Mengatur Profil Matching)
-User --> (Cari Partner Belajar)
-User --> (Study Roulette)
-User --> (Chat Dengan Match)
-User --> (Block/Report Partner)
-User --> (Mengelola Profil)
-User --> (Membaca Notifikasi)
+    subgraph UserUseCases[User Use Cases]
+        UC_Dashboard[Melihat Dashboard]
+        UC_Upload[Upload Materi]
+        UC_Material[Melihat Materi]
+        UC_Summary[Melihat Ringkasan]
+        UC_CreateThread[Membuat Chat Thread]
+        UC_AiChat[Chat Tutor AI]
+        UC_GenerateFlashcard[Generate Flashcard]
+        UC_ReviewFlashcard[Review Flashcard]
+        UC_GenerateQuiz[Generate Quiz]
+        UC_DoQuiz[Mengerjakan Quiz]
+        UC_Pomodoro[Menggunakan Pomodoro]
+        UC_Planner[Mengelola Focus Planner]
+        UC_Insights[Melihat Focus Insights]
+        UC_CreateRoom[Membuat Study Room]
+        UC_JoinRoom[Join/Leave Study Room]
+        UC_RoomChat[Chat Room Realtime]
+        UC_MatchProfile[Mengatur Profil Matching]
+        UC_SearchMatch[Cari Partner Belajar]
+        UC_Roulette[Study Roulette]
+        UC_MatchChat[Chat Dengan Match]
+        UC_BlockReport[Block/Report Partner]
+        UC_Profile[Mengelola Profil]
+        UC_Notification[Membaca Notifikasi]
+    end
 
-PremiumUser --|> User
-PremiumUser --> (OCR Lebih Banyak Halaman)
-PremiumUser --> (Limit AI Lebih Besar)
-PremiumUser --> (Matching Tanpa Kredit Gratis)
+    subgraph PremiumUseCases[Premium Use Cases]
+        UC_OcrLimit[OCR Lebih Banyak Halaman]
+        UC_AiLimit[Limit AI Lebih Besar]
+        UC_MatchNoCredit[Matching Tanpa Kredit Gratis]
+    end
 
-Admin --|> User
-Admin --> (Melihat Admin Dashboard)
-Admin --> (Monitoring AI)
-Admin --> (Statistik Pembelajaran)
-Admin --> (Suspend/Aktivasi User)
-Admin --> (Kelola Dokumen)
+    subgraph AdminUseCases[Admin Use Cases]
+        UC_AdminDashboard[Melihat Admin Dashboard]
+        UC_MonitoringAi[Monitoring AI]
+        UC_Stats[Statistik Pembelajaran]
+        UC_UserStatus[Suspend/Aktivasi User]
+        UC_Documents[Kelola Dokumen]
+    end
 
-(Upload Materi) ..> OCR : uses
-(Upload Materi) ..> AI : clean/summarize
-(Chat Tutor AI) ..> AI : generate reply
-(Generate Flashcard) ..> AI : optional generation
-(Generate Quiz) ..> AI : optional generation
-(Chat Tutor AI) ..> RT : broadcast status/message
-(Chat Room Realtime) ..> RT : broadcast message/typing
-(Chat Dengan Match) ..> RT : broadcast message/typing
+    Guest --> UC_Landing
+    Guest --> UC_Pricing
+    Guest --> UC_Register
+    Guest --> UC_Login
+    Guest --> UC_SocialLogin
+    Guest --> UC_ResetPassword
+
+    User --> UC_Dashboard
+    User --> UC_Upload
+    User --> UC_Material
+    User --> UC_Summary
+    User --> UC_CreateThread
+    User --> UC_AiChat
+    User --> UC_GenerateFlashcard
+    User --> UC_ReviewFlashcard
+    User --> UC_GenerateQuiz
+    User --> UC_DoQuiz
+    User --> UC_Pomodoro
+    User --> UC_Planner
+    User --> UC_Insights
+    User --> UC_CreateRoom
+    User --> UC_JoinRoom
+    User --> UC_RoomChat
+    User --> UC_MatchProfile
+    User --> UC_SearchMatch
+    User --> UC_Roulette
+    User --> UC_MatchChat
+    User --> UC_BlockReport
+    User --> UC_Profile
+    User --> UC_Notification
+
+    PremiumUser --> User
+    PremiumUser --> UC_OcrLimit
+    PremiumUser --> UC_AiLimit
+    PremiumUser --> UC_MatchNoCredit
+
+    Admin --> User
+    Admin --> UC_AdminDashboard
+    Admin --> UC_MonitoringAi
+    Admin --> UC_Stats
+    Admin --> UC_UserStatus
+    Admin --> UC_Documents
+
+    UC_Upload -. uses .-> OCR
+    UC_Upload -. clean/summarize .-> AI
+    UC_AiChat -. generate reply .-> AI
+    UC_GenerateFlashcard -. optional generation .-> AI
+    UC_GenerateQuiz -. optional generation .-> AI
+    UC_AiChat -. broadcast status/message .-> RT
+    UC_RoomChat -. broadcast message/typing .-> RT
+    UC_MatchChat -. broadcast message/typing .-> RT
 ```
 
 ## 4. Activity Diagram
@@ -855,4 +904,3 @@ Skema berasal dari `database/migrations`.
 5. Realtime membutuhkan konfigurasi broadcasting/Reverb dan frontend Echo.
 6. Authorization banyak dilakukan di controller dengan `abort_unless`, terutama untuk owner material/thread, membership room, dan participant match.
 7. Admin area dilindungi middleware `auth` dan `AdminMiddleware`.
-
