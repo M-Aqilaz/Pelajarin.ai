@@ -42,6 +42,32 @@
             <div class="rounded-2xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200">{{ $errors->first() }}</div>
         @endif
 
+        @php
+            $nalaMood = 'flat';
+            $nalaTitle = 'Pilih materi dulu';
+            $nalaMessage = 'Nala belum bisa bikin kuis kalau kamu belum memilih materi. Pilih satu materi, baru Nala susun soal yang masuk akal.';
+
+            if ($currentQuestion && $quiz) {
+                $nalaMood = 'angry';
+                $nalaTitle = 'Fokus, ini sedang kuis';
+                $nalaMessage = 'Baca soal pelan-pelan sebelum memilih jawaban. Jangan asal klik cuma karena mau cepat selesai.';
+            } elseif ($results) {
+                $nalaMood = $results['score'] >= ceil($results['total'] * 0.7) ? 'happy' : 'sad';
+                $nalaTitle = $results['score'] >= ceil($results['total'] * 0.7) ? 'Lumayan, kamu paham' : 'Belum aman, ulangi lagi';
+                $nalaMessage = 'Cek pembahasan soal yang salah, lalu ulangi kuis setelah membaca ringkasan. Nala tidak marah, cuma sedikit kecewa kalau kamu menyerah.';
+            } elseif ($quiz) {
+                $nalaMood = 'happy';
+                $nalaTitle = 'Kuis sudah siap';
+                $nalaMessage = 'Mulai kuis saat kamu siap. Jawab dengan tenang, bukan dengan nebak-nebak panik.';
+            } elseif ($selectedMaterial) {
+                $nalaMood = 'flat';
+                $nalaTitle = 'Materi sudah dipilih';
+                $nalaMessage = 'Sekarang buat kuis dari materi ini. Nala akan susun pilihan ganda dari konsep pentingnya.';
+            }
+        @endphp
+
+        <x-nala-guide :mood="$nalaMood" :title="$nalaTitle" :message="$nalaMessage" compact />
+
         <section class="feature-hero">
             <div class="flex flex-col lg:flex-row lg:items-end gap-4">
                 <div class="flex-1">

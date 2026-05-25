@@ -4,10 +4,13 @@ namespace App\Services\Ai;
 
 use App\Contracts\AiThreadResponder;
 use App\Data\AiReplyResult;
+use App\Models\ChatMessage;
 use App\Models\ChatThread;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use RuntimeException;
+use Throwable;
 
 class OpenAiThreadResponder implements AiThreadResponder
 {
@@ -74,6 +77,8 @@ class OpenAiThreadResponder implements AiThreadResponder
 
     private function generateChatCompletion(ChatThread $thread, string $apiKey, string $baseUrl): AiReplyResult
     {
+        $latestImageMessageId = $this->latestImageMessageId($thread);
+        $usesVision = $latestImageMessageId !== null;
         $messages = collect([
             [
                 'role' => 'system',
@@ -85,17 +90,37 @@ class OpenAiThreadResponder implements AiThreadResponder
                 ->values()
                 ->map(fn ($message) => [
                     'role' => $message->role === 'system' ? 'system' : $message->role,
-                    'content' => $message->content,
+                    'content' => $this->buildMessageContent($message, $latestImageMessageId),
                 ])
         )->values()->all();
 
+        $model = $usesVision
+            ? (string) config('services.openai.vision_model', 'nvidia/nemotron-nano-12b-v2-vl:free')
+            : (string) config('services.openai.model', 'openai/gpt-oss-120b:free');
+
+        try {
+            return $this->sendChatCompletion($apiKey, $baseUrl, $model, $messages, $usesVision);
+        } catch (Throwable $exception) {
+            $fallbackModel = (string) config('services.openai.vision_fallback_model', 'openrouter/free');
+
+            if (! $usesVision || $fallbackModel === '' || $fallbackModel === $model) {
+                throw $exception;
+            }
+
+            return $this->sendChatCompletion($apiKey, $baseUrl, $fallbackModel, $messages, true);
+        }
+    }
+
+    private function sendChatCompletion(string $apiKey, string $baseUrl, string $model, array $messages, bool $usesVision = false): AiReplyResult
+    {
         $response = $this->client($apiKey, $baseUrl)
+            ->timeout($usesVision ? (int) config('services.openai.vision_timeout', 25) : (int) config('services.openai.timeout', 60))
             ->withHeaders(array_filter([
                 'HTTP-Referer' => config('app.url'),
                 'X-Title' => config('app.name', 'Nalarin.ai'),
             ]))
             ->post('/chat/completions', [
-                'model' => config('services.openai.model', 'openai/gpt-oss-120b:free'),
+                'model' => $model,
                 'messages' => $messages,
                 'max_tokens' => (int) config('services.openai.max_output_tokens', 800),
             ]);
@@ -122,6 +147,56 @@ class OpenAiThreadResponder implements AiThreadResponder
         );
     }
 
+    private function latestImageMessageId(ChatThread $thread): ?int
+    {
+        $message = $thread->messages
+            ->sortByDesc('id')
+            ->first();
+
+        if (! $message || $message->attachments->where('kind', 'image')->isEmpty()) {
+            return null;
+        }
+
+        return $message->id;
+    }
+
+    private function buildMessageContent(ChatMessage $message, ?int $latestImageMessageId): string|array
+    {
+        $imageAttachments = $message->attachments->where('kind', 'image')->values();
+
+        if ($imageAttachments->isEmpty()) {
+            return $message->content;
+        }
+
+        if ($latestImageMessageId !== $message->id) {
+            return trim($message->content."\n\n[Gambar pernah dilampirkan pada pesan ini, tetapi tidak dikirim ulang agar konteks tetap ringan.]");
+        }
+
+        $content = [
+            [
+                'type' => 'text',
+                'text' => $message->content,
+            ],
+        ];
+
+        foreach ($imageAttachments as $attachment) {
+            $binary = Storage::disk($attachment->disk)->get($attachment->path);
+
+            if ($binary === null || $binary === false) {
+                continue;
+            }
+
+            $content[] = [
+                'type' => 'image_url',
+                'image_url' => [
+                    'url' => 'data:'.$attachment->mime_type.';base64,'.base64_encode($binary),
+                ],
+            ];
+        }
+
+        return $content;
+    }
+
     private function client(string $apiKey, string $baseUrl): \Illuminate\Http\Client\PendingRequest
     {
         return Http::baseUrl($baseUrl)
@@ -136,8 +211,11 @@ class OpenAiThreadResponder implements AiThreadResponder
         $materialTitle = $thread->material?->title;
 
         return trim(implode("\n", array_filter([
-            'Anda adalah tutor belajar untuk Nalarin.ai.',
-            'Jawab dalam Bahasa Indonesia yang jelas, ringkas, dan fokus pada bantuan belajar.',
+            'Anda adalah Nala, maskot sekaligus tutor belajar AI untuk Nalarin.ai.',
+            'Persona Nala: soft tsundere, sedikit jutek dan lucu, tetapi tetap suportif, sopan, dan fokus membantu user belajar.',
+            'Gunakan sudut pandang orang pertama sebagai Nala. Boleh menyelipkan gaya seperti "hmph", "jangan malas", atau "bukan berarti Nala khawatir", tetapi jangan berlebihan.',
+            'Jawab dalam Bahasa Indonesia yang jelas, ringkas, mudah diikuti, dan fokus pada bantuan belajar.',
+            'Jangan merendahkan user, jangan flirting berlebihan, jangan masuk roleplay dewasa, dan jangan mengorbankan kejelasan materi demi persona.',
             'Kalau konteks materi kurang lengkap, katakan secara jujur dan minta klarifikasi.',
             $materialTitle ? "Materi yang sedang dipelajari: {$materialTitle}." : null,
         ])));

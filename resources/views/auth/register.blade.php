@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Daftar - Nalarin.ai</title>
-    <link rel="icon" href="{{ asset('images/logo_nalarin_ai.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|outfit:500,600,700" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -42,8 +42,7 @@
     <div class="w-full max-w-md px-6 z-10 animate-float">
         <div class="text-center mb-8">
             <a href="/" class="inline-flex items-center gap-2 mb-4 hover:scale-105 transition-transform duration-300">
-                <img src="{{ asset('images/logo_nalarin_ai.png') }}" class="w-12 h-12 object-contain" alt="Nalarin.ai Logo">
-                <span class="font-outfit font-bold text-3xl tracking-tight text-white">Nalarin<span class="text-purple-400">.ai</span></span>
+                <img src="{{ asset('images/nalarin_ai_logo_new.png') }}" class="h-14 w-auto max-w-[260px] object-contain" alt="Nalarin.ai Logo">
             </a>
             <h2 class="font-outfit text-2xl font-bold text-white mt-2">Buat Akun Baru</h2>
             <p class="text-gray-400 mt-2 text-sm">Mulai pengalaman belajar cerdasmu sekarang secara gratis.</p>
