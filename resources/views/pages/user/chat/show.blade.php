@@ -281,11 +281,25 @@
                         </div>
                     </div>
 
-                    <footer class="border-t border-sky-100 bg-white/94 p-4 backdrop-blur md:p-5">
+                    <footer class="sticky bottom-0 z-30 border-t border-sky-100 bg-white/94 p-4 shadow-[0_-18px_42px_rgba(14,116,144,0.10)] backdrop-blur md:p-5">
                         <form action="{{ route('chat.messages.store', $thread) }}" method="POST" enctype="multipart/form-data" class="mx-auto max-w-4xl" @submit.prevent="submitMessage">
                             @csrf
                             <div class="rounded-[1.6rem] border border-sky-200 bg-white p-3 shadow-[0_18px_42px_rgba(14,116,144,0.12)]">
                                 <label class="sr-only">Pesan Baru</label>
+                                <div x-cloak x-show="form.imageLoading" class="mx-3 mb-3 rounded-2xl border border-sky-100 bg-sky-50 p-3">
+                                    <div class="flex items-center justify-between gap-3">
+                                        <div>
+                                            <p class="text-sm font-bold text-slate-900">Memuat gambar...</p>
+                                            <p class="mt-1 text-xs text-slate-500">Nala sedang menyiapkan preview screenshot.</p>
+                                        </div>
+                                        <div class="h-9 w-9 shrink-0 rounded-full border border-sky-200 bg-white p-2">
+                                            <div class="h-full w-full animate-spin rounded-full border-2 border-sky-200 border-t-sky-500"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 h-1.5 overflow-hidden rounded-full bg-sky-100">
+                                        <div class="indeterminate-loader h-full rounded-full bg-sky-500"></div>
+                                    </div>
+                                </div>
                                 <div x-cloak x-show="form.imagePreviewUrl" class="mx-3 mb-3 flex items-center gap-3 rounded-2xl border border-sky-100 bg-sky-50 p-3">
                                     <img :src="form.imagePreviewUrl" alt="Preview gambar" class="h-20 w-20 shrink-0 rounded-xl bg-white object-cover ring-1 ring-sky-100">
                                     <div class="min-w-0 flex-1">

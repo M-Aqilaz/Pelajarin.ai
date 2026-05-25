@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ChatThread;
 use App\Models\Material;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -106,9 +107,11 @@ class ChatThreadController extends Controller
 
         DB::transaction(function () use ($chatThread) {
             $chatThread->messages()->with('attachments')->get()->each(function ($message) {
-                $message->attachments->each(fn ($attachment) => \Illuminate\Support\Facades\Storage::disk($attachment->disk)->delete($attachment->path));
+                $message->attachments->each(fn ($attachment) => Storage::disk($attachment->disk)->delete($attachment->path));
                 $message->delete();
             });
+
+            Storage::disk('public')->deleteDirectory('chat-attachments/'.$chatThread->id);
             $chatThread->delete();
         });
 

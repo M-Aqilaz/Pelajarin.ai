@@ -76,6 +76,60 @@ const chooseNalaVoice = () => {
         || null;
 };
 
+const compressImageFile = (file, maxDimension = 1280, quality = 0.82) => {
+    if (!file.type.startsWith('image/')) {
+        return Promise.resolve(file);
+    }
+
+    return new Promise((resolve) => {
+        const image = new Image();
+        const objectUrl = URL.createObjectURL(file);
+
+        image.onload = () => {
+            const scale = Math.min(1, maxDimension / Math.max(image.width, image.height));
+            const width = Math.max(1, Math.round(image.width * scale));
+            const height = Math.max(1, Math.round(image.height * scale));
+            const canvas = document.createElement('canvas');
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const context = canvas.getContext('2d');
+
+            if (!context) {
+                URL.revokeObjectURL(objectUrl);
+                resolve(file);
+                return;
+            }
+
+            context.fillStyle = '#ffffff';
+            context.fillRect(0, 0, width, height);
+            context.drawImage(image, 0, 0, width, height);
+
+            canvas.toBlob((blob) => {
+                URL.revokeObjectURL(objectUrl);
+
+                if (!blob) {
+                    resolve(file);
+                    return;
+                }
+
+                resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), {
+                    type: 'image/jpeg',
+                    lastModified: Date.now(),
+                }));
+            }, 'image/jpeg', quality);
+        };
+
+        image.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            resolve(file);
+        };
+
+        image.src = objectUrl;
+    });
+};
+
 const buildBaseChat = (options) => {
     const {
         initialMessages,
@@ -99,6 +153,7 @@ const buildBaseChat = (options) => {
         image: null,
         imagePreviewUrl: '',
         imageName: '',
+        imageLoading: false,
     },
     channel: null,
     pollTimer: null,
@@ -360,23 +415,36 @@ const buildBaseChat = (options) => {
         this.setImageFile(file, true);
     },
 
-    setImageFile(file, resetInput = true) {
+    async setImageFile(file, resetInput = true) {
         this.clearImage(resetInput);
 
         if (!file) {
             return;
         }
 
+        this.form.imageLoading = true;
+
         const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-        const maxSize = 3 * 1024 * 1024;
+        const maxOriginalSize = 12 * 1024 * 1024;
+        const maxUploadSize = 3 * 1024 * 1024;
 
         if (!allowedTypes.includes(file.type)) {
             this.error = 'Format gambar harus JPG, PNG, atau WEBP.';
+            this.form.imageLoading = false;
             return;
         }
 
-        if (file.size > maxSize) {
-            this.error = 'Ukuran gambar maksimal 3MB.';
+        if (file.size > maxOriginalSize) {
+            this.error = 'Ukuran gambar terlalu besar. Maksimal 12MB sebelum dikompres.';
+            this.form.imageLoading = false;
+            return;
+        }
+
+        const compressedFile = await compressImageFile(file);
+
+        if (compressedFile.size > maxUploadSize) {
+            this.error = 'Gambar masih terlalu besar setelah dikompres. Coba crop atau kirim bagian yang penting saja.';
+            this.form.imageLoading = false;
             return;
         }
 
@@ -384,15 +452,18 @@ const buildBaseChat = (options) => {
             'image/jpeg': 'jpg',
             'image/png': 'png',
             'image/webp': 'webp',
-        }[file.type] || 'png';
+        }[compressedFile.type] || 'jpg';
         const safeName = file.name && file.name !== 'image.png'
-            ? file.name
+            ? file.name.replace(/\.[^.]+$/, `.${extension}`)
             : `screenshot-${Date.now()}.${extension}`;
 
-        this.form.image = new File([file], safeName, { type: file.type });
-        this.form.imageName = safeName;
-        this.form.imagePreviewUrl = URL.createObjectURL(this.form.image);
-        this.error = null;
+        window.setTimeout(() => {
+            this.form.image = new File([compressedFile], safeName, { type: compressedFile.type });
+            this.form.imageName = safeName;
+            this.form.imagePreviewUrl = URL.createObjectURL(this.form.image);
+            this.form.imageLoading = false;
+            this.error = null;
+        }, 120);
     },
 
     clearImage(resetInput = true) {
@@ -403,6 +474,7 @@ const buildBaseChat = (options) => {
         this.form.image = null;
         this.form.imagePreviewUrl = '';
         this.form.imageName = '';
+        this.form.imageLoading = false;
 
         if (resetInput && this.$refs.imageInput) {
             this.$refs.imageInput.value = '';

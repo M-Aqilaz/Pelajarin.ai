@@ -7,6 +7,7 @@ use App\Data\AiReplyResult;
 use App\Models\ChatMessage;
 use App\Models\ChatThread;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use RuntimeException;
@@ -94,36 +95,88 @@ class OpenAiThreadResponder implements AiThreadResponder
                 ])
         )->values()->all();
 
-        $model = $usesVision
-            ? (string) config('services.openai.vision_model', 'nvidia/nemotron-nano-12b-v2-vl:free')
-            : (string) config('services.openai.model', 'openai/gpt-oss-120b:free');
-
-        try {
-            return $this->sendChatCompletion($apiKey, $baseUrl, $model, $messages, $usesVision);
-        } catch (Throwable $exception) {
-            $fallbackModel = (string) config('services.openai.vision_fallback_model', 'openrouter/free');
-
-            if (! $usesVision || $fallbackModel === '' || $fallbackModel === $model) {
-                throw $exception;
-            }
-
-            return $this->sendChatCompletion($apiKey, $baseUrl, $fallbackModel, $messages, true);
+        if ($usesVision) {
+            return $this->generateVisionChatCompletion($apiKey, $baseUrl, $messages);
         }
+
+        return $this->sendChatCompletion(
+            $apiKey,
+            $baseUrl,
+            (string) config('services.openai.model', 'openai/gpt-oss-120b:free'),
+            $messages,
+            (int) config('services.openai.timeout', 60),
+        );
     }
 
-    private function sendChatCompletion(string $apiKey, string $baseUrl, string $model, array $messages, bool $usesVision = false): AiReplyResult
+    private function generateVisionChatCompletion(string $apiKey, string $baseUrl, array $messages): AiReplyResult
     {
+        $models = $this->visionModels();
+        $lastException = null;
+
+        foreach ($models as $model) {
+            if ($this->isVisionModelCoolingDown($model)) {
+                continue;
+            }
+
+            try {
+                return $this->sendChatCompletion(
+                    $apiKey,
+                    $baseUrl,
+                    $model,
+                    $messages,
+                    (int) config('services.openai.vision_timeout', 45),
+                    (array) config('services.openai.vision_provider_ignore', []),
+                    true,
+                );
+            } catch (Throwable $exception) {
+                $lastException = $exception;
+                $this->cooldownVisionModel($model, $exception);
+            }
+        }
+
+        foreach ($models as $model) {
+            try {
+                return $this->sendChatCompletion(
+                    $apiKey,
+                    $baseUrl,
+                    $model,
+                    $messages,
+                    (int) config('services.openai.vision_fallback_timeout', 55),
+                    (array) config('services.openai.vision_provider_ignore', []),
+                    true,
+                );
+            } catch (Throwable $exception) {
+                $lastException = $exception;
+            }
+        }
+
+        throw new RuntimeException(
+            'Nala belum bisa membaca gambar ini sekarang karena semua model vision sedang penuh atau lambat. Coba kirim ulang gambar yang lebih kecil, crop bagian pentingnya, atau ketik isi gambarnya.',
+            previous: $lastException,
+        );
+    }
+
+    private function sendChatCompletion(string $apiKey, string $baseUrl, string $model, array $messages, int $timeout, array $providerIgnore = [], bool $expectsVision = false): AiReplyResult
+    {
+        $payload = [
+            'model' => $model,
+            'messages' => $messages,
+            'max_tokens' => (int) config('services.openai.max_output_tokens', 800),
+        ];
+
+        if ($providerIgnore !== []) {
+            $payload['provider'] = [
+                'ignore' => array_values($providerIgnore),
+            ];
+        }
+
         $response = $this->client($apiKey, $baseUrl)
-            ->timeout($usesVision ? (int) config('services.openai.vision_timeout', 25) : (int) config('services.openai.timeout', 60))
+            ->timeout($timeout)
             ->withHeaders(array_filter([
                 'HTTP-Referer' => config('app.url'),
                 'X-Title' => config('app.name', 'Nalarin.ai'),
             ]))
-            ->post('/chat/completions', [
-                'model' => $model,
-                'messages' => $messages,
-                'max_tokens' => (int) config('services.openai.max_output_tokens', 800),
-            ]);
+            ->post('/chat/completions', $payload);
 
         try {
             $response->throw();
@@ -139,12 +192,79 @@ class OpenAiThreadResponder implements AiThreadResponder
             throw new RuntimeException('Provider AI tidak mengembalikan teks jawaban.');
         }
 
+        if ($expectsVision && $this->looksLikeImageBlindReply($content)) {
+            throw new RuntimeException('Provider AI tidak membaca gambar pada request vision.');
+        }
+
         return new AiReplyResult(
             content: $content,
             inputTokens: $response->json('usage.prompt_tokens'),
             outputTokens: $response->json('usage.completion_tokens'),
             responseId: $response->json('id'),
         );
+    }
+
+    private function looksLikeImageBlindReply(string $content): bool
+    {
+        $normalized = str($content)->lower()->toString();
+
+        return str_contains($normalized, 'tidak bisa melihat gambar')
+            || str_contains($normalized, 'tidak dapat melihat gambar')
+            || str_contains($normalized, 'nala tidak bisa melihat gambar')
+            || str_contains($normalized, 'i can\'t see the image')
+            || str_contains($normalized, 'i cannot see the image')
+            || str_contains($normalized, 'unable to view the image');
+    }
+
+    private function visionModels(): array
+    {
+        $models = (array) config('services.openai.vision_models', []);
+
+        if ($models === []) {
+            $models = array_filter([
+                config('services.openai.vision_model'),
+                config('services.openai.vision_fallback_model'),
+            ]);
+        }
+
+        $models = array_values(array_unique(array_filter(array_map(fn ($model) => trim((string) $model), $models))));
+
+        return $this->rotateVisionModels($models);
+    }
+
+    private function rotateVisionModels(array $models): array
+    {
+        if (count($models) <= 1) {
+            return $models;
+        }
+
+        $key = 'ai:vision-model-rotation-index';
+        $index = (int) Cache::get($key, 0);
+
+        Cache::put($key, ($index + 1) % count($models), now()->addDay());
+
+        return array_merge(array_slice($models, $index), array_slice($models, 0, $index));
+    }
+
+    private function isVisionModelCoolingDown(string $model): bool
+    {
+        return Cache::has($this->visionCooldownKey($model));
+    }
+
+    private function cooldownVisionModel(string $model, Throwable $exception): void
+    {
+        $seconds = (int) config('services.openai.vision_cooldown_seconds', 180);
+
+        if ($seconds <= 0) {
+            return;
+        }
+
+        Cache::put($this->visionCooldownKey($model), str($exception->getMessage())->limit(240)->toString(), now()->addSeconds($seconds));
+    }
+
+    private function visionCooldownKey(string $model): string
+    {
+        return 'ai:vision-model-cooldown:'.sha1($model);
     }
 
     private function latestImageMessageId(ChatThread $thread): ?int
