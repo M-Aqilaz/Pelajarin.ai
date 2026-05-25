@@ -33,7 +33,7 @@
         </x-slot>
     @endif
 
-    <div class="space-y-6">
+    <div class="readable-study-page space-y-6">
         @if (session('status'))
             <div class="rounded-2xl border border-green-500/30 bg-green-500/10 p-4 text-sm text-green-200">{{ session('status') }}</div>
         @endif

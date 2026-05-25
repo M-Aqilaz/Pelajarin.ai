@@ -13,6 +13,10 @@
         'flat' => 'images/nalaFaces/nala_mentahan-flat.png',
         'angry' => 'images/nalaFaces/nala_mentahan-angry.png',
         'sad' => 'images/nalaFaces/nala_mentahan-sad.png',
+        'cute' => 'images/nalaFaces/nala_mentahan-cute.png',
+        'shy' => 'images/nalaFaces/nala_mentahan-shy.png',
+        'silly' => 'images/nalaFaces/nala_mentahan-silly.png',
+        'sorry' => 'images/nalaFaces/nala_mentahan-sorry.png',
     ];
 
     $face = $faces[$mood] ?? $faces['happy'];

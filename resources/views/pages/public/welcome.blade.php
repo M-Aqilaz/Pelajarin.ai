@@ -53,7 +53,7 @@
                         </div>
                     </section>
 
-                    <section class="relative min-h-[360px] overflow-hidden rounded-[2rem] bg-cyan-50/50 lg:min-h-[460px]">
+                    <section class="relative min-h-[420px] overflow-hidden rounded-[2rem] bg-cyan-50/50 lg:min-h-[540px]">
                         <div class="absolute left-10 top-16 rounded-2xl border border-sky-200 bg-white/80 p-3 shadow-sm">
                             <svg class="h-12 w-12 text-sky-500" viewBox="0 0 48 48" fill="none" aria-hidden="true">
                                 <rect x="7" y="10" width="34" height="26" rx="4" fill="#E0F2FE" stroke="currentColor" stroke-width="2"/>
@@ -67,7 +67,7 @@
                                 <circle cx="24" cy="24" r="8" fill="#BAE6FD" stroke="currentColor" stroke-width="2"/>
                             </svg>
                         </div>
-                        <img src="{{ asset('images/NALA.png') }}" class="absolute bottom-0 left-1/2 h-[340px] w-auto -translate-x-1/2 object-contain sm:h-[420px] lg:h-[470px]" alt="Nalarin.ai AI assistant">
+                        <img src="{{ asset('images/nala_body.png') }}" class="absolute bottom-0 left-1/2 h-[360px] w-auto max-w-none -translate-x-1/2 object-contain sm:h-[430px] lg:h-[500px]" alt="Nala, AI assistant Nalarin.ai">
                     </section>
                 </div>
             </div>
@@ -193,7 +193,8 @@
                 </div>
             </section>
 
-            <section class="bg-gradient-to-br from-sky-50 via-white to-cyan-100 py-20 text-center">
+            <section class="relative overflow-hidden bg-gradient-to-br from-sky-50 via-white to-cyan-100 py-20 text-center">
+                <img src="{{ asset('images/nala_halfbody.png') }}" class="pointer-events-none absolute bottom-0 left-8 hidden h-28 w-48 object-cover object-top opacity-95 lg:block" alt="Nala guide">
                 <div class="mx-auto max-w-3xl px-5">
                     <h2 class="font-outfit text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Siap Revolusi Cara Belajarmu?</h2>
                     <p class="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-700">

@@ -60,13 +60,8 @@
                     </div>
                 </div>
                 <div class="flex justify-center lg:justify-end">
-                    <div class="relative h-44 w-44 rounded-[2rem] bg-white/70 shadow-inner">
-                        <img src="{{ asset([
-                            'happy' => 'images/nalaFaces/nala_mentahan-happy.png',
-                            'flat' => 'images/nalaFaces/nala_mentahan-flat.png',
-                            'angry' => 'images/nalaFaces/nala_mentahan-angry.png',
-                            'sad' => 'images/nalaFaces/nala_mentahan-sad.png',
-                        ][$nalaMood] ?? 'images/nalaFaces/nala_mentahan-happy.png') }}" class="absolute inset-0 h-full w-full object-contain p-1" alt="Nala">
+                    <div class="flex h-72 w-56 items-end justify-center overflow-hidden rounded-[2rem] bg-white/75 shadow-inner ring-1 ring-sky-100">
+                        <x-nala-character variant="full" size="lg" alt="Nala menyapa di dashboard" />
                     </div>
                 </div>
             </div>

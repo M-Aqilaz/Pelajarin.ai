@@ -52,7 +52,7 @@
         x-data="pomodoroTimer()"
         x-init="init()"
         :data-mode="mode"
-        class="pomodoro-page relative min-h-full overflow-hidden md:h-full"
+        class="pomodoro-page readable-study-page relative min-h-full overflow-hidden md:h-full"
     >
         <div class="pointer-events-none absolute inset-x-12 top-0 h-48 rounded-full blur-3xl opacity-60" :style="'background: radial-gradient(circle, var(--accent-soft) 0%, transparent 72%);'"></div>
 

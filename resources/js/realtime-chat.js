@@ -609,6 +609,10 @@ export function registerRealtimeChat(Alpine) {
                 flat: 'Fokus',
                 angry: 'Jutek mode',
                 sad: 'Khawatir',
+                cute: 'Gemes',
+                shy: 'Malu-malu',
+                silly: 'Bingung mode',
+                sorry: 'Minta maaf',
             }[this.nalaMood] || 'Fokus';
         },
 
@@ -694,7 +698,7 @@ export function registerRealtimeChat(Alpine) {
         },
 
         setNalaMood(mood, line) {
-            this.nalaMood = ['happy', 'flat', 'angry', 'sad'].includes(mood) ? mood : 'flat';
+            this.nalaMood = ['happy', 'flat', 'angry', 'sad', 'cute', 'shy', 'silly', 'sorry'].includes(mood) ? mood : 'flat';
             this.nalaLine = line;
         },
 
@@ -703,8 +707,15 @@ export function registerRealtimeChat(Alpine) {
 
             if (/(bingung|susah|sulit|gak ngerti|ga ngerti|tidak ngerti|tidak paham|gagal|stress|stres|pusing)/.test(text)) {
                 return {
-                    mood: 'sad',
+                    mood: /(gagal|stress|stres|pusing)/.test(text) ? 'sorry' : 'sad',
                     line: 'Aduh... kamu bingung, ya? Nala bantu pelan-pelan. Jangan nyerah dulu.',
+                };
+            }
+
+            if (/(typo|salah ketik|kok aneh|maksudnya apa|ini apa|hah|lah|loh|bingungin)/.test(text)) {
+                return {
+                    mood: 'silly',
+                    line: 'Eh... Nala perlu baca pelan-pelan dulu. Coba kasih konteksnya sedikit lagi, ya.',
                 };
             }
 
@@ -717,8 +728,15 @@ export function registerRealtimeChat(Alpine) {
 
             if (/(makasih|terima kasih|thanks|thank you|paham|mengerti|berhasil|bisa sekarang|sip)/.test(text)) {
                 return {
-                    mood: 'happy',
+                    mood: /(makasih|terima kasih|thanks|thank you)/.test(text) ? 'shy' : 'cute',
                     line: 'Y-ya bagus kalau kamu paham. Bukan berarti Nala senang banget, sih.',
+                };
+            }
+
+            if (/(cantik|imut|lucu|keren|bagus banget|pinter|pintar|nala hebat)/.test(text)) {
+                return {
+                    mood: 'shy',
+                    line: 'H-hmph... pujian begitu tidak bikin Nala salah tingkah kok. Lanjut belajar.',
                 };
             }
 
@@ -742,7 +760,7 @@ export function registerRealtimeChat(Alpine) {
             }
 
             if (latestAssistant?.content && Number(latestAssistant.id) > Number(this.lastSpokenMessageId)) {
-                this.setNalaMood('happy', 'Sudah Nala jawab. Dibaca pelan-pelan, jangan cuma diskip.');
+                this.setNalaMood('cute', 'Sudah Nala jawab. Dibaca pelan-pelan, jangan cuma diskip.');
 
                 if (shouldSpeak) {
                     this.lastSpokenMessageId = Number(latestAssistant.id);
@@ -760,7 +778,7 @@ export function registerRealtimeChat(Alpine) {
 
             if (message.role === 'assistant') {
                 this.latestAssistantText = message.content || '';
-                this.setNalaMood('happy', 'Sudah Nala jawab. Dibaca pelan-pelan, jangan cuma diskip.');
+                this.setNalaMood('cute', 'Sudah Nala jawab. Dibaca pelan-pelan, jangan cuma diskip.');
 
                 if (isNew && Number(message.id) > Number(this.lastSpokenMessageId)) {
                     this.lastSpokenMessageId = Number(message.id);
@@ -792,7 +810,7 @@ export function registerRealtimeChat(Alpine) {
             if (this.aiStatus === 'failed') {
                 this.aiStatusText = this.aiError || 'Nala gagal menjawab. Coba kirim ulang pesan.';
                 this.aiStatusClasses = 'border-red-500/30 bg-red-500/10 text-red-200';
-                this.setNalaMood('sad', 'Aduh... Nala gagal jawab. Coba kirim ulang ya.');
+                this.setNalaMood('sorry', 'Aduh... Nala gagal jawab. Coba kirim ulang ya.');
 
                 if (this.aiStatusText !== this.lastSpokenError) {
                     this.lastSpokenError = this.aiStatusText;

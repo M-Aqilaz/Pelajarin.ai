@@ -518,6 +518,95 @@
         background: linear-gradient(145deg, rgba(139, 92, 246, 0.18), rgba(236, 72, 153, 0.08));
     }
 
+    .readable-study-page,
+    .readable-study-page .glass-panel,
+    .readable-study-page .glass-panel-strong,
+    .readable-study-page .feature-hero {
+        color: #0f172a;
+    }
+
+    .readable-study-page .glass-panel,
+    .readable-study-page .glass-panel-strong,
+    .readable-study-page .feature-hero {
+        border-color: rgba(14, 165, 233, 0.18) !important;
+        background: rgba(255, 255, 255, 0.9) !important;
+        box-shadow: 0 18px 48px rgba(14, 116, 144, 0.1) !important;
+    }
+
+    .readable-study-page [class*="bg-slate-950"],
+    .readable-study-page [class*="bg-gray-800"],
+    .readable-study-page [class*="bg-white/["] {
+        background-color: rgba(255, 255, 255, 0.74) !important;
+    }
+
+    .readable-study-page [class*="border-white"] {
+        border-color: rgba(14, 165, 233, 0.2) !important;
+    }
+
+    .readable-study-page .soft-gradient-text {
+        background: none !important;
+        color: #020617 !important;
+        -webkit-text-fill-color: #020617 !important;
+    }
+
+    .readable-study-page [class*="text-white"],
+    .readable-study-page [class*="text-slate-100"],
+    .readable-study-page [class*="text-slate-200"],
+    .readable-study-page [class*="text-slate-300"],
+    .readable-study-page [class*="text-slate-400"],
+    .readable-study-page [class*="text-gray-100"],
+    .readable-study-page [class*="text-gray-200"],
+    .readable-study-page [class*="text-gray-300"],
+    .readable-study-page [class*="text-gray-400"],
+    .readable-study-page [class*="text-cyan-100"],
+    .readable-study-page [class*="text-sky-100"],
+    .readable-study-page [class*="text-violet-100"],
+    .readable-study-page [class*="text-purple-100"],
+    .readable-study-page [class*="text-pink-100"],
+    .readable-study-page [class*="text-emerald-100"],
+    .readable-study-page [class*="text-orange-100"],
+    .readable-study-page [class*="text-red-200"],
+    .readable-study-page [class*="text-blue-200"],
+    .readable-study-page [class*="text-green-200"] {
+        color: #0f172a !important;
+    }
+
+    .readable-study-page [class*="text-slate-500"],
+    .readable-study-page [class*="text-gray-500"] {
+        color: #475569 !important;
+    }
+
+    .readable-study-page .user-kicker,
+    .readable-study-page [class*="tracking-"] {
+        color: #0e7490 !important;
+    }
+
+    .readable-study-page .glass-input,
+    .readable-study-page input,
+    .readable-study-page select,
+    .readable-study-page textarea {
+        border-color: rgba(14, 165, 233, 0.25) !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        color: #0f172a !important;
+    }
+
+    .readable-study-page input::placeholder,
+    .readable-study-page textarea::placeholder {
+        color: #64748b !important;
+    }
+
+    .readable-study-page option {
+        background: #ffffff;
+        color: #0f172a;
+    }
+
+    .readable-study-page .user-primary-button,
+    .readable-study-page button[class*="bg-emerald-500"],
+    .readable-study-page button[class*="bg-green-500"],
+    .readable-study-page button[class*="bg-pink-600"] {
+        color: #ffffff !important;
+    }
+
     .page-loader-overlay {
         position: fixed;
         inset: 0;

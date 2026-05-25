@@ -23,6 +23,10 @@
                 flat: '{{ asset('images/nalaFaces/nala_mentahan-flat.png') }}',
                 angry: '{{ asset('images/nalaFaces/nala_mentahan-angry.png') }}',
                 sad: '{{ asset('images/nalaFaces/nala_mentahan-sad.png') }}',
+                cute: '{{ asset('images/nalaFaces/nala_mentahan-cute.png') }}',
+                shy: '{{ asset('images/nalaFaces/nala_mentahan-shy.png') }}',
+                silly: '{{ asset('images/nalaFaces/nala_mentahan-silly.png') }}',
+                sorry: '{{ asset('images/nalaFaces/nala_mentahan-sorry.png') }}',
             },
         })"
         class="mx-auto max-w-7xl"
@@ -351,7 +355,7 @@
                     <div class="sticky top-5 space-y-4">
                         <section class="rounded-[1.75rem] border border-sky-200 bg-white/85 p-5 text-slate-950 shadow-[0_18px_38px_rgba(14,116,144,0.12)]">
                             <div class="flex justify-center">
-                                <div class="relative h-48 w-48 overflow-hidden rounded-[2rem] bg-gradient-to-br from-white to-sky-100">
+                                <div class="relative h-48 w-48 overflow-hidden rounded-[2rem] bg-gradient-to-br from-white to-sky-100 ring-1 ring-sky-100">
                                     <img :src="nalaImage" class="absolute inset-0 h-full w-full object-contain p-1" alt="Nala expression">
                                 </div>
                             </div>
